@@ -115,11 +115,11 @@ for i in range(1,Nx+1):
 		Ax = fig.add_subplot(gs[i,j])
 
 		if (i == Nx):
-			plt.xlabel("GSM-X [Re]")
+			plt.xlabel("GSM-X [Re]",fontsize=small)
 		else:
 			plt.setp(Ax.get_xticklabels(),visible=False)
 		if (j == 0):
-			plt.ylabel("GSM-Y [Re]")
+			plt.ylabel("GSM-Y [Re]",fontsize=small)
 		else:
 			plt.setp(Ax.get_yticklabels(),visible=False)
 
