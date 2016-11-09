@@ -106,7 +106,8 @@ gs = gridspec.GridSpec(Nx+2,Ny,height_ratios=hRat)
 
 xi,yi,dBz = getFld(vtiDir,tSlc)
 
-
+plot.tick_params(axis='both', which='major', labelsize=10)
+plot.tick_params(axis='both', which='minor', labelsize=8)
 n = 0
 Bv = np.linspace(fldBds[0],fldBds[1],Nc)
 for i in range(1,Nx+1):
