@@ -20,17 +20,23 @@ def getFld(vtiDir,t,dt=10.0,eqStub="eqSlc"):
 
 	return xi,yi,dBz
 
-def choosePs(h5pDir,h5pStub,Kc=100,Np=12):
+def choosePs(h5pDir,h5pStub,Kc=100,Np=12,doMask=False):
 	#Find Np particles above energy Kc at end of simulation
 	h5pFile = h5pDir + "/" + h5pStub
-	isIn = lfmpp.getIn(h5pFile)
-	pIds,Ks = lfmpp.getH5pFin(h5pFile,"kev",Mask=isIn)
+
+	if (doMask):
+		isIn = lfmpp.getIn(h5pFile)
+		pIds,Ks = lfmpp.getH5pFin(h5pFile,"kev",Mask=isIn)
+	else:
+		pIds,Ks = lfmpp.getH5pFin(h5pFile,"kev")
 	Ind = Ks>Kc
 
 	pIds = pIds[Ind]
+	Ks = Ks[Ind]
 	Ntot = len(pIds)
 	print("Found %d particles w/ final energy above %3.2f keV"%(Ntot,Kc))
-	
+	print("Maximum energy = %f"%Ks.max())
+	print("Mean (K > Kc) energy = %f"%Ks.mean())
 	if (Ntot>=Np):
 		
 		IndR = np.random.choice(Ntot,Np,replace=False)
@@ -55,9 +61,9 @@ s0 = 0
 Spcs = ["H+ 50 keV"]
 h5ps = ["Inj50.All.h5part"]
 
-Nx = 4
-Ny = 3
-Kc = 115
+Nx = 5
+Ny = 4
+Kc = 200
 Tf = 500.0
 
 #Field data
@@ -76,7 +82,7 @@ Nc = 5
 fldCMap = "RdGy_r"
 fldOpac = 0.5
 
-pBds = [0,150]
+pBds = [0,Kc]
 pCMap = "cool"
 pSize = 10; pMark = 'o'; pLW = 1
 pLab = "Energy [keV]"
@@ -116,22 +122,7 @@ for i in range(1,Nx+1):
 			plt.ylabel("GSM-Y [Re]")
 		else:
 			plt.setp(Ax.get_yticklabels(),visible=False)
-		# if (t == 0):
-		# 	plt.ylabel(Spcs[s],fontsize="large")
-		# elif (t == Nt-1):
-		# 	plt.ylabel("GSM-Y [Re]")
-		# 	Ax.yaxis.tick_right()
-		# 	Ax.yaxis.set_label_position("right")
-		# else:
-		# 	plt.setp(Ax.get_yticklabels(),visible=False)
 
-
-		# if (s < Ns-1):
-		# 	plt.setp(Ax.get_xticklabels(),visible=False)
-		# else:
-		# 	plt.xlabel('GSM-X [Re]')
-		# if (s == 0):
-		# 	plt.title("T = %d [s]"%(0))
 
 		fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
 		#fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
@@ -142,16 +133,18 @@ for i in range(1,Nx+1):
 		xs,ys,zs = getP(h5pDir,h5ps[s0],pIds[n],tCut=Tf)
 
 		pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
+		Leg = ["ID %d\nK = %3.2f (keV)"%(pIds[n],zs.max())]
+		plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,markerfirst=False,frameon=False)
+
+		plt.plot(xs,ys,'w-',linewidth=0.2)
 		plt.axis('scaled')
 		plt.xlim(DomX); plt.ylim(DomY)
 		
-		Leg = ["ID %d"%(pIds[n])]
-		plt.legend(Leg,loc="lower left",fontsize="small",scatterpoints=1,markerscale=0,markerfirst=False,frameon=False)
 		n=n+1
 
 AxCbar = plt.subplot(gs[-1,:])
 plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
 plt.suptitle("Sampled High-Energy Trajectories for %s"%Spcs[s0],fontsize="large")
 gs.tight_layout(fig)
-#plt.savefig(figName,dpi=figQ)
+plt.savefig(figName,dpi=figQ)
 
