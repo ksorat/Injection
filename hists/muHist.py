@@ -51,6 +51,7 @@ for s in range(Ns):
 		#Ax = plt.gca()
 		#Ax.set_xscale('log')
 		plt.colorbar()
+		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.xlabel('Variation of 1st Invariant, $(\mu_{F}-\mu_{0})/\mu_{0}')
 		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
 		plt.savefig(figName)
