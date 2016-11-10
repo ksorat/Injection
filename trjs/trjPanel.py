@@ -64,8 +64,8 @@ KStubs = [10,25,50]
 Kcs = [50,100,200]
 
 #Traj data
-Nx = 5
-Ny = 4
+#Nx = 6; Ny = 5
+Nx = 4; Ny = 3
 Tf = 500.0
 DomX = [-15,2]
 DomY = [-2,8]
@@ -108,8 +108,8 @@ Bv = np.linspace(fldBds[0],fldBds[1],Nc)
 for s in range(Ns):
 	for k in range(Nk):
 		h5p = SpcsStub[s] + "%02d"%KStubs[k] + ".All.h5part"
-		figName = SpcsStub[s] + "%02d"%KStubs[k] + ".Trjs.png"
-		titS = "Sampled High-Energy Trajectories for %s %02d keV"%(SpcsStubs[s],KStubs[k])
+		figName = SpcsStub[s] + "%02d"%KStubs[k] + ".%02dTrjs.png"%(Nx*Ny)
+		titS = "Sampled High-Energy Trajectories for %s %02d keV"%(SpcsLab[s],KStubs[k])
 		Kc = Kcs[k]
 		pBds = [0,Kc]
 		

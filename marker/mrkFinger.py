@@ -1,6 +1,7 @@
 #Given phi/radial range, marks the point to setup injection
 
 import numpy as np
+import os
 from visit import *
 from visit_utils import *
 from visit_utils.common import lsearch #lsearch(dir(),"blah")
@@ -15,7 +16,7 @@ R0 = 10
 R1 = 12.2
 
 #EqSlc DB
-EqDir = "/Users/soratka1/Work/magnetoloss/eqSlc"
+EqDir = os.path.expanduser('~') + "/Work/Magnetoloss/Data/eqSlc"
 Src0 = EqDir + "/eqSlc.*.vti database"
 
 #dBz
@@ -64,3 +65,4 @@ SetPlotOptions(cOp)
 
 SetTimeSliderState(Nt)
 DrawPlots()
+SaveWindow()
