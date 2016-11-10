@@ -87,7 +87,7 @@ pCMap = "cool"
 pSize = 10; pMark = 'o'; pLW = 1
 pLab = "Energy [keV]"
 #Locations
-RootDir = "/Users/Kareem/Work/Injection/Data"
+RootDir = os.path.expanduser('~')
 vtiDir = RootDir + "/" + "eqSlc"
 h5pDir = RootDir + "/" "H5p"
 
