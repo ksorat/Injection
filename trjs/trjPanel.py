@@ -29,10 +29,10 @@ def choosePs(h5pDir,h5pStub,Kc=100,Np=12,doMask=False):
 		pIds,Ks = lfmpp.getH5pFin(h5pFile,"kev",Mask=isIn)
 	else:
 		pIds,Ks = lfmpp.getH5pFin(h5pFile,"kev")
-	Ind = Ks>Kc
-
+	Ind = (Ks > Kc)
 	pIds = pIds[Ind]
 	Ks = Ks[Ind]
+	
 	Ntot = len(pIds)
 	print("Found %d particles w/ final energy above %3.2f keV"%(Ntot,Kc))
 	print("File = %s"%h5pFile)
@@ -61,7 +61,7 @@ def getP(h5pDir,h5pStub,pId,vId="kev",tCut=1.0e+8):
 SpcsStub = ["Inj","eInj"]
 SpcsLab = ["H+","e-"]
 KStubs = [10,25,50]
-Kcs = ["50","100","200"]
+Kcs = [50,100,200]
 
 #Traj data
 Nx = 5
@@ -109,6 +109,7 @@ for s in range(Ns):
 	for k in range(Nk):
 		h5p = SpcsStub[s] + "%02d"%KStubs[k] + ".All.h5part"
 		figName = SpcsStub[s] + "%02d"%KStubs[k] + ".Trjs.png"
+		titS = "Sampled High-Energy Trajectories for %s %02d keV"%(SpcsStubs[s],KStubs[k])
 		Kc = Kcs[k]
 		pBds = [0,Kc]
 		
@@ -159,7 +160,7 @@ for s in range(Ns):
 		
 		AxCbar = plt.subplot(gs[-1,:])
 		plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
-		plt.suptitle("Sampled High-Energy Trajectories for %s"%Spcs[s0],fontsize="large")
+		plt.suptitle(titS,fontsize="large")
 		gs.tight_layout(fig)
 		plt.savefig(figName,dpi=figQ)
 		plt.close('all')
