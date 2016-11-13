@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Params>
+  <particle species="He++" K0="10"/>
+  <radius min="10" max="12.2" N="50"/>
+  <phi min="157.5" max="170" N="50"/>
+  <psi min="0" max="360" N="1"/>
+  <alpha min="20" max="90" N="4"/>
+  <time T0="1750.0" tfin="2250.0" Ns="10" Nf="10"/>
+  <integrator dt="0.1" method="fp"/>
+  <field infile = "ebtab.txt"/>
+  <output outdir="heppInj10" mu="T"/>
+  <run tag="heppInj10"/>
+</Params>
