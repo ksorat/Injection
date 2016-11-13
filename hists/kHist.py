@@ -8,8 +8,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 #Particle data
-SpcsStub = ["Inj","eInj"]
-SpcsLab = ["H+","e-"]
+Stub = "Inj"
+SpcsStubs = ["p","hepp","o"]
+SpcsLab = ["H+","He++","O+"]
 KStubs = [10,25,50]
 
 Nb = 30
@@ -29,9 +30,11 @@ for s in range(Ns):
 	Ks = []
 	Leg = []
 	for k in range(Nk):
-		h5p = SpcsStub[s] + "%02d"%KStubs[k] + ".All.h5part"
+		h5p = SpcsStubs[s] + Stub + "%02d"%KStubs[k] + ".All.h5part"
 		figName = SpcsStub[s] + ".kHist.png"
 		h5pFile = h5pDir + "/" + h5p
+		print("Reading %s"%h5pFile)
+		
 		Leg.append("%s %02d keV"%(SpcsLab[s],KStubs[k]))
 		#Get final particle energies
 		pIds,K = lfmpp.getH5pFin(h5pFile,"kev")
