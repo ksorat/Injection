@@ -38,7 +38,7 @@ for s in range(Ns):
 		Leg.append("%s %02d keV"%(SpcsLab[s],KStubs[k]))
 		#Get final particle energies
 		pIds,K = lfmpp.getH5pFin(h5pFile,"kev")
-		print("%s / K0 = %02d"%KStubs[k])
+		print("%s / K0 = %02d"%(SpcsLab[s],KStubs[k]))
 		print("\tMean K = %f"%K.mean())
 		print(" \tMax K = %f"%K.max())
 		Ks.append(K)
