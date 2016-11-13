@@ -21,7 +21,7 @@ RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
 vtiDir = RootDir + "/" + "eqSlc"
 h5pDir = RootDir + "/" "H5p"
 
-Ns = len(SpcsStub)
+Ns = len(SpcsStubs)
 Nk = len(KStubs)
 bins = np.linspace(k0,k1,Nb)
 lfmv.initLatex()
