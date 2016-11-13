@@ -149,7 +149,7 @@ for s in range(Ns):
 		
 				pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
 				Leg = ["ID %d\nK = %3.2f (keV)"%(pIds[n],zs.max())]
-				plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,markerfirst=False,frameon=False)
+				plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,frameon=False)
 		
 				plt.plot(xs,ys,'w-',linewidth=0.2)
 				plt.axis('scaled')
