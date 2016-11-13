@@ -139,16 +139,15 @@ for s in range(Ns):
 					plt.ylabel("GSM-Y [Re]",fontsize="small")
 				else:
 					plt.setp(Ax.get_yticklabels(),visible=False)
-		
-		
-				if (not doFast):
-					fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
-				#fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
+					
+				#fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
+				fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
 				#plt.contour(xi,yi,dBz,Bv,cmap=fldCMap)
 				lfmv.addEarth2D()
 		
 				#Now do particles
 				if (n == 0 or not doFast):
+					
 					xs,ys,zs = getP(h5pDir,h5p,pIds[n],tCut=Tf)
 		
 				pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
