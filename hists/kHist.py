@@ -13,8 +13,8 @@ SpcsStubs = ["p","hepp","o"]
 SpcsLab = ["H+","He++","O+"]
 KStubs = [10,25,50]
 
-Nb = 30
-k0 = 0; k1 = 200
+Nb = 50
+k0 = 0; k1 = 300
 
 #Locations
 RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
@@ -38,7 +38,9 @@ for s in range(Ns):
 		Leg.append("%s %02d keV"%(SpcsLab[s],KStubs[k]))
 		#Get final particle energies
 		pIds,K = lfmpp.getH5pFin(h5pFile,"kev")
-
+		print("%s / K0 = %02d"%KStubs[k])
+		print("\tMean K = %f"%K.mean())
+		print(" \tMax K = %f"%K.max())
 		Ks.append(K)
 
 	plt.hist(Ks,bins,normed=True)
