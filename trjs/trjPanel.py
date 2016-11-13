@@ -100,7 +100,7 @@ vtiDir = RootDir + "/" + "eqSlc"
 h5pDir = RootDir + "/" "H5p"
 
 
-Ns = len(SpcsStub)
+Ns = len(SpcsStubs)
 Nk = len(KStubs)
 lfmv.initLatex()
 xi,yi,dBz = getFld(vtiDir,tSlc)
