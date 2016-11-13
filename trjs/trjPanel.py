@@ -45,6 +45,7 @@ def choosePs(h5pDir,h5pStub,Kc=100,Np=12,doMask=False):
 	else:
 		print("Error, not enough matching particles found")
 	return pIds
+
 def getP(h5pDir,h5pStub,pId,vId="kev",tCut=1.0e+8):
 	h5pFile = h5pDir + "/" + h5pStub
 	
@@ -63,6 +64,7 @@ SpcsStubs = ["p","hepp","o"]
 SpcsLab = ["H+","He++","O+"]
 KStubs = [10,25,50]
 Kcs = [50,100,200]
+doFast = True
 
 np.random.seed(seed=31337)
 
@@ -86,7 +88,7 @@ Nc = 5
 fldCMap = "RdGy_r"
 fldOpac = 0.5
 pCMap = "cool"
-pSize = 10; pMark = 'o'; pLW = 1
+pSize = 2; pMark = 'o'; pLW = 0.2
 pLab = "Energy [keV]"
 
 #Gridspec defaults
@@ -139,13 +141,15 @@ for s in range(Ns):
 					plt.setp(Ax.get_yticklabels(),visible=False)
 		
 		
-				fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
+				if (not doFast):
+					fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
 				#fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
 				#plt.contour(xi,yi,dBz,Bv,cmap=fldCMap)
 				lfmv.addEarth2D()
 		
 				#Now do particles
-				xs,ys,zs = getP(h5pDir,h5p,pIds[n],tCut=Tf)
+				if (n == 0 or not doFast):
+					xs,ys,zs = getP(h5pDir,h5p,pIds[n],tCut=Tf)
 		
 				pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
 				Leg = ["ID %d\nK = %3.2f (keV)"%(pIds[n],zs.max())]
