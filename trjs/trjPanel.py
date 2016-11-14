@@ -88,7 +88,7 @@ Nc = 5
 fldCMap = "RdGy_r"
 fldOpac = 0.5
 pCMap = "cool"
-pSize = 4; pMark = 'o'; pLW = 0.5
+pSize = 4; pMark = 'o'; pLW = 0.1
 pLab = "Energy [keV]"
 
 #Gridspec defaults
