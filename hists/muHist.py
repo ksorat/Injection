@@ -56,14 +56,15 @@ for s in range(Ns):
 		dMu,Ind = getdMu(h5pFile)
 		dK  = getdK (h5pFile)
 		dK = dK[Ind]
-		
+
 		#plt.scatter(dMu,dK)
 		plt.hist2d(dMu,dK,[dMub,dKb],normed=True,norm=LogNorm(vmin=cAx[0],vmax=cAx[1]))
 		#Ax = plt.gca()
 		#Ax.set_xscale('log')
 		plt.colorbar()
 		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
-		plt.xlabel('Variation of 1st Invariant, $(\mu_{F}-\mu_{0})/\mu_{0}')
+		#plt.xlabel('Variation of 1st Invariant, $(\mu_{F}-\mu_{0})/\mu_{0}')
+		plt.xlabel('Variation of 1st Invariant')
 		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
 		plt.savefig(figName)
 		plt.close('all')
