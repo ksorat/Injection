@@ -32,9 +32,9 @@ KStubs = [10,25,50]
 
 
 
-dMub = np.linspace(-2,2)
+dMub = np.linspace(-1,2)
 dKb = np.linspace(0,8,60)
-cAx=[1.0e-2,1.0e-0]
+cAx=[1.0e-2,5.0e-1]
 
 #Locations
 RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
