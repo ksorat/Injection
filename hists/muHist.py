@@ -17,7 +17,7 @@ def getdMu(h5pFile):
 	pIds,Muf = lfmpp.getH5pFin(h5pFile ,"Mu")
 	pIds,Mu0 = lfmpp.getH5pInit(h5pFile,"Mu")
 	Ind = (Muf > TINY)
-	print("Cutting %d particles for undefined Mu"%(Ind.sum()))
+	print("Cutting %d particles for undefined Mu"%(len(Ind)-Ind.sum()))
 	Muf = Muf[Ind]
 	Mu0 = Mu0[Ind]
 
@@ -52,6 +52,7 @@ for s in range(Ns):
 		h5pFile = h5pDir + "/" + h5p
 		
 		#Get changes
+		print("Reading %s"%(h5p))
 		dMu = getdMu(h5pFile)
 		dK  = getdK (h5pFile)
 		
