@@ -22,7 +22,7 @@ def getdMu(h5pFile):
 	Mu0 = Mu0[Ind]
 
 	dMu = (Muf-Mu0)/Mu0
-	return dMu
+	return dMu,Ind
 
 #Particle data
 Stub = "Inj"
@@ -53,8 +53,9 @@ for s in range(Ns):
 		
 		#Get changes
 		print("Reading %s"%(h5p))
-		dMu = getdMu(h5pFile)
+		dMu,Ind = getdMu(h5pFile)
 		dK  = getdK (h5pFile)
+		dK = dK[Ind]
 		
 		#plt.scatter(dMu,dK)
 		plt.hist2d(dMu,dK,[dMub,dKb],normed=True,norm=LogNorm(vmin=cAx[0],vmax=cAx[1]))
