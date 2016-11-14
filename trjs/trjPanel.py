@@ -64,7 +64,7 @@ SpcsStubs = ["p","hepp","o"]
 SpcsLab = ["H+","He++","O+"]
 KStubs = [10,25,50]
 Kcs = [50,100,200]
-doFast = True
+doFast = False
 
 np.random.seed(seed=31337)
 
@@ -140,8 +140,8 @@ for s in range(Ns):
 				else:
 					plt.setp(Ax.get_yticklabels(),visible=False)
 					
-				#fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
-				fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
+				fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
+				#fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
 				#plt.contour(xi,yi,dBz,Bv,cmap=fldCMap)
 				lfmv.addEarth2D()
 		
