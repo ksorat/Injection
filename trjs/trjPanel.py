@@ -88,7 +88,7 @@ Nc = 5
 fldCMap = "RdGy_r"
 fldOpac = 0.5
 pCMap = "cool"
-pSize = 4; pMark = 'o'; pLW = 0.1
+pSize = 4; pMark = 'o'; pLW = 0.1; pCLW = 0.2
 pLab = "Energy [keV]"
 
 #Gridspec defaults
@@ -154,7 +154,7 @@ for s in range(Ns):
 				Leg = ["ID %d\nK = %3.2f (keV)"%(pIds[n],zs.max())]
 				plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,frameon=False)
 		
-				plt.plot(xs,ys,'w-',linewidth=0.2)
+				plt.plot(xs,ys,'w-',linewidth=pCLW)
 				plt.axis('scaled')
 				plt.xlim(DomX); plt.ylim(DomY)
 				plt.tick_params(axis='both', which='major', labelsize=6)
