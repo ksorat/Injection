@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Params>
+  <particle species="H"/>
+  <energy min="10" max="50" N="8">
+  <radius min="10" max="12.2" N="25"/>
+  <phi min="135" max="225" N="25"/>
+  <psi min="0" max="360" N="1"/>
+  <alpha min="20" max="90" N="4"/>
+  <time T0="1750.0" tfin="4500.0" Ns="25" Nf="100"/>
+  <integrator dt="0.1" method="fp"/>
+  <field infile = "ebtab.txt"/>
+  <output outdir="pInj" mu="T"/>
+  <run tag="pInj"/>
+  <stream active="T" Tsfin="4250.0" sfrac="0.75">
+</Params>
