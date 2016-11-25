@@ -60,6 +60,7 @@ OpenDatabase(dbs[1])
 #Create database correlation
 CreateDatabaseCorrelation("P2Fld",dbs,0)
 
+DefineScalarExpression("isIn","in")
 
 #Create fields/particle plots
 pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
