@@ -65,7 +65,9 @@ CreateDatabaseCorrelation("P2Fld",dbs,0)
 pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 pyv.lfmPScat(dbs[1],v4="kev",vBds=kevBds,cMap=pCMap,Inv=False)
 
-SetActivePlots( (1,2) )
+#Cutout
+ActivateDatabase(dbs[1])
+SetActivePlots( (1) )
 pyv.onlyIn()
 
 #Gussy things up
