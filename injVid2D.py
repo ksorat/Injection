@@ -80,4 +80,4 @@ pyv.setAtts()
 DrawPlots()
 
 #Do time loop
-pyv.doTimeLoop(Nfin=None,T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05) )
+#pyv.doTimeLoop(Nfin=None,T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05) )
