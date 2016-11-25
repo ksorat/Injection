@@ -6,27 +6,26 @@ from visit_utils import *
 from visit_utils.common import lsearch #lsearch(dir(),"blah")
 import pyVisit as pyv
 
-RunID = 2 #Which pStub to use
-K0s = [10,25,50]
-#Spc = "H+"
-Spc = "    e"
 
-h5pStub = "eInj"
+Spc = "H+"
+h5pStub = "pInj"
 
-Base = "~/Work/Injection/"
+Base = os.path.expanduser('~') + "/Work/Injection/"
+Base = Base + "Data/Long/"
+
 EqDir = Base + "eqSlc/" #eqSlc database
-pDir = Base + "Synth" #Directory of h5part
+pDir = Base + "H5p" #Directory of h5part
 
 Quiet = True
 
-titS = "%s [%d keV]"%(Spc,K0s[RunID])
+titS = "%s Injection"%(Spc)
 
 #dBz 
 abBz = 25; 
 dBzBds = [-abBz,abBz]
 
 #Particles
-kevBds = [1,100]
+kevBds = [10,200]
 pCMap = "Cool" #ColorTableNames()
 
 if (Quiet):
@@ -41,7 +40,7 @@ plTits = ["Residual Bz [nT]","Particle Energy [keV]"]
 
 #Construct filenames/directory structure
 Src0 = EqDir + "/eqSlc.*.vti database"
-Src1 = pDir + "/" + h5pStub + "%02d.All.h5part"%(K0s[RunID])
+Src1 = pDir + "/" + h5pStub + ".All.h5part"
 dbs = [Src0,Src1]
 
 md0 = GetMetaData(dbs[0])
@@ -66,7 +65,7 @@ pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 pyv.lfmPScat(dbs[1],v4="kev",vBds=kevBds,cMap=pCMap,Inv=False)
 
 SetActivePlots( (1,2) )
-pyv.cutOut()
+pyv.onlyIn()
 
 #Gussy things up
 tit = pyv.genTit( titS=titS )
