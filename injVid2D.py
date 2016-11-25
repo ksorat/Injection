@@ -46,7 +46,7 @@ dbs = [Src0,Src1]
 
 md0 = GetMetaData(dbs[0])
 dt = md0.times[1] - md0.times[0]
-T0 = md0.times[0]
+T0 = md0.times[0] - md0.times[0] #Reset to zero
 
 print(Src1,T0,dt)
 #Do some defaults
