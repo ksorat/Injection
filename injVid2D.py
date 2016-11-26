@@ -82,4 +82,4 @@ DrawPlots()
 #Do time loop
 pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
 outVid = h5pStub + ".mp4"
-pyv.makeVid(Clean=True,outVid=outVid)
+pyv.makeVid(Clean=True,outVid=outVid,tSlc=3)
