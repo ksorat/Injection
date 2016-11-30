@@ -2,7 +2,7 @@
 
 #Uses arguments to submit batch of jobs
 #Format, lfmtpBatch.sh <STUB> B0 Bend
-#Will submit jobs w/ input deck Input_$1.xml and runIDs in [B0,Bend]
+#Will submit jobs w/ input deck $1 and runIDs in [B0,Bend]
 #B0/Bend default to 1/10
 
 export STUB=$1

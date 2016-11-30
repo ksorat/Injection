@@ -7,7 +7,7 @@
 module restore lfmtp
 module list
 
-export INPDECK="Input_$1.xml"
+export INPDECK="$1"
 export OMP_NUM_THREADS=$2
 export JOBID=${LSB_JOBINDEX}
 unset MP_PE_AFFINITY
