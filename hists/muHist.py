@@ -23,6 +23,7 @@ def getdMu(h5pFile):
 	dMu = np.abs(Muf-Mu0)/Mu0
 	print("Cutting %d particles for undefined Mu"%(len(Ind)-Ind.sum()))
 	print("Min dMu = %f"%(dMu.min()))
+	print("Min Muf = %f, Min Mu0 = %f"%(Muf.min(),Mu0.min()))
 	print("\n\n")
 	return dMu,Ind
 
@@ -36,9 +37,9 @@ KStubs = [10,50,100]
 
 
 
-dMub = np.linspace(-1,2)
-dKb = np.linspace(0,8,60)
-cAx=[1.0e-2,5.0e-1]
+dMub = np.linspace(0,2)
+dKb = np.linspace(0,6,60)
+cAx=[1.0e-2,1]
 
 #Locations
 RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
