@@ -100,7 +100,7 @@ hRat[0] = 0.25
 hRat[-1] = 1
 
 #Locations
-RootDir = os.path.expanduser('~') + "/Work/Injection/Data/"
+RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
 vtiDir = RootDir + "/" + "eqSlc_" + Stub
 h5pDir = RootDir + "/" + Stub
 
@@ -113,7 +113,7 @@ Bv = np.linspace(fldBds[0],fldBds[1],Nc)
 
 for s in range(Ns):
 	for k in range(Nk):
-		h5p = SpcsStubs[s] + "_" + Stub + str(KStubs[k]) + "." + h5Mid + ".h5part"
+		h5p = SpcsStubs[s] + "_" + Stub + ".K" + str(KStubs[k]) + "." + h5Mid + ".h5part"
 
 		figName = SpcsStubs[s] + str(KStubs[k]) + ".%02dTrjs.png"%(Nx*Ny)
 		titS = "Sampled High-Energy Trajectories for %s %02d keV"%(SpcsLab[s],KStubs[k])
