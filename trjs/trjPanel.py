@@ -40,6 +40,8 @@ def choosePs(h5pDir,h5pStub,pC=80,Np=12,doMask=False):
 	print("File = %s"%h5pFile)
 	print("Maximum energy = %f"%Ks.max())
 	print("Mean (K > Kc) energy = %f"%Ks.mean())
+	print("\n\n")
+
 	if (Ntot>=Np):
 		
 		IndR = np.random.choice(Ntot,Np,replace=False)
@@ -68,7 +70,7 @@ SpcsStubs = ["p","He","O"]
 SpcsLab = ["H+","He++","O+"]
 
 KStubs = [10,50,100]
-pC = 80
+pC = 95
 
 doFast = False
 
