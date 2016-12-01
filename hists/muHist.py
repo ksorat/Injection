@@ -49,7 +49,7 @@ dMub = np.linspace(-2,2)
 dKb = np.linspace(0,6,60)
 dAf = np.linspace(0,180,60)
 
-cAxAf=[1.0e-2,1.0e-1]
+cAxAf=[1.0e-5,5.0e-2]
 cAxdK=[1.0e-2,1.0]
 
 #Locations
