@@ -11,7 +11,7 @@ def getdK(h5pFile):
 	pIds,Kf = lfmpp.getH5pFin(h5pFile,"kev")
 	pIds,K0 = lfmpp.getH5pInit(h5pFile,"kev")
 	dK = Kf/K0
-	pIds,dK = lfmpp.getH5pInit(h5pFile,"alpha")
+	pIds,dK = lfmpp.getH5pFin(h5pFile,"alpha")
 	return dK
 
 def getdMu(h5pFile):
@@ -43,7 +43,7 @@ KStubs = [10,50,100]
 dMub = np.linspace(-2,2)
 #dKb = np.linspace(0,6,60)
 dKb = np.linspace(0,180,60)
-cAx=[1.0e-2,1]
+cAx=[1.0e-2,1.0e-1]
 
 #Locations
 RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
