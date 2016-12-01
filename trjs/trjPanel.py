@@ -162,7 +162,7 @@ for s in range(Ns):
 					xs,ys,zs,A0 = getP(h5pDir,h5p,pIds[n],tCut=Tf)
 		
 				pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
-				Leg = ["ID %d\nK = %3.2f (keV)\n\alpha_{0} = %2.2f^{\circ}"%(pIds[n],zs.max(),A0)]
+				Leg = ["ID %d\nK = %3.2f (keV)\n$\alpha_{0}$ = %2.2f$^{\circ}$"%(pIds[n],zs.max(),A0)]
 				plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,frameon=False)
 		
 				plt.plot(xs,ys,'w-',linewidth=pCLW)
