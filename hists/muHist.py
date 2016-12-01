@@ -40,8 +40,8 @@ cAx=[1.0e-2,5.0e-1]
 
 #Locations
 RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
-vtiDir = RootDir + "/" + "eqSlc"
-h5pDir = RootDir + "/" "H5p"
+vtiDir = RootDir + "/" + "eqSlc_" + Stub
+h5pDir = RootDir + "/" + Stub
 
 Ns = len(SpcsStubs)
 Nk = len(KStubs)
