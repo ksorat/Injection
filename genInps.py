@@ -98,7 +98,7 @@ alpha = [20,90,10]
 time = [1750.0,2250.0]
 iOpts = [0.1,"fp"]
 dtOuts = [1.0,1.0]
-outDir = "sInJ"
+outDir = "sInj"
 
 if (gen_sInj):
 	#Generate input decks for single injection sims

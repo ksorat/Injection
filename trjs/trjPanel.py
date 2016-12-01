@@ -59,11 +59,14 @@ def getP(h5pDir,h5pStub,pId,vId="kev",tCut=1.0e+8):
 	return x[Ind],y[Ind],V[Ind]
 
 #Particle data
-Stub = "Inj"
-SpcsStubs = ["p","hepp","o"]
+Stub = "sInj"
+h5Mid = "0001"
+
+SpcsStubs = ["p","He","O"]
 SpcsLab = ["H+","He++","O+"]
-KStubs = [10,25,50]
-Kcs = [50,100,200]
+
+KStubs = [10,50,100]
+Kcs = [50,250,400]
 doFast = False
 
 np.random.seed(seed=31337)
@@ -97,9 +100,9 @@ hRat[0] = 0.25
 hRat[-1] = 1
 
 #Locations
-RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
-vtiDir = RootDir + "/" + "eqSlc"
-h5pDir = RootDir + "/" "H5p"
+RootDir = os.path.expanduser('~') + "/Work/Injection/Data/"
+vtiDir = RootDir + "/" + "eqSlc_" + Stub
+h5pDir = RootDir + "/" + Stub
 
 
 Ns = len(SpcsStubs)
@@ -110,8 +113,9 @@ Bv = np.linspace(fldBds[0],fldBds[1],Nc)
 
 for s in range(Ns):
 	for k in range(Nk):
-		h5p = SpcsStubs[s] + Stub + "%02d"%KStubs[k] + ".All.h5part"
-		figName = SpcsStubs[s] + "%02d"%KStubs[k] + ".%02dTrjs.png"%(Nx*Ny)
+		h5p = SpcsStubs[s] + "_" + Stub + str(KStubs[k]) + "." + h5Mid + ".h5part"
+
+		figName = SpcsStubs[s] + str(KStubs[k]) + ".%02dTrjs.png"%(Nx*Ny)
 		titS = "Sampled High-Energy Trajectories for %s %02d keV"%(SpcsLab[s],KStubs[k])
 		Kc = Kcs[k]
 		pBds = [0,Kc]
