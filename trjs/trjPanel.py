@@ -73,7 +73,7 @@ SpcsLab = ["H+","He++","O+"]
 KStubs = [10,50,100]
 pC = 95
 
-doFast = False
+doFast = True
 
 np.random.seed(seed=31337)
 
@@ -150,9 +150,11 @@ for s in range(Ns):
 					plt.ylabel("GSM-Y [Re]",fontsize="small")
 				else:
 					plt.setp(Ax.get_yticklabels(),visible=False)
-					
-				fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
-				#fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
+				if (doFast):
+					fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
+				else:
+					fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
+				#
 				#plt.contour(xi,yi,dBz,Bv,cmap=fldCMap)
 				lfmv.addEarth2D()
 		
@@ -162,7 +164,7 @@ for s in range(Ns):
 					xs,ys,zs,A0 = getP(h5pDir,h5p,pIds[n],tCut=Tf)
 		
 				pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
-				Leg = ["ID %d\nK = %3.2f (keV)\n$\alpha_{0}$ = %2.2f$^{\circ}$"%(pIds[n],zs.max(),A0)]
+				Leg = ["ID %d\nK = %3.2f (keV)\n $\alpha$ = %2.2f"%(pIds[n],zs.max(),A0)]
 				plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,frameon=False)
 		
 				plt.plot(xs,ys,'w-',linewidth=pCLW)
