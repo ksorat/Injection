@@ -11,7 +11,7 @@ def getdK(h5pFile):
 	pIds,Kf = lfmpp.getH5pFin(h5pFile,"kev")
 	pIds,K0 = lfmpp.getH5pInit(h5pFile,"kev")
 	dK = Kf/K0
-	pIds,dK = lfmpp.getH5pFin(h5pFile,"alpha")
+	pIds,dK = lfmpp.getH5pInit(h5pFile,"alpha")
 	return dK
 
 def getdMu(h5pFile):
