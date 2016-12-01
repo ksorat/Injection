@@ -53,14 +53,15 @@ def choosePs(h5pDir,h5pStub,pC=80,Np=12,doMask=False):
 def getP(h5pDir,h5pStub,pId,vId="kev",tCut=1.0e+8):
 	h5pFile = h5pDir + "/" + h5pStub
 	
-	t,x = lfmpp.getH5pid(h5pFile,"x",pId)
-	t,y = lfmpp.getH5pid(h5pFile,"y",pId)
-	t,V = lfmpp.getH5pid(h5pFile,vId,pId)
-
+	t,x  = lfmpp.getH5pid(h5pFile,"x",pId)
+	t,y  = lfmpp.getH5pid(h5pFile,"y",pId)
+	t,V  = lfmpp.getH5pid(h5pFile,vId,pId)
+	t,al = lfmpp.getH5pid(h5pFile,"alpha",pId)
+	A0 = al[0]
 	t0 = t[0]
 	Ind = (t<=t0+tCut)
 
-	return x[Ind],y[Ind],V[Ind]
+	return x[Ind],y[Ind],V[Ind],A0
 
 #Particle data
 Stub = "sInj"
@@ -158,10 +159,10 @@ for s in range(Ns):
 				#Now do particles
 				if (n == 0 or not doFast):
 					
-					xs,ys,zs = getP(h5pDir,h5p,pIds[n],tCut=Tf)
+					xs,ys,zs,A0 = getP(h5pDir,h5p,pIds[n],tCut=Tf)
 		
 				pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
-				Leg = ["ID %d\nK = %3.2f (keV)"%(pIds[n],zs.max())]
+				Leg = ["ID %d\nK = %3.2f (keV)\n\alpha_{0} = %2.2f^{\circ}"%(pIds[n],zs.max(),A0)]
 				plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,frameon=False)
 		
 				plt.plot(xs,ys,'w-',linewidth=pCLW)
