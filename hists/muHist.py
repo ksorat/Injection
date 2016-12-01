@@ -42,7 +42,7 @@ KStubs = [10,50,100]
 
 dMub = np.linspace(-2,2)
 #dKb = np.linspace(0,6,60)
-dKb = np.linspace(-180,180,60)
+dKb = np.linspace(0,180,60)
 cAx=[1.0e-2,1]
 
 #Locations
