@@ -43,7 +43,7 @@ SpcsLab = ["H+","He++","O+"]
 KStubs = [10,50,100]
 
 
-doK = False
+doK = True
 
 dMub = np.linspace(0,2)
 dKb = np.linspace(0,6,60)
