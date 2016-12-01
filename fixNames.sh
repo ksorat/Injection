@@ -10,7 +10,7 @@ for i in "${Spc[@]}"
 do
 	for j in "${Ks[@]}"
 	do
-		echo "mv ${i}_sInJ.K$j.0001.h5part ${i}_sInj.K$j.0001.h5part" 
+		mv ${i}_sInJ.K$j.0001.h5part ${i}_sInj.K$j.0001.h5part
 	done
 done
 

@@ -20,7 +20,8 @@ def getFld(vtiDir,t,dt=10.0,eqStub="eqSlc"):
 
 	return xi,yi,dBz
 
-def choosePs(h5pDir,h5pStub,Kc=100,Np=12,doMask=False):
+#Choose particles with energy above pCth percentile
+def choosePs(h5pDir,h5pStub,pC=80,Np=12,doMask=False):
 	#Find Np particles above energy Kc at end of simulation
 	h5pFile = h5pDir + "/" + h5pStub
 
@@ -29,6 +30,7 @@ def choosePs(h5pDir,h5pStub,Kc=100,Np=12,doMask=False):
 		pIds,Ks = lfmpp.getH5pFin(h5pFile,"kev",Mask=isIn)
 	else:
 		pIds,Ks = lfmpp.getH5pFin(h5pFile,"kev")
+	Kc = np.percentile(Ks,pC)
 	Ind = (Ks > Kc)
 	pIds = pIds[Ind]
 	Ks = Ks[Ind]
@@ -44,7 +46,7 @@ def choosePs(h5pDir,h5pStub,Kc=100,Np=12,doMask=False):
 		pIds = pIds[IndR]
 	else:
 		print("Error, not enough matching particles found")
-	return pIds
+	return Kc,pIds
 
 def getP(h5pDir,h5pStub,pId,vId="kev",tCut=1.0e+8):
 	h5pFile = h5pDir + "/" + h5pStub
@@ -66,7 +68,8 @@ SpcsStubs = ["p","He","O"]
 SpcsLab = ["H+","He++","O+"]
 
 KStubs = [10,50,100]
-Kcs = [50,250,400]
+pC = 80
+
 doFast = False
 
 np.random.seed(seed=31337)
@@ -117,11 +120,12 @@ for s in range(Ns):
 
 		figName = SpcsStubs[s] + str(KStubs[k]) + ".%02dTrjs.png"%(Nx*Ny)
 		titS = "Sampled High-Energy Trajectories for %s %02d keV"%(SpcsLab[s],KStubs[k])
-		Kc = Kcs[k]
-		pBds = [0,Kc]
+		
 		
 		#Pick particles
-		pIds = choosePs(h5pDir,h5p,Kc=Kc,Np=Nx*Ny)
+		Kc,pIds = choosePs(h5pDir,h5p,pC=pC,Np=Nx*Ny)
+		KcB = np.ceil(Kc/5)*5 #Round to nearest 5th
+		pBds = [0,KcB]
 		print(pIds)
 
 		#Do figures
