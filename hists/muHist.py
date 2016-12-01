@@ -26,8 +26,8 @@ def getdMu(h5pFile):
 	Muf = Muf[Ind]
 	Mu0 = Mu0[Ind]
 
-	#dMu = np.abs(Muf-Mu0)/Mu0
-	dMu = (Muf-Mu0)/Mu0
+	dMu = np.abs(Muf-Mu0)/Mu0
+	#dMu = (Muf-Mu0)/Mu0
 	print("Cutting %d particles for undefined Mu"%(len(Ind)-Ind.sum()))
 	print("Min dMu = %f"%(dMu.min()))
 	print("Min Muf = %f, Min Mu0 = %f"%(Muf.min(),Mu0.min()))
@@ -45,7 +45,7 @@ KStubs = [10,50,100]
 
 doK = False
 
-dMub = np.linspace(-2,2)
+dMub = np.linspace(0,2)
 dKb = np.linspace(0,6,60)
 dAf = np.linspace(0,180,60)
 
