@@ -13,7 +13,7 @@ def getdK(h5pFile):
 	dK = Kf/K0
 	return dK
 def getdMu(h5pFile):
-	TINY = 1.0e-8
+	TINY = 1.0
 	pIds,Muf = lfmpp.getH5pFin(h5pFile ,"Mu")
 	pIds,Mu0 = lfmpp.getH5pInit(h5pFile,"Mu")
 	Ind = (Muf > TINY)
