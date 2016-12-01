@@ -20,7 +20,7 @@ def getdMu(h5pFile):
 	Muf = Muf[Ind]
 	Mu0 = Mu0[Ind]
 
-	dMu = (Muf-Mu0)/Mu0
+	dMu = np.abs(Muf-Mu0)/Mu0
 	print("Cutting %d particles for undefined Mu"%(len(Ind)-Ind.sum()))
 	print("Min dMu = %f"%(dMu.min()))
 	print("\n\n")
@@ -67,7 +67,7 @@ for s in range(Ns):
 		#Ax.set_xscale('log')
 		plt.colorbar()
 		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
-		plt.xlabel('Variation of 1st Invariant, $(\mu_{F}-\mu_{0})/\mu_{0}$')
+		plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
 		#plt.xlabel('Variation of 1st Invariant')
 		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
 		plt.savefig(figName)
