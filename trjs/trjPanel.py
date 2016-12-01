@@ -73,7 +73,7 @@ SpcsLab = ["H+","He++","O+"]
 KStubs = [10,50,100]
 pC = 95
 
-doFast = True
+doFast = False
 
 np.random.seed(seed=31337)
 
