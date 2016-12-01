@@ -25,10 +25,12 @@ def getdMu(h5pFile):
 	return dMu,Ind
 
 #Particle data
-Stub = "Inj"
-SpcsStubs = ["p","hepp","o"]
+Stub = "sInj"
+h5Mid = "0001"
+
+SpcsStubs = ["p","He","O"]
 SpcsLab = ["H+","He++","O+"]
-KStubs = [10,25,50]
+KStubs = [10,50,100]
 
 
 
@@ -47,7 +49,7 @@ lfmv.initLatex()
 
 for s in range(Ns):
 	for k in range(Nk):
-		h5p = SpcsStubs[s] + Stub + "%02d"%KStubs[k] + ".All.h5part"
+		h5p = SpcsStubs[s] + "_" + Stub + ".K" + str(KStubs[k]) + "." + h5Mid + ".h5part"
 		figName = SpcsStubs[s] + "%02d"%KStubs[k] + ".muHist.png"
 		h5pFile = h5pDir + "/" + h5p
 		
