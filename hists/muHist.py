@@ -103,12 +103,21 @@ for s in range(Ns):
 		plt.close('all')
 
 		#Fig 3
-		plt.hist2d(A0,dK,[Ab,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.0))
+		plt.hist2d(A0,dK,[Ab,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.0e-2))
 		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
 		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
 		plt.savefig(figStub + ".A0_dK.png")
+		plt.close('all')
+
+		#Fig 4
+		plt.hist2d(A0,Af,[Ab,Ab],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.0e-2))
+		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
+		plt.colorbar()
+		plt.xlabel("Initial Pitch Angle")
+		plt.ylabel("Final Pitch Angle")
+		plt.savefig(figStub + ".A0_Af.png")
 		plt.close('all')
 	
 	
