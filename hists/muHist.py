@@ -18,6 +18,10 @@ def getAf(h5pFile):
 	pIds,Af = lfmpp.getH5pFin(h5pFile,"alpha")
 	return Af
 
+def getA0(h5pFile):
+	pIds,A0 = lfmpp.getH5pInit(h5pFile,"alpha")
+	return A0
+
 def getdMu(h5pFile):
 	TINY = 1.0
 	pIds,Muf = lfmpp.getH5pFin(h5pFile ,"Mu")
@@ -43,11 +47,13 @@ SpcsLab = ["H+","He++","O+"]
 KStubs = [10,50,100]
 
 
-doK = True
+doKy = True #Do energization as y axis, or final pitch
+doMux = True #Do delMu as x axis, or initial pitch
+
 
 dMub = np.linspace(0,2)
 dKb = np.linspace(0,6,60)
-dAf = np.linspace(0,180,60)
+Ab = np.linspace(0,180,60)
 
 cAxAf=[1.0e-4,5.0e-2]
 cAxdK=[1.0e-2,1.0]
@@ -63,36 +69,45 @@ lfmv.initLatex()
 
 for s in range(Ns):
 	for k in range(Nk):
+		
+		#Do 3 figures: dMu x dK, dMu x Af, A0 x dK
 		h5p = SpcsStubs[s] + "_" + Stub + ".K" + str(KStubs[k]) + "." + h5Mid + ".h5part"
 		h5pFile = h5pDir + "/" + h5p
 		
 		#Get changes
 		print("Reading %s"%(h5p))
 		dMu,Ind = getdMu(h5pFile)
-		if (doK):
-			figName = SpcsStubs[s] + "%02d"%KStubs[k] + ".muHistK.png"
-			cAx = cAxdK
-			dYb = dKb
-			yLab = "Energization Fraction, $K_{F}/K_{0}$"
-			dY = getdK(h5pFile)
-		else:
-			figName = SpcsStubs[s] + "%02d"%KStubs[k] + ".muHistA.png"
-			cAx = cAxAf
-			dYb = dAf
-			yLab = "Final Pitch Angle"
-			dY = getAf(h5pFile)
-		dY = dY[Ind]
+		dK = getdK(h5pFile)
+		Af = getAf(h5pFile)
+		A0 = getA0(h5pFile)
 
-		#plt.scatter(dMu,dK)
-		plt.hist2d(dMu,dY,[dMub,dYb],normed=True,norm=LogNorm(vmin=cAx[0],vmax=cAx[1]))
-		#Ax = plt.gca()
-		#Ax.set_xscale('log')
-		plt.colorbar()
+		figStub = SpcsStubs[s] + "%02d"%KStubs[k]
+
+		#Fig 1
+		plt.hist2d(dMu,dK[Ind],[dMub,dKb],normed=True,norm=LogNorm(vmin=1.0e-2,vmax=1.0))
 		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
+		plt.colorbar()
 		plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
-		
-		plt.ylabel(yLab)
-		plt.savefig(figName)
+		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
+		plt.savefig(figStub + ".dMu_dK.png")
+		plt.close('all')
+
+		#Fig 2
+		plt.hist2d(dMu,Af[Ind],[dMub,Ab],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=5.0e-2))
+		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
+		plt.colorbar()
+		plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
+		plt.ylabel("Final Pitch Angle")
+		plt.savefig(figStub + ".dMu_Af.png")
+		plt.close('all')
+
+		#Fig 3
+		plt.hist2d(A0,dK,[Ab,dKb],normed=True,norm=LogNorm(vmin=1.0e-2,vmax=1.0))
+		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
+		plt.colorbar()
+		plt.xlabel("Initial Pitch Angle")
+		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
+		plt.savefig(figStub + ".A0_dK.png")
 		plt.close('all')
 	
 	
