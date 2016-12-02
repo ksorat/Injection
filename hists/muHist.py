@@ -32,7 +32,8 @@ def getdMu(h5pFile):
 
 	dMu = np.abs(Muf-Mu0)/Mu0
 	#dMu = (Muf-Mu0)/Mu0
-	print("Cutting %d particles for undefined Mu"%(len(Ind)-Ind.sum()))
+
+	print("\nCutting %d particles for undefined Mu"%(len(Ind)-Ind.sum()))
 	print("Min dMu = %f"%(dMu.min()))
 	print("Min Muf = %f, Min Mu0 = %f"%(Muf.min(),Mu0.min()))
 	print("\n\n")
@@ -69,7 +70,7 @@ lfmv.initLatex()
 
 for s in range(Ns):
 	for k in range(Nk):
-		
+
 		#Do 3 figures: dMu x dK, dMu x Af, A0 x dK
 		h5p = SpcsStubs[s] + "_" + Stub + ".K" + str(KStubs[k]) + "." + h5Mid + ".h5part"
 		h5pFile = h5pDir + "/" + h5p
@@ -102,7 +103,7 @@ for s in range(Ns):
 		plt.close('all')
 
 		#Fig 3
-		plt.hist2d(A0,dK,[Ab,dKb],normed=True,norm=LogNorm(vmin=1.0e-2,vmax=1.0))
+		plt.hist2d(A0,dK,[Ab,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.0))
 		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
