@@ -117,7 +117,7 @@ for s in range(Ns):
 
 		#Fig 3
 		Ax = fig.add_subplot(gs[2])
-		plt.hist2d(A0,dK,[A0b,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=2.0e-2))
+		plt.hist2d(A0,dK,[A0b,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.5e-2))
 		#plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
