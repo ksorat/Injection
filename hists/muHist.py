@@ -112,7 +112,7 @@ for s in range(Ns):
 		plt.close('all')
 
 		#Fig 4
-		plt.hist2d(A0,Af,[Ab,Ab],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.0e-2))
+		plt.hist2d(A0,Af,[Ab,Ab],normed=True,norm=LogNorm(vmin=1.0e-6,vmax=1.0e-3))
 		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
