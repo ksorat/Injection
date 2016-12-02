@@ -93,7 +93,7 @@ for s in range(Ns):
 		#Fig 1
 		Ax = fig.add_subplot(gs[0])
 		plt.hist2d(dMu,dK[Ind],[dMub,dKb],normed=True,norm=LogNorm(vmin=1.0e-2,vmax=1.0))
-		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
+		
 		plt.colorbar()
 		plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
 		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
@@ -103,7 +103,7 @@ for s in range(Ns):
 		#Fig 2
 		Ax = fig.add_subplot(gs[1])
 		plt.hist2d(dMu,Af[Ind],[dMub,Ab],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=5.0e-2))
-		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
+		#plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
 		plt.ylabel("Final Pitch Angle")
@@ -113,7 +113,7 @@ for s in range(Ns):
 		#Fig 3
 		Ax = fig.add_subplot(gs[2])
 		plt.hist2d(A0,dK,[Ab,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.0e-2))
-		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
+		#plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
 		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
@@ -123,12 +123,13 @@ for s in range(Ns):
 		#Fig 4
 		Ax = fig.add_subplot(gs[3])
 		plt.hist2d(A0,Af,[Ab,A0b],normed=True,norm=LogNorm(vmin=1.0e-6,vmax=1.0e-3))
-		plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
+		#plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
 		plt.ylabel("Final Pitch Angle")
 
 		#Save/clean
+		plt.suptitle('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.savefig(figStub + ".H.png")
 
 		plt.close('all')
