@@ -16,7 +16,7 @@ def getdK(h5pFile):
 	return dK
 
 def getAf(h5pFile):
-	pIds,Af = lfmpp.getH5pFin(h5pFile,"alpha")
+	pIds,Af = lfmpp.getH5pFin(h5pFile,"alpheq")
 	return Af
 
 def getA0(h5pFile):
@@ -31,8 +31,8 @@ def getdMu(h5pFile):
 	Muf = Muf[Ind]
 	Mu0 = Mu0[Ind]
 
-	dMu = np.abs(Muf-Mu0)/Mu0
-	#dMu = (Muf-Mu0)/Mu0
+	#dMu = np.abs(Muf-Mu0)/Mu0
+	dMu = (Muf-Mu0)/Mu0
 
 	print("\nCutting %d particles for undefined Mu"%(len(Ind)-Ind.sum()))
 	print("Min dMu = %f"%(dMu.min()))
@@ -55,7 +55,7 @@ doKy = True #Do energization as y axis, or final pitch
 doMux = True #Do delMu as x axis, or initial pitch
 
 
-dMub = np.linspace(0,2)
+dMub = np.linspace(-1,2)
 dKb = np.linspace(0,6,60)
 Ab = np.linspace(0,180,60)
 A0b = np.linspace(20,90,60)
