@@ -41,6 +41,8 @@ def getdMu(h5pFile):
 	return dMu,Ind
 
 #Particle data
+figSize = (10,10)
+figQ = 300 #DPI
 Stub = "sInj"
 h5Mid = "0001"
 
@@ -74,7 +76,10 @@ lfmv.initLatex()
 for s in range(Ns):
 	for k in range(Nk):
 		#Create figure/gridspec
-		fig = plt.figure()
+		fig = plt.figure(figsize=figSize)
+		
+
+
 		gs = gridspec.GridSpec(2,2)
 
 		#Do 4 figures: dMu x dK, dMu x Af, A0 x dK, A0 x Af
@@ -112,7 +117,7 @@ for s in range(Ns):
 
 		#Fig 3
 		Ax = fig.add_subplot(gs[2])
-		plt.hist2d(A0,dK,[Ab,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.0e-2))
+		plt.hist2d(A0,dK,[A0b,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=1.0e-2))
 		#plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
@@ -122,7 +127,7 @@ for s in range(Ns):
 
 		#Fig 4
 		Ax = fig.add_subplot(gs[3])
-		plt.hist2d(A0,Af,[Ab,A0b],normed=True,norm=LogNorm(vmin=1.0e-6,vmax=1.0e-3))
+		plt.hist2d(A0,Af,[A0b,Ab],normed=True,norm=LogNorm(vmin=1.0e-6,vmax=1.0e-3))
 		#plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
@@ -130,8 +135,7 @@ for s in range(Ns):
 
 		#Save/clean
 		plt.suptitle('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
-		plt.savefig(figStub + ".H.png")
-
+		plt.savefig(figStub + ".H.png",dpi=figQ)
 		plt.close('all')
 	
 	
