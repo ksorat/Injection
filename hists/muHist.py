@@ -97,7 +97,7 @@ for s in range(Ns):
 
 		#Fig 1
 		Ax = fig.add_subplot(gs[0])
-		plt.hist2d(dMu,dK[Ind],[dMub,dKb],normed=True,norm=LogNorm(vmin=1.0e-2,vmax=3.0))
+		plt.hist2d(dMu,dK[Ind],[dMub,dKb],normed=True,norm=LogNorm(vmin=1.0e-2,vmax=2.0))
 		
 		plt.colorbar()
 		plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
@@ -117,7 +117,7 @@ for s in range(Ns):
 
 		#Fig 3
 		Ax = fig.add_subplot(gs[2])
-		plt.hist2d(A0,dK,[A0b,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=3.0e-2))
+		plt.hist2d(A0,dK,[A0b,dKb],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=2.0e-2))
 		#plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
 		plt.xlabel("Initial Pitch Angle")
