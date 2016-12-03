@@ -16,7 +16,7 @@ R0 = 10
 R1 = 12.2
 
 #EqSlc DB
-EqDir = os.path.expanduser('~') + "/Work/Magnetoloss/Data/eqSlc"
+EqDir = os.path.expanduser('~') + "/Work/Injection/Data/eqSlc_sInj"
 Src0 = EqDir + "/eqSlc.*.vti database"
 
 #dBz
