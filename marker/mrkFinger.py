@@ -11,7 +11,7 @@ import pyVisit as pyv
 Quiet = True
 T0 = 1750
 
-Phi0s = [157.5,142.5]
+Phi0s = [157.5,150]
 Phi1s = [170,185]
 R0s = [10,9]
 R1s = [12.2,13.5]
