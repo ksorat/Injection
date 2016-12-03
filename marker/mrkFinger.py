@@ -8,7 +8,7 @@ from visit_utils.common import lsearch #lsearch(dir(),"blah")
 import lfmGrids as lfm
 import pyVisit as pyv
 
-Quiet = False
+Quiet = True
 T0 = 1750
 Phi0 = 157.5
 Phi1 = 170
