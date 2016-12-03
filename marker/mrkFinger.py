@@ -51,11 +51,11 @@ pyv.lfmPCol(Src0,"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 #Draw wedges
 Nw = len(Phi0s)
 for n in range(Nw):
-	DefineScalarExpression("RCut0_%d","if( ge(Rcyl, %f), 1, 0)"%(n,R0s[n])) 
-	DefineScalarExpression("RCut1_%d","if( le(Rcyl, %f), 1, 0)"%(n,R1s[n])) 
-	DefineScalarExpression("PCut0_%d","if( ge(Phi, %f), 1, 0)"%(n,Phi0s[n])) 
-	DefineScalarExpression("PCut1_%d","if( le(Phi, %f), 1, 0)"%(n,Phi1s[n])) 
-	DefineScalarExpression("Wedge_%d","RCut0*RCut1*PCut0*PCut1"%(n))
+	DefineScalarExpression("RCut0_%d"%(n),"if( ge(Rcyl, %f), 1, 0)"%(R0s[n])) 
+	DefineScalarExpression("RCut1_%d"%(n),"if( le(Rcyl, %f), 1, 0)"%(R1s[n])) 
+	DefineScalarExpression("PCut0_%d"%(n),"if( ge(Phi, %f), 1, 0)"%(Phi0s[n])) 
+	DefineScalarExpression("PCut1_%d"%(n),"if( le(Phi, %f), 1, 0)"%(Phi1s[n])) 
+	DefineScalarExpression("Wedge_%d"%(n),"RCut0*RCut1*PCut0*PCut1"
 
 	AddPlot("Contour","Wedge_%d"(n))
 	cOp = GetPlotOptions()
