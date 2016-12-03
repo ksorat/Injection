@@ -10,6 +10,7 @@ import pyVisit as pyv
 
 Quiet = True
 T0 = 1750
+
 Phi0 = 157.5
 Phi1 = 170
 R0 = 10
@@ -39,6 +40,7 @@ md0 = GetMetaData(Src0)
 Time = np.array(md0.times)
 Nt = np.argmax(Time>=T0)
 
+
 DefineScalarExpression("RCut0","if( ge(Rcyl, %f), 1, 0)"%(R0)) 
 DefineScalarExpression("RCut1","if( le(Rcyl, %f), 1, 0)"%(R1)) 
 DefineScalarExpression("PCut0","if( ge(Phi, %f), 1, 0)"%(Phi0)) 
@@ -48,6 +50,7 @@ DefineScalarExpression("PCut","Phi*RCut0*RCut1")
 DefineScalarExpression("RCut","Rcyl*PCut0*PCut1")
 
 DefineScalarExpression("Wedge","RCut0*RCut1*PCut0*PCut1")
+
 #Draw field marker
 pyv.lfmPCol(Src0,"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 
@@ -61,6 +64,7 @@ cOp.colorType = 0
 cOp.singleColor = (0, 255, 255, 255)
 cOp.legendFlag=0
 cOp.lineWidth=2
+print(cOp)
 SetPlotOptions(cOp)
 
 SetTimeSliderState(Nt)
