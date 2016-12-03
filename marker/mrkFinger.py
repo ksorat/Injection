@@ -57,7 +57,7 @@ for n in range(Nw):
 	DefineScalarExpression("PCut1_%d"%(n),"if( le(Phi, %f), 1, 0)"%(Phi1s[n])) 
 	DefineScalarExpression("Wedge_%d"%(n),"RCut0*RCut1*PCut0*PCut1")
 
-	AddPlot("Contour","Wedge_%d"(n))
+	AddPlot("Contour","Wedge_%d"%(n))
 	cOp = GetPlotOptions()
 	cOp.contourMethod = 1
 	#cOp.contourValue = tuple([Phi0,Phi1])
@@ -66,7 +66,7 @@ for n in range(Nw):
 	cOp.singleColor = Cols[n]
 	cOp.legendFlag=0
 	cOp.lineWidth=2
-	print(cOp)
+	
 	SetPlotOptions(cOp)
 
 SetTimeSliderState(Nt)
