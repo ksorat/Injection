@@ -55,7 +55,7 @@ for n in range(Nw):
 	DefineScalarExpression("RCut1_%d"%(n),"if( le(Rcyl, %f), 1, 0)"%(R1s[n])) 
 	DefineScalarExpression("PCut0_%d"%(n),"if( ge(Phi, %f), 1, 0)"%(Phi0s[n])) 
 	DefineScalarExpression("PCut1_%d"%(n),"if( le(Phi, %f), 1, 0)"%(Phi1s[n])) 
-	DefineScalarExpression("Wedge_%d"%(n),"RCut0*RCut1*PCut0*PCut1"
+	DefineScalarExpression("Wedge_%d"%(n),"RCut0*RCut1*PCut0*PCut1")
 
 	AddPlot("Contour","Wedge_%d"(n))
 	cOp = GetPlotOptions()
