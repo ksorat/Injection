@@ -11,11 +11,11 @@ import pyVisit as pyv
 Quiet = True
 T0 = 1750
 
-Phi0s = [157.5,135]
+Phi0s = [157.5,142.5]
 Phi1s = [170,185]
 R0s = [10,9]
-R1s = [12.2,13]
-Cols = [(0, 255, 255, 255),(0,0,255,255)]
+R1s = [12.2,13.5]
+Cols = [(0, 255, 255, 255),(0,0,255,255),(255,0,255,255)]
 #EqSlc DB
 EqDir = os.path.expanduser('~') + "/Work/Injection/Data/eqSlc_sInj"
 Src0 = EqDir + "/eqSlc.*.vti database"
