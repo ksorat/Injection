@@ -11,11 +11,11 @@ import pyVisit as pyv
 Quiet = True
 T0 = 1750
 
-Phi0 = 157.5
-Phi1 = 170
-R0 = 10
-R1 = 12.2
-
+Phi0s = [157.5,135]
+Phi1s = [170,185]
+R0s = [10,9]
+R1s = [12.2,13]
+Cols = [(0, 255, 255, 255),(0,0,255,255)]
 #EqSlc DB
 EqDir = os.path.expanduser('~') + "/Work/Injection/Data/eqSlc_sInj"
 Src0 = EqDir + "/eqSlc.*.vti database"
@@ -41,31 +41,33 @@ Time = np.array(md0.times)
 Nt = np.argmax(Time>=T0)
 
 
-DefineScalarExpression("RCut0","if( ge(Rcyl, %f), 1, 0)"%(R0)) 
-DefineScalarExpression("RCut1","if( le(Rcyl, %f), 1, 0)"%(R1)) 
-DefineScalarExpression("PCut0","if( ge(Phi, %f), 1, 0)"%(Phi0)) 
-DefineScalarExpression("PCut1","if( le(Phi, %f), 1, 0)"%(Phi1)) 
 
 DefineScalarExpression("PCut","Phi*RCut0*RCut1")
 DefineScalarExpression("RCut","Rcyl*PCut0*PCut1")
 
-DefineScalarExpression("Wedge","RCut0*RCut1*PCut0*PCut1")
-
 #Draw field marker
 pyv.lfmPCol(Src0,"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 
-#Draw wedge
-AddPlot("Contour","Wedge")
-cOp = GetPlotOptions()
-cOp.contourMethod = 1
-#cOp.contourValue = tuple([Phi0,Phi1])
-cOp.contourValue = 1
-cOp.colorType = 0
-cOp.singleColor = (0, 255, 255, 255)
-cOp.legendFlag=0
-cOp.lineWidth=2
-print(cOp)
-SetPlotOptions(cOp)
+#Draw wedges
+Nw = len(Phi0s)
+do n in range(Nw):
+	DefineScalarExpression("RCut0_%d","if( ge(Rcyl, %f), 1, 0)"%(n,R0s[n])) 
+	DefineScalarExpression("RCut1_%d","if( le(Rcyl, %f), 1, 0)"%(n,R1s[n])) 
+	DefineScalarExpression("PCut0_%d","if( ge(Phi, %f), 1, 0)"%(n,Phi0s[n])) 
+	DefineScalarExpression("PCut1_%d","if( le(Phi, %f), 1, 0)"%(n,Phi1s[n])) 
+	DefineScalarExpression("Wedge_%d","RCut0*RCut1*PCut0*PCut1"%(n))
+
+	AddPlot("Contour","Wedge_%d"(n))
+	cOp = GetPlotOptions()
+	cOp.contourMethod = 1
+	#cOp.contourValue = tuple([Phi0,Phi1])
+	cOp.contourValue = 1
+	cOp.colorType = 0
+	cOp.singleColor = Cols[n]
+	cOp.legendFlag=0
+	cOp.lineWidth=2
+	print(cOp)
+	SetPlotOptions(cOp)
 
 SetTimeSliderState(Nt)
 DrawPlots()
