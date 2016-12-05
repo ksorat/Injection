@@ -72,6 +72,7 @@ Ns = len(SpcsStubs)
 Nk = len(KStubs)
 lfmv.initLatex()
 
+#Create iterators
 
 for s in range(Ns):
 	for k in range(Nk):

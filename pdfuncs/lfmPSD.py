@@ -76,13 +76,18 @@ class pState(object):
 
 		t,self.A = lfmpp.getH5pT(h5pF,"alpheq",Ts)
 		t,self.K = lfmpp.getH5pT(h5pF,"keveq",Ts)
-
+		t,self.Mu = lfmpp.getH5pT(h5pF,"mueq",Ts)
+		
 		self.W = np.zeros(self.Np) #Room for weights
 		self.isWgt = False #Weights not yet calculated/set
 
+		self.F = [] #Holder for distribution function (t>0)
+
+		self.isPDF = False
+
 #Calculate weights for particle distribution relative to phase space discretization
 def CalcWeights(pSt,pSpc):
-	#For now assume identity function for PSD
+	
 	Np = pSt.Np
 	Found = np.zeros(Np,dtype=bool)
 	
@@ -125,6 +130,39 @@ def CalcWeights(pSt,pSpc):
 			print("iVec = %s"%str(iVec))
 			sys.exit()
 	pSt.isWgt = True
+
+#Given particle state and weights, calculate distribution function for a given phase space
+def calcPDF(pSt,pSpc):
+
+	#Loop through all particles
+	Np = pSt.Np
+	Found = np.zeros(Np,dtype=bool)
+
+	pSt.F = np.zeros(pSpc.dG.shape)
+
+	while not np.all(Found):
+		#Find first unweighted particle
+		N = Found.argmin()
+
+		#Get phase space position of particle
+		L = pSt.L[N]
+		phi = pSt.phi[N]
+		A = pSt.A[N]
+		K = pSt.K[N]
+
+		#Find cell of discretized phase space this particle is in
+		#Hold as index vector (i,j,k,l) -> L_i,Phi_j,A_k,K_l
+		iVec = locateCell(pSpc,(L,phi,A,K))
+
+		#Find all particles in cell iVec
+		inCell = locateP(pSt,pSpc,iVec)
+
+		#Total weight in cell iVec
+		dW = pSt.W[inCell].sum()
+
+		pSt.F[iVec] = dW/pSPc.dG[iVec]
+		Found[inCell] = True
+
 
 #For position xVec = L,phi,alpha,K find which cell of pSpc it's in
 def locateCell(pSpc,xVec):
