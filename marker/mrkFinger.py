@@ -8,15 +8,16 @@ from visit_utils.common import lsearch #lsearch(dir(),"blah")
 import lfmGrids as lfm
 import pyVisit as pyv
 
-Quiet = False
+Quiet = True
 T0 = 1750
-Phi0 = 157.5
-Phi1 = 170
-R0 = 10
-R1 = 12.2
 
+Phi0s = [157.5,150]
+Phi1s = [170,177.5]
+R0s = [10,9.0]
+R1s = [12.2,13.5]
+Cols = [(0, 255, 255, 255),(0,0,255,255),(255,0,255,255)]
 #EqSlc DB
-EqDir = os.path.expanduser('~') + "/Work/Magnetoloss/Data/eqSlc"
+EqDir = os.path.expanduser('~') + "/Work/Injection/Data/eqSlc_sInj"
 Src0 = EqDir + "/eqSlc.*.vti database"
 
 #dBz
@@ -39,29 +40,34 @@ md0 = GetMetaData(Src0)
 Time = np.array(md0.times)
 Nt = np.argmax(Time>=T0)
 
-DefineScalarExpression("RCut0","if( ge(Rcyl, %f), 1, 0)"%(R0)) 
-DefineScalarExpression("RCut1","if( le(Rcyl, %f), 1, 0)"%(R1)) 
-DefineScalarExpression("PCut0","if( ge(Phi, %f), 1, 0)"%(Phi0)) 
-DefineScalarExpression("PCut1","if( le(Phi, %f), 1, 0)"%(Phi1)) 
+
 
 DefineScalarExpression("PCut","Phi*RCut0*RCut1")
 DefineScalarExpression("RCut","Rcyl*PCut0*PCut1")
 
-DefineScalarExpression("Wedge","RCut0*RCut1*PCut0*PCut1")
 #Draw field marker
 pyv.lfmPCol(Src0,"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 
-#Draw wedge
-AddPlot("Contour","Wedge")
-cOp = GetPlotOptions()
-cOp.contourMethod = 1
-#cOp.contourValue = tuple([Phi0,Phi1])
-cOp.contourValue = 1
-cOp.colorType = 0
-cOp.singleColor = (0, 255, 255, 255)
-cOp.legendFlag=0
-cOp.lineWidth=2
-SetPlotOptions(cOp)
+#Draw wedges
+Nw = len(Phi0s)
+for n in range(Nw):
+	DefineScalarExpression("RCut0_%d"%(n),"if( ge(Rcyl, %f), 1, 0)"%(R0s[n])) 
+	DefineScalarExpression("RCut1_%d"%(n),"if( le(Rcyl, %f), 1, 0)"%(R1s[n])) 
+	DefineScalarExpression("PCut0_%d"%(n),"if( ge(Phi, %f), 1, 0)"%(Phi0s[n])) 
+	DefineScalarExpression("PCut1_%d"%(n),"if( le(Phi, %f), 1, 0)"%(Phi1s[n])) 
+	DefineScalarExpression("Wedge_%d"%(n),"RCut0_%d*RCut1_%d*PCut0_%d*PCut1_%d"%(n,n,n,n))
+
+	AddPlot("Contour","Wedge_%d"%(n))
+	cOp = GetPlotOptions()
+	cOp.contourMethod = 1
+	#cOp.contourValue = tuple([Phi0,Phi1])
+	cOp.contourValue = 1
+	cOp.colorType = 0
+	cOp.singleColor = Cols[n]
+	cOp.legendFlag=0
+	cOp.lineWidth=2
+	
+	SetPlotOptions(cOp)
 
 SetTimeSliderState(Nt)
 DrawPlots()
