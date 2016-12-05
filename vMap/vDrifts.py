@@ -8,10 +8,14 @@ from visit_utils.common import lsearch #lsearch(dir(),"blah")
 import pyVisit as pyv
 
 RootDir = os.path.expanduser('~') + "/Work/Injection/VTIs/"
-fldSlc = RootDir + "/SNS-Bz-5-Vx400-N5-F200_mhd_1141000.vti"
 
-#fldSlc = "testSlc.vti"
+fldSlc = RootDir + "/SNS-Bz-5-Vx400-N5-F200_mhd_1141000.vti"
 Quiet = True
+
+# fldSlc = "testSlc.vti"
+# Quiet = False
+
+zSlc = 0.05
 
 if (Quiet):
 	LaunchNowin()
@@ -51,6 +55,7 @@ pyv.lfmPCol(fldSlc,"eqKev",cMap="hot_desaturated",vBds=[1,750],Log=True)
 AddOperator("Slice",0)
 slOp = GetOperatorOptions(0)
 slOp.axisType = 2
+slOp.originIntercept = zSlc
 SetOperatorOptions(slOp,0)
 
 AddOperator("Threshold",1)
