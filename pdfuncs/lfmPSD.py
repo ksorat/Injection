@@ -27,10 +27,10 @@ class PhaseSpace(object):
 		self.Na = Na
 		self.da = (180-0)/Na
 
-		self.Ki = np.linspace(Kmin,Kmax,Nk+1)
+		self.Ki = np.logspace(np.log10(Kmin),np.log10(Kmax),Nk+1)
 		self.Kc = 0.5*(self.Ki[0:-1] + self.Ki[1:])
 		self.Nk = Nk
-		self.dk = (Kmax-Kmin)/Nk
+		self.dk = self.Li[1:]-self.Li[0:-1]
 
 		self.Nc = Nl*Np*Na*Nk #Number of cells
 		self.dG = np.zeros((Nl,Np,Na,Nk))
@@ -38,7 +38,7 @@ class PhaseSpace(object):
 		Scl = 1.0 # m*sqrt(2m)
 		deg2rad = np.pi/180.0
 		#Calculate dG, phase space volume for each cell
-		#Assuming for now, uniform dimensions (constant dX)
+		#Assuming for now, uniform dimensions for all but K
 		dx = self.dl*self.dk*(deg2rad*self.dp)*(deg2rad*self.da)
 
 		for i in range(Nl):
@@ -47,9 +47,9 @@ class PhaseSpace(object):
 					L = self.Lc[i]
 					A = self.Ac[j]
 					K = self.Kc[k]
+					dX = self.dl*(deg2rad*self.dp)*(deg2rad*self.da)*self.dk[k]
 
-					self.dG[i,:,j,k] = L*np.sqrt(K)*np.sin(A*deg2rad)*dx
-
+					self.dG[i,:,j,k] = L*np.sqrt(K)*np.sin(A*deg2rad)*dX
 #Particle cloud
 #Bunch of particles at same time
 #Store relevant values for cloud in phase space
@@ -101,19 +101,43 @@ def CalcWeights(pSt,pSpc):
 		NumIn = inCell.sum()
 
 		#Evaluate distribution function at cell center of cell iVec
-		fC = 1.0
+		fC = fDist(pSpc.Lc[iVec[0]],pSpc.Pc[iVec[1]],pSpc.Ac[iVec[2]],pSpc.Kc[iVec[3]])
 
 		#Calculate weight, number of analytically-predicted (fC*dG) over number of actual
-		Wgt = fC*pSpc[iVec]/NumIn
+		#print(iVec,NumIn,fC)
+		Wgt = fC*pSpc.dG[iVec]/NumIn
 
 		#Now assign weight to all particles in cell iVec
 		pSt.W[inCell] = Wgt
 		Found[inCell] = True
 		
+		print("Found %d now, %d total"%(NumIn.sum(),Found.sum()))
 	pSt.isWgt = True
+
 #For position xVec = L,phi,alpha,K find which cell of pSpc it's in
 def locateCell(pSpc,xVec):
-	iVec = (1,1,1,1)
 
-	return iVec
+	iVec = np.zeros(4,dtype=np.int)
+	iVec[0] = ((xVec[0] >= pSpc.Li[0:-1]) & (xVec[0] <= pSpc.Li[1:])).argmax()
+	iVec[1] = ((xVec[1] >= pSpc.Pi[0:-1]) & (xVec[1] <= pSpc.Pi[1:])).argmax()
+	iVec[2] = ((xVec[2] >= pSpc.Ai[0:-1]) & (xVec[2] <= pSpc.Ai[1:])).argmax()
+	iVec[3] = ((xVec[3] >= pSpc.Ki[0:-1]) & (xVec[3] <= pSpc.Ki[1:])).argmax()
 
+	return tuple(iVec)
+
+#Find all particles from pSt in cell iVec of pSpc
+def locateP(pSt,pSpc,iVec):
+	
+	inCell_L = (pSt.L >= pSpc.Li[iVec[0]]) & (pSt.L <= pSpc.Li[iVec[0]+1])
+	inCell_P = (pSt.phi >= pSpc.Pi[iVec[1]]) & (pSt.phi<= pSpc.Pi[iVec[1]+1])
+	inCell_A = (pSt.A >= pSpc.Ai[iVec[2]]) & (pSt.A <= pSpc.Ai[iVec[2]+1])
+	inCell_K = (pSt.K >= pSpc.Ki[iVec[3]]) & (pSt.K <= pSpc.Ki[iVec[3]+1]) 
+
+	inCell = inCell_L & inCell_P & inCell_A & inCell_K
+
+	return inCell
+
+def fDist(L,P,A,K,f0=1.0e+6,beta=5.2):
+	fVal = f0*(K**(-beta))
+
+	return fVal
