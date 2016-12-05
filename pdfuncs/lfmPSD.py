@@ -77,7 +77,7 @@ class pState(object):
 		t,self.A = lfmpp.getH5pT(h5pF,"alpheq",Ts)
 		t,self.K = lfmpp.getH5pT(h5pF,"keveq",Ts)
 		t,self.Mu = lfmpp.getH5pT(h5pF,"mueq",Ts)
-		
+
 		self.W = np.zeros(self.Np) #Room for weights
 		self.isWgt = False #Weights not yet calculated/set
 
@@ -194,11 +194,17 @@ def fDist(L,P,A,K,f0=1.0e+6,beta=5.2):
 
 #Get particle counts for L shell, all energy/phi/alpha
 def shellCount(pSt,L0,dL):
-	Ind = (pSt.L>L0) & (pSt.L<(L0+dL))
+	Indl = (pSt.L>L0) & (pSt.L<(L0+dL))
+
+	Mul = pSt.Mu
+	IndMu = (Mul>0) & (~np.isnan(Mul))
+	Ind = Indl & IndMu
+
+	Mul = pSt.Mu[Ind]
 
 	Kl = pSt.K[Ind]
 	Pl = pSt.phi[Ind]
 	Al = pSt.A[Ind]
 	Wl = pSt.W[Ind]
-
-	return Wl,Pl,Al,Kl
+	Mul = pSt.Mu[Ind]
+	return Wl,Kl,Mul

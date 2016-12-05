@@ -35,7 +35,30 @@ pF = lpsd.pState(h5p,Tf)
 pF.W = p0.W
 
 #Look at initial state distribution at outer shell
-W0,P0,A0,K0 = lpsd.shellCount(p0,9.9,0.2)
+#W0,P0,A0,K0 = lpsd.shellCount(p0,9.9,0.2)
 
 #Look at final state at moderate shell
-Wf,Pf,Af,Kf = lpsd.shellCount(pF,8.0,0.2)
+#Wf,Pf,Af,Kf = lpsd.shellCount(pF,8,1)
+
+Ls = np.arange(5,12)
+dL = 1.0
+
+Nb = 80
+#Kb = np.logspace(1,3,Nb)
+Kb = np.linspace(10,850,Nb)
+
+NumPs = []
+bCs = []
+
+for n in range(len(Ls)):
+	Wf,Kf,Muf = lpsd.shellCount(pF,Ls[n],dL)
+	NumP,bI = np.histogram(Kf,Kb,normed=True,weights=Wf)
+	NumPs.append(NumP)
+	bC = 0.5*(bI[0:-1]+bI[1:])
+	bCs.append(bC)
+	LabS = "%2.1f <= L <= %2.1f"%(Ls[n],Ls[n]+dL)
+	plt.loglog(bC,NumP,label=LabS)
+plt.legend()
+plt.show()
+#plt.hist(Kf,Kb,normed=True,weights=Wf,log=True)
+#plt.gca().set_xscale("log")
