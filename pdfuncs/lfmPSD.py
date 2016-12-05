@@ -15,17 +15,17 @@ class PhaseSpace(object):
 		self.Li = np.linspace(Lmin,Lmax,Nl+1)
 		self.Lc = 0.5*(self.Li[0:-1] + self.Li[1:])
 		self.Nl = Nl
-		self.dl = (Lmax-Lmin)/Nl
+		self.dl = 1.0*(Lmax-Lmin)/Nl
 
 		self.Pi = np.linspace(0,360,Np+1)
 		self.Pc = 0.5*(self.Pi[0:-1] + self.Pi[1:])
 		self.Np = Np
-		self.dp = (360-0)/Np
+		self.dp = 1.0*(360-0)/Np
 
 		self.Ai = np.linspace(0,180,Na+1)
 		self.Ac = 0.5*(self.Ai[0:-1] + self.Ai[1:])
 		self.Na = Na
-		self.da = (180-0)/Na
+		self.da = 1.0*(180-0)/Na
 
 		self.Ki = np.logspace(np.log10(Kmin),np.log10(Kmax),Nk+1)
 		self.Kc = 0.5*(self.Ki[0:-1] + self.Ki[1:])
