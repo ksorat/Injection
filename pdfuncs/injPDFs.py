@@ -4,6 +4,7 @@ import numpy as np
 import lfmPSD as lpsd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import os
 
 #Files
 Root = os.path.expanduser('~') + "/Work/Injection/Data"
