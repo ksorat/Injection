@@ -118,7 +118,7 @@ def CalcWeights(pSt,pSpc):
 		pSt.W[inCell] = Wgt
 		Found[inCell] = True
 		
-		print("Found %d now, %d total"%(NumIn.sum(),Found.sum()))
+		# print("Found %d now, %d total"%(NumIn.sum(),Found.sum()))
 		if (NumIn <=0):
 			print("Particle %d not found"%N)
 			print("L,phi,A,K = %f,%f,%f,%f"%(L,phi,A,K))

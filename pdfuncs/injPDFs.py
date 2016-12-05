@@ -26,3 +26,8 @@ pSpc = lpsd.PhaseSpace(Lmin,Lmax,Nl,Np,Na,Kmin,Kmax,Nk)
 #Load particle initial values and weight
 p0 = lpsd.pState(h5p,0)
 lpsd.CalcWeights(p0,pSpc)
+
+#Get final particle states, use p0 weights
+pF = lpsd.pState(h5p,-1)
+pF.W = p0.W
+
