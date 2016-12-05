@@ -60,3 +60,5 @@ SetOperatorOptions(tOp,1)
 
 pyv.cleanLegends([0.025],[0.9],["Particle Energy (keV)\nDrift/ExB Equality"])
 DrawPlots()
+
+SaveWindow()
