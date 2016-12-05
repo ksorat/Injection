@@ -6,6 +6,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import os
 
+#First/Last steps
+T0 = 0
+Tf = 275
 #Files
 Root = os.path.expanduser('~') + "/Work/Injection/Data"
 h5p = Root + "/mInj/p_mInj.All.h5part"
@@ -24,10 +27,10 @@ Nk = 30 #Number of energy bins
 pSpc = lpsd.PhaseSpace(Lmin,Lmax,Nl,Np,Na,Kmin,Kmax,Nk)
 
 #Load particle initial values and weight
-p0 = lpsd.pState(h5p,0)
+p0 = lpsd.pState(h5p,T0)
 lpsd.CalcWeights(p0,pSpc)
 
 #Get final particle states, use p0 weights
-pF = lpsd.pState(h5p,-1)
+pF = lpsd.pState(h5p,Tf)
 pF.W = p0.W
 
