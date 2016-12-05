@@ -30,7 +30,7 @@ class PhaseSpace(object):
 		self.Ki = np.logspace(np.log10(Kmin),np.log10(Kmax),Nk+1)
 		self.Kc = 0.5*(self.Ki[0:-1] + self.Ki[1:])
 		self.Nk = Nk
-		self.dk = self.Li[1:]-self.Li[0:-1]
+		self.dk = self.Ki[1:]-self.Ki[0:-1]
 
 		self.Nc = Nl*Np*Na*Nk #Number of cells
 		self.dG = np.zeros((Nl,Np,Na,Nk))
@@ -73,7 +73,7 @@ class pState(object):
 		pSgn[Ind] = pSgn[Ind] + 360
 
 		self.phi = pSgn
-		
+
 		t,self.A = lfmpp.getH5pT(h5pF,"alpheq",Ts)
 		t,self.K = lfmpp.getH5pT(h5pF,"keveq",Ts)
 
