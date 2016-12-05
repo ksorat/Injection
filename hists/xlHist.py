@@ -79,7 +79,7 @@ fig = plt.figure(figsize=figSize)
 
 gs = gridspec.GridSpec(2,2)
 #Do 4 figures: dMu x dK, dMu x Af, A0 x dK, A0 x Af
-h5pFile = RootDir + "/p_xlInJ.K50.0001.h5part"
+h5pFile = RootDir + "/sInj/p_xlInJ.K50.0001.h5part"
 
 #Get changes
 print("Reading %s"%(h5pFile))
