@@ -82,7 +82,7 @@ gs = gridspec.GridSpec(2,2)
 h5pFile = RootDir + "/p_xlInJ.K50.0001.h5part"
 
 #Get changes
-print("Reading %s"%(h5p))
+print("Reading %s"%(h5pFile))
 dMu,Ind = getdMu(h5pFile)
 dK = getdK(h5pFile)
 Af = getAf(h5pFile)
