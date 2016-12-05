@@ -29,7 +29,7 @@ md0 = GetMetaData(fldSlc)
 DefineScalarExpression("Veb","1000*Emag/Bmag")
 
 #BxGrad (in 1/Re, convert to 1/km)
-DefineScalarExpression("BxGB","cross(Bfld,grad(Bfld))/(Bmag*Bmag*6380.0)")
+DefineScalarExpression("BxGB","cross(Bfld,gradient(Bfld))/(Bmag*Bmag*6380.0)")
 
 #Non-energy part of Vd
 q = 1.6021766e-19 #Coulombs
