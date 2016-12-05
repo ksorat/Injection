@@ -2,7 +2,7 @@
 
 import numpy as np
 import lfmPostproc as lfmpp
-
+import sys
 #Generate phase space
 #Take in Lmin/Lmax,Nl
 #Take in Nphi
@@ -112,6 +112,11 @@ def CalcWeights(pSt,pSpc):
 		Found[inCell] = True
 		
 		print("Found %d now, %d total"%(NumIn.sum(),Found.sum()))
+		if (NumIn <=0):
+			print("Particle %d not found"%N)
+			print("L,phi,A,K = %f,%f,%f,%f"%(L,phi,A,K))
+			print("iVec = %s"%str(iVec))
+			sys.exit()
 	pSt.isWgt = True
 
 #For position xVec = L,phi,alpha,K find which cell of pSpc it's in
