@@ -153,3 +153,14 @@ def fDist(L,P,A,K,f0=1.0e+6,beta=5.2):
 	fVal = f0*(K**(-beta))
 
 	return fVal
+
+#Get particle counts for L shell, all energy/phi/alpha
+def shellCount(pSt,L0,dL):
+	Ind = (pSt.L>L0) & (pSt.L<(L0+dL))
+
+	Kl = pSt.K[Ind]
+	Pl = pSt.phi[Ind]
+	Al = pSt.A[Ind]
+	Wl = pSt.W[Ind]
+
+	return Wl,Pl,Al,Kl

@@ -34,3 +34,8 @@ lpsd.CalcWeights(p0,pSpc)
 pF = lpsd.pState(h5p,Tf)
 pF.W = p0.W
 
+#Look at initial state distribution at outer shell
+W0,P0,A0,K0 = lpsd.shellCount(p0,9.9,0.2)
+
+#Look at final state at moderate shell
+Wf,Pf,Af,Kf = lpsd.shellCount(pF,8.0,0.2)
