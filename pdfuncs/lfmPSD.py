@@ -66,7 +66,14 @@ class pState(object):
 		t,y = lfmpp.getH5pT(h5pF,"yeq",Ts)
 
 		self.L = np.sqrt(x**2.0 + y**2.0)
-		self.phi = np.arctan2(y,x)*180.0/np.pi
+		#Calculate phi in degrees in [0,360]
+		pSgn = np.arctan2(y,x)*180.0/np.pi #[-180,180]
+		#Remap
+		Ind = pSgn<0
+		pSgn[Ind] = pSgn[Ind] + 360
+
+		self.phi = pSgn
+		
 		t,self.A = lfmpp.getH5pT(h5pF,"alpheq",Ts)
 		t,self.K = lfmpp.getH5pT(h5pF,"keveq",Ts)
 
