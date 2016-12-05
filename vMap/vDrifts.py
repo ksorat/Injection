@@ -12,6 +12,7 @@ fldSlc = RootDir + "/SNS-Bz-5-Vx400-N5-F200_mhd_1141000.vti"
 
 #fldSlc = "testSlc.vti"
 Quiet = True
+
 if (Quiet):
 	LaunchNowin()
 else:
