@@ -10,8 +10,8 @@ import pyVisit as pyv
 RootDir = os.path.expanduser('~') + "/Work/Injection/VTIs/"
 fldSlc = RootDir + "/SNS-Bz-5-Vx400-N5-F200_mhd_1141000.vti"
 
-fldSlc = "testSlc.vti"
-Quiet = False
+#fldSlc = "testSlc.vti"
+Quiet = True
 if (Quiet):
 	LaunchNowin()
 else:
