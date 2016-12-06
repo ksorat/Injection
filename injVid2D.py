@@ -44,7 +44,6 @@ plYs = [0.9,0.4]
 plTits = ["Residual Bz [nT]","Particle Energy [keV]"]
 
 
-print(Src1,T0,dt)
 #Do some defaults
 pyv.lfmExprs()
 
