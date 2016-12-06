@@ -15,11 +15,11 @@ h5p = Root + "/mInj/p_mInj.All.h5part"
 
 #Parameters for phase space
 Lmin = 4
-Lmax = 15
+Lmax = 16
 Nl = 30 #Number of L bins
 Np = 20 #Number of phi bins
 Na = 20 #Number of alpha bins
-Kmin = 10
+Kmin = 1
 Kmax = 500 
 Nk = 30 #Number of energy bins
 
@@ -34,31 +34,34 @@ lpsd.CalcWeights(p0,pSpc)
 pF = lpsd.pState(h5p,Tf)
 pF.W = p0.W
 
-#Look at initial state distribution at outer shell
-#W0,P0,A0,K0 = lpsd.shellCount(p0,9.9,0.2)
+#Calculate distribution functions
+lpsd.calcPDF(pF,pSpc)
+# #Look at initial state distribution at outer shell
+# #W0,P0,A0,K0 = lpsd.shellCount(p0,9.9,0.2)
 
-#Look at final state at moderate shell
-#Wf,Pf,Af,Kf = lpsd.shellCount(pF,8,1)
+# #Look at final state at moderate shell
+# #Wf,Pf,Af,Kf = lpsd.shellCount(pF,8,1)
 
-Ls = np.arange(5,12)
-dL = 1.0
+# Ls = np.arange(5,12)
+# dL = 1.0
 
-Nb = 80
-#Kb = np.logspace(1,3,Nb)
-Kb = np.linspace(10,850,Nb)
+# Nb = 80
+# #Kb = np.logspace(1,3,Nb)
+# Kb = np.linspace(10,850,Nb)
 
-NumPs = []
-bCs = []
+# NumPs = []
+# bCs = []
 
-for n in range(len(Ls)):
-	Wf,Kf,Muf = lpsd.shellCount(pF,Ls[n],dL)
-	NumP,bI = np.histogram(Kf,Kb,normed=True,weights=Wf)
-	NumPs.append(NumP)
-	bC = 0.5*(bI[0:-1]+bI[1:])
-	bCs.append(bC)
-	LabS = "%2.1f <= L <= %2.1f"%(Ls[n],Ls[n]+dL)
-	plt.loglog(bC,NumP,label=LabS)
-plt.legend()
-plt.show()
-#plt.hist(Kf,Kb,normed=True,weights=Wf,log=True)
-#plt.gca().set_xscale("log")
+# # for n in range(len(Ls)):
+# # 	Wf,Kf,Muf = lpsd.shellCount(pF,Ls[n],dL)
+# # 	NumP,bI = np.histogram(Kf,Kb,normed=True,weights=Wf)
+# # 	NumPs.append(NumP)
+# # 	bC = 0.5*(bI[0:-1]+bI[1:])
+# # 	bCs.append(bC)
+# # 	LabS = "%2.1f <= L <= %2.1f"%(Ls[n],Ls[n]+dL)
+# # 	plt.loglog(bC,NumP,label=LabS)
+# # plt.legend()
+# # plt.show()
+
+# #plt.hist(Kf,Kb,normed=True,weights=Wf,log=True)
+# #plt.gca().set_xscale("log")

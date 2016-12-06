@@ -78,6 +78,9 @@ class pState(object):
 		t,self.K = lfmpp.getH5pT(h5pF,"keveq",Ts)
 		t,self.Mu = lfmpp.getH5pT(h5pF,"mueq",Ts)
 
+		Ind = np.isnan(self.Mu) | (self.Mu<0)
+		self.Mu[Ind] = 0
+
 		self.W = np.zeros(self.Np) #Room for weights
 		self.isWgt = False #Weights not yet calculated/set
 
@@ -132,13 +135,27 @@ def CalcWeights(pSt,pSpc):
 	pSt.isWgt = True
 
 #Given particle state and weights, calculate distribution function for a given phase space
-def calcPDF(pSt,pSpc):
+#Calculate f(L,\phi,\alpha,K)
+#And f(L,\Mu)
+
+def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20):
+
+	#Squash particle data to fit into phase space
+	TINY = 1.0e-2 #Small relative to kev/L
+	Ind = pSt.L < pSpc.Li[0]; pSt.L[Ind] = pSpc.Li[0]
+	Ind = pSt.K < pSpc.Ki[0]; pSt.K[Ind] = pSpc.Ki[0]
+
+	Ind = pSt.L > pSpc.Li[-1]; pSt.L[Ind] = pSpc.Li[-1] - TINY
+	Ind = pSt.K > pSpc.Ki[-1]; pSt.K[Ind] = pSpc.Ki[-1] - TINY
 
 	#Loop through all particles
 	Np = pSt.Np
 	Found = np.zeros(Np,dtype=bool)
 
 	pSt.F = np.zeros(pSpc.dG.shape)
+	pSt.Flm = np.zeros((pSpc.Nl,Nmu))
+
+	dG_Mu = np.zeros(pSpc.dG.shape)
 
 	while not np.all(Found):
 		#Find first unweighted particle
@@ -157,22 +174,87 @@ def calcPDF(pSt,pSpc):
 		#Find all particles in cell iVec
 		inCell = locateP(pSt,pSpc,iVec)
 
+		NumIn = inCell.sum()
 		#Total weight in cell iVec
 		dW = pSt.W[inCell].sum()
 
-		pSt.F[iVec] = dW/pSPc.dG[iVec]
+
+		#Calculate characteristic Mu for cell iVec, use weighted average
+		Mu = (pSt.W[inCell]*pSt.Mu[inCell]).sum()/dW
+		dG_Mu[iVec] = Mu
+
+		pSt.F[iVec] = dW/pSpc.dG[iVec]
 		Found[inCell] = True
 
+		#print("Found %d now, %d total"%(inCell.sum(),Found.sum()))
 
+	#Fill L/Mu distribution function
+	pSt.Lc = pSpc.Lc
+	pSt.Li = pSpc.Li
+	pSt.Mui = np.logspace(np.log10(muMin),np.log10(muMax),Nmu+1)
+	pSt.Muc = 0.5*(pSt.Mui[0:-1] + pSt.Mui[1:])
+	pSt.Nmu = Nmu
+
+	for l in range(pSpc.Nl):
+		for m in range(Nmu):
+			#Find number of "real" particles with L,\Mu values in this cell
+			Ind_L = (pSt.L >= pSt.Li[l]) & (pSt.L < pSt.Li[l+1])
+			Ind_M = (pSt.Mu >= pSt.Mui[m]) & (pSt.Mu < pSt.Mui[m+1])
+			inCell = Ind_L & Ind_M
+			NumP = 0.0
+
+			if (inCell.sum() > 0):
+				#Number of particles is sum of weights of these particles
+				NumP = pSt.W[inCell].sum()
+	
+			#Find phase space volume associated with L,Mu
+			inVol = ( dG_Mu[l,:,:,:] >= pSt.Mui[m] ) & (dG_Mu[l,:,:,:] < pSt.Mui[m+1])
+			
+			
+			if (inVol.sum() > 0):
+				dG = pSpc.dG[l,inVol].sum()
+				pSt.Flm[l,m] = NumP/dG	
+			
+	pSt.isPDF = True
 #For position xVec = L,phi,alpha,K find which cell of pSpc it's in
 def locateCell(pSpc,xVec):
 
 	iVec = np.zeros(4,dtype=np.int)
-	iVec[0] = ((xVec[0] >= pSpc.Li[0:-1]) & (xVec[0] <= pSpc.Li[1:])).argmax()
-	iVec[1] = ((xVec[1] >= pSpc.Pi[0:-1]) & (xVec[1] <= pSpc.Pi[1:])).argmax()
-	iVec[2] = ((xVec[2] >= pSpc.Ai[0:-1]) & (xVec[2] <= pSpc.Ai[1:])).argmax()
-	iVec[3] = ((xVec[3] >= pSpc.Ki[0:-1]) & (xVec[3] <= pSpc.Ki[1:])).argmax()
 
+
+	Ind_0 = (xVec[0] >= pSpc.Li[0:-1]) & (xVec[0] <= pSpc.Li[1:])
+	Ind_1 = (xVec[1] >= pSpc.Pi[0:-1]) & (xVec[1] <= pSpc.Pi[1:])
+	Ind_2 = (xVec[2] >= pSpc.Ai[0:-1]) & (xVec[2] <= pSpc.Ai[1:])
+	Ind_3 = (xVec[3] >= pSpc.Ki[0:-1]) & (xVec[3] <= pSpc.Ki[1:])
+
+	if (Ind_0.any()):
+		iVec[0] = Ind_0.argmax()
+	else:
+		iVec[0] = -1
+
+	if (Ind_1.any()):
+		iVec[1] = Ind_1.argmax()
+	else:
+		iVec[1] = -1
+
+	if (Ind_2.any()):
+		iVec[2] = Ind_2.argmax()
+	else:
+		iVec[2] = -1
+
+	if (Ind_3.any()):
+		iVec[3] = Ind_3.argmax()
+	else:
+		iVec[3] = -1
+
+
+
+	# print(iVec)
+	if (iVec == -1).any():
+		print("Particle not localized to phase space")
+		print(xVec)
+		print(iVec)
+		sys.exit()
 	return tuple(iVec)
 
 #Find all particles from pSt in cell iVec of pSpc
