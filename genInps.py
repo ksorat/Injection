@@ -84,7 +84,7 @@ def genRunner(ComS,batchCom="lfmtpBatch.sh",fRunner="SubAll.sh"):
 
 SimComS = []
 
-gen_sInj = True
+gen_sInj = False
 gen_mInj = True #Multiple injection long run
 gen_Run = True
 
@@ -126,7 +126,7 @@ if (gen_sInj):
 			SimComS.append(ComS)
 
 #Multiple injection runs
-Nb = 1
+Nb = 10
 bId = 0 #Block ID, use to guarantee contiguous IDs
 
 Nk = 8 #Number of log-spaced energy bins
