@@ -15,8 +15,6 @@ titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection"]
 
 Stubs =["p50_sInj","p50xl_sInj"]
 
-outVid = h5pStub + ".mp4"
-
 Base = os.path.expanduser('~') + "/Work/Injection/"
 Base = Base + "Data/"
 
@@ -92,6 +90,7 @@ for n in range(len(titS)):
 	#Do time loop
 	pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
 	
+	outVid = Stubs[n] + ".mp4"
 	pyv.makeVid(Clean=True,outVid=outVid,tScl=2)
 
 	DeleteAllPlots()
