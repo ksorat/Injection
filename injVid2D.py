@@ -90,7 +90,7 @@ for n in range(len(titS)):
 	pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
 	
 	outVid = Stubs[n] + ".mp4"
-	pyv.makeVid(Clean=True,outVid=outVid,tScl=2)
+	pyv.makeVid(Clean=True,outVid=outVid,tScl=1)
 
 	DeleteAllPlots()
 	CloseDatabase(dbs[0])
