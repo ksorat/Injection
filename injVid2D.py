@@ -9,17 +9,23 @@ import pyVisit as pyv
 
 
 Spc = "H+"
-h5pStub = "pInj"
+
+h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part"]
+titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection"]
+
+Stubs =["p50_sInj","p50xl_sInj"]
+
+outVid = h5pStub + ".mp4"
 
 Base = os.path.expanduser('~') + "/Work/Injection/"
-Base = Base + "Data/Long/"
+Base = Base + "Data/"
 
-EqDir = Base + "eqSlc/" #eqSlc database
-pDir = Base + "H5p" #Directory of h5part
+EqDir = Base + "eqSlc_sInj/" #eqSlc database
+pDir = Base + "sInj" #Directory of h5part
 
 Quiet = True
 
-titS = "%s Injection"%(Spc)
+#titS = "%s Injection"%(Spc)
 
 #dBz 
 abBz = 25; 
@@ -39,47 +45,58 @@ plXs = [0.03]
 plYs = [0.9,0.4]
 plTits = ["Residual Bz [nT]","Particle Energy [keV]"]
 
-#Construct filenames/directory structure
-Src0 = EqDir + "/eqSlc.*.vti database"
-Src1 = pDir + "/" + h5pStub + ".All.h5part"
-dbs = [Src0,Src1]
-
-md0 = GetMetaData(dbs[0])
-dt = md0.times[1] - md0.times[0]
-T0 = md0.times[0] - md0.times[0] #Reset to zero
 
 print(Src1,T0,dt)
 #Do some defaults
 pyv.lfmExprs()
 
-#Open databases
-OpenDatabase(dbs[0])
-OpenDatabase(dbs[1])
 
+for n in range(len(titS)):
+	#Construct filenames/directory structure
+	Src0 = EqDir + "/eqSlc.*.vti database"
+	Src1 = pDir + "/" + h5pFile[n]
+	
+	dbs = [Src0,Src1]
+	
+	md0 = GetMetaData(dbs[0])
+	dt = md0.times[1] - md0.times[0]
+	T0 = md0.times[0] - md0.times[0] #Reset to zero
 
-#Create database correlation
-CreateDatabaseCorrelation("P2Fld",dbs,0)
+	#Open databases
+	OpenDatabase(dbs[0])
+	OpenDatabase(dbs[1])
+	
+	
+	#Create database correlation
+	CreateDatabaseCorrelation("P2Fld",dbs,0)
+	
+	DefineScalarExpression("isIn","in")
+	
+	#Create fields/particle plots
+	pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
+	pyv.lfmPScat(dbs[1],v4="kev",vBds=kevBds,cMap=pCMap,Inv=False)
+	
+	#Cutout
+	ActivateDatabase(dbs[1])
+	SetActivePlots( (1) )
+	pyv.onlyIn()
+	
+	#Gussy things up
+	tit = pyv.genTit( titS=titS[n] )
+	pyv.cleanLegends(plXs,plYs,plTits)
+	pyv.setAtts()
+	
+	#Let's see what we got
+	DrawPlots()
+	
+	#Do time loop
+	pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
+	
+	pyv.makeVid(Clean=True,outVid=outVid,tScl=2)
 
-DefineScalarExpression("isIn","in")
+	DeleteAllPlots()
+	CloseDatabase(dbs[0])
+	CloseDatabase(dbs[1])
+	pyv.killAnnotations()
+	os.system("mkdir tmpVid")
 
-#Create fields/particle plots
-pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
-pyv.lfmPScat(dbs[1],v4="kev",vBds=kevBds,cMap=pCMap,Inv=False)
-
-#Cutout
-ActivateDatabase(dbs[1])
-SetActivePlots( (1) )
-pyv.onlyIn()
-
-#Gussy things up
-tit = pyv.genTit( titS=titS )
-pyv.cleanLegends(plXs,plYs,plTits)
-pyv.setAtts()
-
-#Let's see what we got
-DrawPlots()
-
-#Do time loop
-pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
-outVid = h5pStub + ".mp4"
-pyv.makeVid(Clean=True,outVid=outVid,tScl=2)
