@@ -72,7 +72,7 @@ Ns = len(SpcsStubs)
 Nk = len(KStubs)
 lfmv.initLatex()
 
-#Create iterators
+dMuLab = 'Variation of 1st Invariant, $(\mu_{F}-\mu_{0})/\mu_{0}$'
 
 for s in range(Ns):
 	for k in range(Nk):
@@ -101,7 +101,7 @@ for s in range(Ns):
 		plt.hist2d(dMu,dK[Ind],[dMub,dKb],normed=True,norm=LogNorm(vmin=1.0e-2,vmax=2.0))
 		
 		plt.colorbar()
-		plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
+		plt.xlabel(dMuLab)
 		plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
 		#plt.savefig(figStub + ".dMu_dK.png")
 		#plt.close('all')
@@ -111,7 +111,7 @@ for s in range(Ns):
 		plt.hist2d(dMu,Af[Ind],[dMub,Ab],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=5.0e-2))
 		#plt.title('%s %02d (keV)'%(SpcsLab[s],KStubs[k]))
 		plt.colorbar()
-		plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
+		plt.xlabel(dMuLab)
 		plt.ylabel("Final Pitch Angle")
 		#plt.savefig(figStub + ".dMu_Af.png")
 		#plt.close('all')

@@ -68,11 +68,11 @@ RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
 vtiDir = RootDir + "/" + "eqSlc_" + Stub
 h5pDir = RootDir + "/" + Stub
 
+dMuLab = 'Variation of 1st Invariant, $(\mu_{F}-\mu_{0})/\mu_{0}$'
 Ns = len(SpcsStubs)
 Nk = len(KStubs)
 lfmv.initLatex()
 
-#Create iterators
 
 #Create figure/gridspec
 fig = plt.figure(figsize=figSize)
@@ -93,14 +93,14 @@ Ax = fig.add_subplot(gs[0])
 plt.hist2d(dMu,dK[Ind],[dMub,dKb],normed=True,norm=LogNorm(vmin=1.0e-2,vmax=2.0))
 
 plt.colorbar()
-plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
+plt.xlabel(dMuLab)
 plt.ylabel("Energization Fraction, $K_{F}/K_{0}$")
 
 #Fig 2
 Ax = fig.add_subplot(gs[1])
 plt.hist2d(dMu,Af[Ind],[dMub,Ab],normed=True,norm=LogNorm(vmin=1.0e-4,vmax=5.0e-2))
 plt.colorbar()
-plt.xlabel('Variation of 1st Invariant, $|\mu_{F}-\mu_{0}|/\mu_{0}$')
+plt.xlabel(dMuLab)
 plt.ylabel("Final Pitch Angle")
 
 #Fig 3
