@@ -79,7 +79,14 @@ fig = plt.figure(figsize=figSize)
 
 gs = gridspec.GridSpec(2,2)
 #Do 4 figures: dMu x dK, dMu x Af, A0 x dK, A0 x Af
-h5pFile = RootDir + "/sInj/p_xlInJ.K50.0001.h5part"
+nFig = 1
+Files = ["/sInj/p_xlInJ.K50.0001.h5part","/sInj/He_xlInJ.K50.0001.h5part","/sInj/O_xlInJ.K50.0001.h5part"]
+fOuts = ["pXL50.H.png","HeXL50.H.png","OXL50.H.png"]
+titSs = ["H+ XL 50 (keV)","He++ XL 50 (keV)","O+ XL 50 (keV)"]
+
+fOut = fOuts[nFig]
+titS = titSs[nFig]
+h5pFile = RootDir + Files[nFig]
 
 #Get changes
 print("Reading %s"%(h5pFile))
@@ -119,8 +126,8 @@ plt.xlabel("Initial Pitch Angle")
 plt.ylabel("Final Pitch Angle")
 
 #Save/clean
-plt.suptitle('H+ XL 50 (keV)')
-plt.savefig("pXL50.H.png",dpi=figQ)
+plt.suptitle(titS)
+plt.savefig(fOut,dpi=figQ)
 plt.close('all')
 	
 	
