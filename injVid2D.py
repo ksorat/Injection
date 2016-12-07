@@ -10,10 +10,17 @@ import pyVisit as pyv
 
 Spc = "H+"
 
-h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part"]
-titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection"]
+h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part",
+	"He_sInj.K50.0001.h5part","He_xlInJ.K50.0001.h5part",
+	"O_sInj.K50.0001.h5part","O_xlInJ.K50.0001.h5part"]
 
-Stubs =["p50_sInj","p50xl_sInj"]
+titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection",
+	"He++ 50 keV Injection","He++ 50 keV (XL) Injection",
+	"O+ 50 keV Injection","O+ 50 keV (XL) Injection"]
+
+Stubs =["p50_sInj","p50xl_sInj",
+	"He50_sInj","He50xl_sInj",
+	"O50_sInj","O50xl_sInj"]
 
 Base = os.path.expanduser('~') + "/Work/Injection/"
 Base = Base + "Data/"
