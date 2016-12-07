@@ -4,6 +4,7 @@ import numpy as np
 import lfmPSD as lpsd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 import os
 
 #First/Last steps
@@ -17,11 +18,11 @@ h5p = Root + "/mInj/p_mInj.All.h5part"
 Lmin = 4
 Lmax = 16
 Nl = 30 #Number of L bins
-Np = 20 #Number of phi bins
+Np = 2 #Number of phi bins
 Na = 20 #Number of alpha bins
 Kmin = 1
-Kmax = 500 
-Nk = 30 #Number of energy bins
+Kmax = 750 
+Nk = 50 #Number of energy bins
 
 #Create phase space
 pSpc = lpsd.PhaseSpace(Lmin,Lmax,Nl,Np,Na,Kmin,Kmax,Nk)
@@ -35,7 +36,16 @@ pF = lpsd.pState(h5p,Tf)
 pF.W = p0.W
 
 #Calculate distribution functions
-lpsd.calcPDF(pF,pSpc)
+lpsd.calcPDF(pF,pSpc,Nmu=40)
+
+#Plot some stuff
+cNorm = LogNorm(vmin=1.0e-6,vmax=1)
+
+
+plt.pcolor(pF.Mui,pF.Li,pF.Flm,norm=cNorm)
+plt.colorbar()
+plt.xscale('log')
+plt.show()
 # #Look at initial state distribution at outer shell
 # #W0,P0,A0,K0 = lpsd.shellCount(p0,9.9,0.2)
 

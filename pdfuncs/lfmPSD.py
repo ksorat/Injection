@@ -138,7 +138,7 @@ def CalcWeights(pSt,pSpc):
 #Calculate f(L,\phi,\alpha,K)
 #And f(L,\Mu)
 
-def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20):
+def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20,nOut=100):
 
 	#Squash particle data to fit into phase space
 	TINY = 1.0e-2 #Small relative to kev/L
@@ -156,7 +156,7 @@ def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20):
 	pSt.Flm = np.zeros((pSpc.Nl,Nmu))
 
 	dG_Mu = np.zeros(pSpc.dG.shape)
-
+	n = 0
 	while not np.all(Found):
 		#Find first unweighted particle
 		N = Found.argmin()
@@ -186,8 +186,10 @@ def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20):
 		pSt.F[iVec] = dW/pSpc.dG[iVec]
 		Found[inCell] = True
 
-		#print("Found %d now, %d total"%(inCell.sum(),Found.sum()))
-
+		if (n % nOut == 0):
+			print("Iteration %d, %d particles localized."%(n,Found.sum()))	
+		n = n+1
+		
 	#Fill L/Mu distribution function
 	pSt.Lc = pSpc.Lc
 	pSt.Li = pSpc.Li
