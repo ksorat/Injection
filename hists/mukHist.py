@@ -24,7 +24,7 @@ Nf = len(Files)
 dt = 1.0
 
 for n in range(Nf):
-	fIn = Rootdir + Files[n]
+	fIn = RootDir + Files[n]
 	fOut = fOuts[n]
 
 	t,K = lfmpp.getH5p(fIn,"kev")
