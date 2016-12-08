@@ -23,8 +23,8 @@ lfmv.initLatex()
 Nf = len(Files)
 dt = 1.0
 
-dkB = np.linspace(-1,1,100)
-dmB = np.linspace(-1,1,100)
+dkB = np.linspace(-0.1,0.1,100)
+dmB = np.linspace(-0.1,0.1,100)
 
 for n in range(Nf):
 	fIn = RootDir + Files[n]
