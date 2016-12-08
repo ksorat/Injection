@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 
 #Particle data
 Stub = "Inj"
-SpcsStubs = ["p","hepp","o"]
+SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
-KStubs = [10,25,50]
+KStubs = [10,50,100]
 
 Nb = 50
 k0 = 0; k1 = 300
@@ -26,11 +26,11 @@ Nk = len(KStubs)
 bins = np.linspace(k0,k1,Nb)
 lfmv.initLatex()
 
-for s in range(Ns):
+for k in range(Nk):
 	Ks = []
 	Leg = []
-	for k in range(Nk):
-		h5p = SpcsStubs[s] + Stub + "%02d"%KStubs[k] + ".All.h5part"
+	for s in range(Ns):
+		h5p = SpcsStubs[s] + Stub + "%02d"%KStubs[k] + ".0001.h5part"
 		figName = SpcsStubs[s] + ".kHist.png"
 		h5pFile = h5pDir + "/" + h5p
 		print("Reading %s"%h5pFile)
@@ -41,6 +41,7 @@ for s in range(Ns):
 		print("%s / K0 = %02d"%(SpcsLab[s],KStubs[k]))
 		print("\tMean K = %f"%K.mean())
 		print(" \tMax K = %f"%K.max())
+		print(" \tMin K = %f"%(K.min()))
 		Ks.append(K)
 
 	plt.hist(Ks,bins,normed=True)
