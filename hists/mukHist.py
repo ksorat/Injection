@@ -40,7 +40,7 @@ for k in range(len(K)):
 	for s in range(len(Spc)):
 		Files.append("%s_sInj.K%02d.0001.h5part"%(Spc[s],K[k]))
 		fOuts.append("%s%02d.mk.png"%(Spc[s],K[k]))
-		TitS.append("%s %02d keV"(%sLab[s],K[k]))
+		TitS.append("%s %02d keV"%(sLab[s],K[k]))
 
 for n in range(Nf):
 	fIn = RootDir + Files[n]
