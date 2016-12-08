@@ -23,13 +23,13 @@ h5p = Root + "/mInj/p_mInj.eqAll.h5part"
 #Parameters for phase space
 Lmin = 4
 Lmax = 16
-Nl = 30 #Number of L bins
-Np = 2 #Number of phi bins
+Nl = 48 #Number of L bins
+Np = 40 #Number of phi bins
 Na = 20 #Number of alpha bins
 Kmin = 1
 Kmax = 750 
 Nk = 50 #Number of energy bins
-Nmu = 40
+Nmu = 50
 
 if (doCalc):
 	#Create phase space
@@ -44,7 +44,7 @@ if (doCalc):
 	pF.W = p0.W
 	
 	#Calculate distribution functions
-	lpsd.calcPDF(pF,pSpc,Nmu=Nmu)
+	lpsd.calcPDF(pF,pSpc,muMin=30.0,muMax=1.0e+5,Nmu=Nmu)
 
 	#Save to pickle
 	print("Writing pickle")

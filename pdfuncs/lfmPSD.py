@@ -206,24 +206,26 @@ def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20,nOut=100):
 
 	for l in range(pSpc.Nl):
 		for m in range(Nmu):
+
+			#Find phase space volume associated with L,Mu
+			inVol = ( dG_Mu[l,:,:,:] >= pSt.Mui[m] ) & (dG_Mu[l,:,:,:] < pSt.Mui[m+1])
+
 			#Find number of "real" particles with L,\Mu values in this cell
 			Ind_L = (pSt.L >= pSt.Li[l]) & (pSt.L < pSt.Li[l+1])
 			Ind_M = (pSt.Mu >= pSt.Mui[m]) & (pSt.Mu < pSt.Mui[m+1])
 			inCell = Ind_L & Ind_M
 			NumP = 0.0
 
-			if (inCell.sum() > 0):
+			if (inCell.sum() > 5):
 				#Number of particles is sum of weights of these particles
 				NumP = pSt.W[inCell].sum()
 	
-			#Find phase space volume associated with L,Mu
-			inVol = ( dG_Mu[l,:,:,:] >= pSt.Mui[m] ) & (dG_Mu[l,:,:,:] < pSt.Mui[m+1])
-			
-			
+			# #Alternative distribution function value of "real" particles
+			# NumP = (pSt.F[l,inVol]*pSpc.dG[l,inVol]).sum()
+
 			if (inVol.sum() > 0):
 				dG = pSpc.dG[l,inVol].sum()
 				pSt.Flm[l,m] = NumP/dG	
-
 	#Fill L/K distribution function
 	pSt.Kc = pSpc.Kc
 	pSt.Ki = pSpc.Ki
@@ -322,11 +324,11 @@ def shellCount(pSt,L0,dL):
 #Generates two panel figure of f(L,Mu) or f(L,K)
 
 #Ls = list of L shells to plot in top panel
-def genDistPic(pSt,Ls=[7,9,11,13],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300,doMu=True):
+def genDistPic(pSt,Ls=[6,7,8,9,10],dMin=1.0e-8,dMax=1.0,figSize=(10,10),figQ=300,doMu=True):
 
 	LW = 1.5
 	if (doMu):
-		xLim = (10,2e+4)
+		xLim = (30,2e+4)
 		xI = pSt.Mui
 		xC = pSt.Muc
 		F = pSt.Flm
@@ -334,7 +336,7 @@ def genDistPic(pSt,Ls=[7,9,11,13],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300,
 		fOut = "pdfMu.png"
 	else:
 		#Energy
-		xLim = (1,500)
+		xLim = (3,500)
 		xI = pSt.Ki
 		xC = pSt.Kc
 		F = pSt.Flk
@@ -347,7 +349,7 @@ def genDistPic(pSt,Ls=[7,9,11,13],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300,
 	LegS = []
 	for i in range(Nlp):
 		iLs[i] = np.abs(pSt.Lc-Ls[i]).argmin()
-		lS = "L = %2.2f"%(pSt.Lc[iLs[i]])
+		lS = "L = %d"%(np.round(pSt.Lc[iLs[i]]))
 		LegS.append(lS)
 
 	cNorm = LogNorm(vmin=dMin,vmax=dMax)
