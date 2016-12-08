@@ -14,7 +14,7 @@ SpcsLab = ["H+","He++","O+"]
 KStubs = [10,50,100]
 
 Nb = 50
-k0 = 0; k1 = 300
+Kmax = [250,500,750]
 
 #Locations
 RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
@@ -23,7 +23,7 @@ h5pDir = RootDir + "/" "sInj"
 
 Ns = len(SpcsStubs)
 Nk = len(KStubs)
-bins = np.linspace(k0,k1,Nb)
+
 lfmv.initLatex()
 
 for k in range(Nk):
@@ -31,7 +31,7 @@ for k in range(Nk):
 	Leg = []
 	for s in range(Ns):
 		h5p = SpcsStubs[s] + "_" + Stub + ".K%02d"%KStubs[k] + ".0001.h5part"
-		figName = SpcsStubs[s] + ".kHist.png"
+		figName = "K%02d"%KStubs[k] + ".kHist.png"
 		h5pFile = h5pDir + "/" + h5p
 		print("Reading %s"%h5pFile)
 
@@ -43,8 +43,9 @@ for k in range(Nk):
 		print(" \tMax K = %f"%K.max())
 		print(" \tMin K = %f"%(K.min()))
 		Ks.append(K)
-
-	plt.hist(Ks,bins,normed=True)
+		
+	bins = np.linspace(0,Kmax[k],Nb)
+	plt.hist(Ks,bins,normed=True,log=True)
 	plt.legend(Leg)
 	plt.xlabel("Final Energy [keV]")
 	plt.ylabel("Population Density")
