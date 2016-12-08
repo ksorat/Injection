@@ -11,7 +11,7 @@ import pyVisit as pyv
 Spc = "H+"
 
 h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part",
-	"He_sInj.K50.0001.h5part","He_xlInJ.K50.0001.h5part",
+	"Hepp_sInj.K50.0001.h5part","Hepp_xlInJ.K50.0001.h5part",
 	"O_sInj.K50.0001.h5part","O_xlInJ.K50.0001.h5part"]
 
 titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection",
