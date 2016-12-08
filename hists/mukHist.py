@@ -11,16 +11,11 @@ from matplotlib.colors import LogNorm
 
 #Locations
 RootDir = os.path.expanduser('~') + "/Work/Injection/Data/sInj/"
-
-Files = ["O_sInj.K50.0001.h5part"]
-fOuts = ["O50.mk.png"]
 #Figure details
 figSize = (10,10)
 figQ = 300 #DPI
 
 lfmv.initLatex()
-
-Nf = len(Files)
 dt = 1.0
 
 dkB = np.linspace(-1,1,100)
@@ -42,6 +37,7 @@ for k in range(len(K)):
 		fOuts.append("%s%02d.mk.png"%(Spc[s],K[k]))
 		TitS.append("%s %02d keV"%(sLab[s],K[k]))
 
+Nf = len(Files)
 for n in range(Nf):
 	fIn = RootDir + Files[n]
 	fOut = fOuts[n]
