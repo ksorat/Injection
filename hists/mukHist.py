@@ -26,7 +26,7 @@ dt = 1.0
 for n in range(Nf):
 	fIn = Files[n]
 	fOut = fOuts[n]
-	
+
 	t,K = getH5p(fIn,"kev")
 	t,Mu = getH5p(fIn,"Mu")
 
@@ -39,7 +39,7 @@ for n in range(Nf):
 	#Restrict to good values
 	Ind = (Mu[1:-3] < 1.0e-8) & (np.isnan(Mu[1:-3]))
 	dlMu[Ind] = 0.0
-	dlK[Ind] 0.0
+	dlK[Ind] = 0.0
 
 	plt.hist2d(dlMu,dlK,normed=True)
 
