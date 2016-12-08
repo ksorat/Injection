@@ -39,6 +39,7 @@ def getPs(h5pDir,h5pStub,t,dt=10.0):
 
 Spcs = ["H+","He++","O+"]
 h5ps = ["p_sInj.K50.0001.h5part","Hepp_sInj.K50.0001.h5part","O_sInj.K50.0001.h5part"]
+titS = "Injection, K = 50 [keV]"
 dt = 1.0
 Ts = [100,200,350,500]
 
@@ -53,7 +54,7 @@ fldOpac = 0.5
 fldDomX = [-15,13]
 fldDomY = [-20,20]
 
-pBds = [50,150]
+pBds = [25,200]
 pCMap = "cool"
 pSize = 2; pMark = 'o'; pLW = 0.2
 
@@ -70,7 +71,7 @@ fig = plt.figure(figsize=figSize,tight_layout=True)
 Ns = len(Spcs)
 Nt = len(Ts)
 
-gs = gridspec.GridSpec(Ns,Nt)
+gs = gridspec.GridSpec(Ns+2,Nt,height_ratios=[0.25,4,4,4,1])
 
 for t in range(Nt):
 	xi,yi,dBz = getFld(vtiDir,Ts[t],dt)
@@ -103,6 +104,10 @@ for t in range(Nt):
 		pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
 		plt.axis('scaled')
 		plt.xlim(fldDomX); plt.ylim(fldDomY)
+
+AxCbar = plt.subplot(gs[-1,:])
+plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
+plt.suptitle(titS,fontsize="large")
 		
 #gs.tight_layout(fig)
 plt.savefig(figName,dpi=figQ)
