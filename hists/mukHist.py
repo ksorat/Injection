@@ -40,11 +40,11 @@ for n in range(Nf):
 	dm = dlMu.flatten()
 	dk = dlK.flatten()
 
-	Ind = (muf > 1.0e-8) | (not np.isnan(muf))
+	Ind = (muf > 1.0e-8) &  (~ np.isnan(muf))
 
 	dm = dm[Ind]
 	dk = dk[Ind]
-	
+
 	# #Restrict to good values
 	# Ind = (Mu[1:-3,:] < 1.0e-8) | (np.isnan(Mu[1:-3,:]))
 	# dlMu[Ind] = 0.0
