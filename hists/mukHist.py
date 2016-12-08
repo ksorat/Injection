@@ -23,6 +23,9 @@ lfmv.initLatex()
 Nf = len(Files)
 dt = 1.0
 
+dkB = np.linspace(-5,5,100)
+dmB = np.linspace(-5,5,100)
+
 for n in range(Nf):
 	fIn = RootDir + Files[n]
 	fOut = fOuts[n]
@@ -48,7 +51,7 @@ for n in range(Nf):
 	Ind = ( ~ np.isnan(dm) )
 	dm = dm[Ind]
 	dk = dk[Ind]
-	
+
 	# #Restrict to good values
 	# Ind = (Mu[1:-3,:] < 1.0e-8) | (np.isnan(Mu[1:-3,:]))
 	# dlMu[Ind] = 0.0
@@ -57,7 +60,7 @@ for n in range(Nf):
 	# dm = dlMu.flatten()
 	# dk = dlK.flatten()
 
-	# plt.hist2d(dm,dk,100,normed=True)
+	plt.hist2d(dm,dk,[dmB,dkB],normed=True)
 
-	# plt.savefig(fOut,dpi=figQ)
-	# plt.close('all')
+	plt.savefig(fOut,dpi=figQ)
+	plt.close('all')
