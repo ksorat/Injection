@@ -53,7 +53,7 @@ for n in range(Nf):
 	# dm = dlMu.flatten()
 	# dk = dlK.flatten()
 
-	plt.hist2d(dm,dk,100,normed=True)
+	# plt.hist2d(dm,dk,100,normed=True)
 
-	plt.savefig(fOut,dpi=figQ)
-	plt.close('all')
+	# plt.savefig(fOut,dpi=figQ)
+	# plt.close('all')
