@@ -50,6 +50,7 @@ pyv.lfmPCol(Src0,"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 
 #Draw wedges
 Nw = len(Phi0s)
+Nw = 1
 for n in range(Nw):
 	DefineScalarExpression("RCut0_%d"%(n),"if( ge(Rcyl, %f), 1, 0)"%(R0s[n])) 
 	DefineScalarExpression("RCut1_%d"%(n),"if( le(Rcyl, %f), 1, 0)"%(R1s[n])) 
