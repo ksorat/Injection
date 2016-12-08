@@ -10,7 +10,7 @@ import os
 import cPickle as pickle
 
 #Load or calculate
-doCalc = True
+doCalc = False
 fPkl = "pdfunc.pkl"
 
 #First/Last steps
