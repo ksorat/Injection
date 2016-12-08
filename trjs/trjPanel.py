@@ -67,7 +67,7 @@ def getP(h5pDir,h5pStub,pId,vId="kev",tCut=1.0e+8):
 Stub = "sInj"
 h5Mid = "0001"
 
-SpcsStubs = ["p","He","O"]
+SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
 
 KStubs = [10,50,100]

@@ -24,7 +24,7 @@ def getA0(h5pFile):
 	return A0
 
 def getdMu(h5pFile):
-	TINY = 1.0
+	TINY = 1.0e-8
 	pIds,Muf = lfmpp.getH5pFin(h5pFile ,"Mu")
 	pIds,Mu0 = lfmpp.getH5pInit(h5pFile,"Mu")
 	Ind = (Muf > TINY) & (Mu0 > TINY)
