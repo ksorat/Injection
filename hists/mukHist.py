@@ -23,8 +23,8 @@ lfmv.initLatex()
 Nf = len(Files)
 dt = 1.0
 
-dkB = np.linspace(-0.1,0.1,100)
-dmB = np.linspace(-0.1,0.1,100)
+dkB = np.linspace(-0.05,0.05,100)
+dmB = np.linspace(-0.05,0.05,100)
 
 for n in range(Nf):
 	fIn = RootDir + Files[n]
@@ -60,10 +60,9 @@ for n in range(Nf):
 	# dm = dlMu.flatten()
 	# dk = dlK.flatten()
 
-	plt.hist2d(dm,dk,[dmB,dkB],normed=True)
-
-	plt.savefig(fOut,dpi=figQ)
+	plt.hist2d(dm,dk,[dmB,dkB],normed=True,log=True)
 	plt.colorbar()
 	plt.xlabel('dlog(\mu)/dt')
 	plt.ylabel('dlog(K)/dt')
+	plt.savefig(fOut,dpi=figQ)
 	plt.close('all')
