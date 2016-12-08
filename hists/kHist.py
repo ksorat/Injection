@@ -8,7 +8,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 #Particle data
-Stub = "Inj"
+Stub = "sInj"
 SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
 KStubs = [10,50,100]
@@ -30,7 +30,7 @@ for k in range(Nk):
 	Ks = []
 	Leg = []
 	for s in range(Ns):
-		h5p = SpcsStubs[s] + Stub + "%02d"%KStubs[k] + ".0001.h5part"
+		h5p = SpcsStubs[s] + "_" + Stub + ".K%02d"%KStubs[k] + ".0001.h5part"
 		figName = SpcsStubs[s] + ".kHist.png"
 		h5pFile = h5pDir + "/" + h5p
 		print("Reading %s"%h5pFile)
