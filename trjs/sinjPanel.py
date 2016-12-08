@@ -110,6 +110,6 @@ AxCbar = plt.subplot(gs[-1,:])
 plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
 plt.suptitle(titS,fontsize="large")
 		
-#gs.tight_layout(fig)
+gs.tight_layout(fig)
 plt.savefig(figName,dpi=figQ)
 
