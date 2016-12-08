@@ -159,9 +159,11 @@ def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20,nOut=100):
 
 	pSt.F = np.zeros(pSpc.dG.shape)
 	pSt.Flm = np.zeros((pSpc.Nl,Nmu))
+	pSt.Flk = np.zeros((pSpc.Nl,pSpc.Nk))
 
 	dG_Mu = np.zeros(pSpc.dG.shape)
 	n = 0
+
 	while not np.all(Found):
 		#Find first unweighted particle
 		N = Found.argmin()
@@ -221,7 +223,26 @@ def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20,nOut=100):
 			if (inVol.sum() > 0):
 				dG = pSpc.dG[l,inVol].sum()
 				pSt.Flm[l,m] = NumP/dG	
-			
+
+	#Fill L/K distribution function
+	pSt.Kc = pSpc.Kc
+	pSt.Ki = pSpc.Ki
+	for l in range(pSpc.Nl):
+		for k in range(pSpc.Nk):
+			#Find number of real particles with L/K values in this cell
+			Ind_L = (pSt.L >= pSt.Li[l]) & (pSt.L < pSt.Li[l+1])
+			Ind_K = (pSt.K >= pSt.Ki[k]) & (pSt.K < pSt.Ki[k+1])
+			inCell = Ind_L & Ind_K
+			NumP = 0.0
+
+			if (inCell.sum() > 0):
+				#Number of particles is sum of weights of these particles
+				NumP = pSt.W[inCell].sum()
+
+			#Find phase space volume associated with L,K
+			dG = pSpc.dG[l,:,:,k].sum()
+			pSt.Flk[l,k] = NumP/dG
+
 	pSt.isPDF = True
 #For position xVec = L,phi,alpha,K find which cell of pSpc it's in
 def locateCell(pSpc,xVec):
@@ -298,12 +319,27 @@ def shellCount(pSt,L0,dL):
 	Mul = pSt.Mu[Ind]
 	return Wl,Kl,Mul
 
-#Generates two panel figure of f(L,Mu)
+#Generates two panel figure of f(L,Mu) or f(L,K)
+
 #Ls = list of L shells to plot in top panel
-def genDistPic(pSt,Ls=[7,9,11,13],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300):
+def genDistPic(pSt,Ls=[7,9,11,13],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300,doMu=True):
 
 	LW = 1.5
-	mLim = (10,2e+4)
+	if (doMu):
+		xLim = (10,2e+4)
+		xI = pSt.Mui
+		xC = pSt.Muc
+		F = pSt.Flm
+		xLab = "First Invariant [keV/nT]"
+		fOut = "pdfMu.png"
+	else:
+		#Energy
+		xLim = (1,500)
+		xI = pSt.Ki
+		xC = pSt.Kc
+		F = pSt.Flk
+		xLab = "Energy [keV]"
+		fOut = "pdfK.png"
 	cbLab = "Density"
 	Ls = np.array(Ls)
 	Nlp = len(Ls)
@@ -317,27 +353,33 @@ def genDistPic(pSt,Ls=[7,9,11,13],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300)
 	cNorm = LogNorm(vmin=dMin,vmax=dMax)
 
 	fig = plt.figure(figsize=figSize)#,tight_layout=True)
-	gs = gridspec.GridSpec(3,1,height_ratios=[4,8,0.25])
+	#gs = gridspec.GridSpec(3,1,height_ratios=[4,8,0.1])
+	gsOut = gridspec.GridSpec(2,1,height_ratios=[50,1],top=0.95,hspace=0.2)
+	gsTop = gridspec.GridSpecFromSubplotSpec(2,1,subplot_spec = gsOut[0],hspace=0.025,height_ratios=[1,2])
+	gsBot = gridspec.GridSpecFromSubplotSpec(1,1,subplot_spec = gsOut[1])
 
 	#Do 1D plots
-	Ax = fig.add_subplot(gs[0,0])
+	Ax = fig.add_subplot(gsTop[0,0])
+
 	for i in range(Nlp):
-		Ax = plt.loglog(pSt.Muc,pSt.Flm[iLs[i],:],label=LegS[i],linewidth=LW)
+		Ax = plt.loglog(xC,F[iLs[i],:],label=LegS[i],linewidth=LW)
 	plt.setp(plt.gca().get_xticklabels(),visible=False)
-	plt.xlim(mLim)
+	plt.xlim(xLim)
 	plt.legend(loc='lower left',fontsize="small")
 
 	#Do 2D histogram
-	Ax = fig.add_subplot(gs[1,0])
-	pCol = Ax.pcolor(pSt.Mui,pSt.Li,pSt.Flm,norm=cNorm)
+	Ax = fig.add_subplot(gsTop[1,0])
+	pCol = Ax.pcolor(xI,pSt.Li,F,norm=cNorm)
 	plt.xscale('log')
-	plt.xlabel('First Invariant [keV/nT]')
+	plt.xlabel(xLab)
 	plt.ylabel('L Shell')
-	plt.xlim(mLim)
+	plt.xlim(xLim)
 
 	#Do colorbar
-	AxCbar = plt.subplot(gs[-1,:])
+	#AxCbar = plt.subplot(gs[-1,:])
+	AxCbar = plt.subplot(gsBot[-1,:])
 	plt.colorbar(pCol,cax=AxCbar,orientation='horizontal',label=cbLab)
 
-	
-
+	#plt.suptitle("Big title")
+	plt.savefig(fOut,dpi=figQ)
+	plt.close('all')
