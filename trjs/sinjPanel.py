@@ -78,7 +78,7 @@ for t in range(Nt):
 	xi,yi,dBz = getFld(vtiDir,Ts[t],dt)
 	for s in range(Ns):
 		
-		Ax = fig.add_subplot(gs[s,t])
+		Ax = fig.add_subplot(gs[s+1,t])
 		if (t == 0):
 			plt.ylabel(Spcs[s],fontsize="large")
 		elif (t == Nt-1):
