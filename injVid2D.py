@@ -11,7 +11,7 @@ import pyVisit as pyv
 Spc = "H+"
 
 h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part",
-	"Hepp_sInj.K50.0001.h5part","Hepp_xlInJ.K50.0001.h5part",
+	"Hepp_sInj.K50.0001.h5part","Hepp_xlInj.K50.0001.h5part",
 	"O_sInj.K50.0001.h5part","O_xlInJ.K50.0001.h5part"]
 
 titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection",
@@ -54,8 +54,9 @@ plTits = ["Residual Bz [nT]","Particle Energy [keV]"]
 #Do some defaults
 pyv.lfmExprs()
 
-
-for n in range(len(titS)):
+nFigs = range(len(titS))
+nFigs = [3,4,5]
+for n in nFigs:
 	#Construct filenames/directory structure
 	Src0 = EqDir + "/eqSlc.*.vti database"
 	Src1 = pDir + "/" + h5pFile[n]
