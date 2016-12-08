@@ -13,7 +13,7 @@ SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
 KStubs = [10,50,100]
 
-Nb = 50
+Nb = 25
 Kmax = [250,500,750]
 
 #Locations
@@ -43,7 +43,7 @@ for k in range(Nk):
 		print(" \tMax K = %f"%K.max())
 		print(" \tMin K = %f"%(K.min()))
 		Ks.append(K)
-		
+
 	bins = np.linspace(0,Kmax[k],Nb)
 	plt.hist(Ks,bins,normed=True,log=True)
 	plt.legend(Leg)
