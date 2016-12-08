@@ -63,7 +63,7 @@ for n in range(Nf):
 
 	plt.hist2d(dm,dk,[dmB,dkB],normed=True,norm=hNorm)
 	plt.colorbar()
-	plt.xlabel('dlog(\mu)/dt')
+	plt.xlabel('dlog($\mu$)/dt')
 	plt.ylabel('dlog(K)/dt')
 	plt.savefig(fOut,dpi=figQ)
 	plt.close('all')
