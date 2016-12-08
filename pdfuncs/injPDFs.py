@@ -37,14 +37,14 @@ pF.W = p0.W
 
 #Calculate distribution functions
 lpsd.calcPDF(pF,pSpc,Nmu=40)
-
+lpsd.genDistPic(pF)
 #Plot some stuff
-cNorm = LogNorm(vmin=1.0e-6,vmax=1)
+# cNorm = LogNorm(vmin=1.0e-6,vmax=1)
 
 
-plt.pcolor(pF.Mui,pF.Li,pF.Flm,norm=cNorm)
-plt.colorbar()
-plt.xscale('log')
+# plt.pcolor(pF.Mui,pF.Li,pF.Flm,norm=cNorm)
+# plt.colorbar()
+# plt.xscale('log')
 plt.show()
 # #Look at initial state distribution at outer shell
 # #W0,P0,A0,K0 = lpsd.shellCount(p0,9.9,0.2)

@@ -84,12 +84,12 @@ def genRunner(ComS,batchCom="lfmtpBatch.sh",fRunner="SubAll.sh"):
 
 SimComS = []
 
-gen_sInj = False
-gen_mInj = True #Multiple injection long run
+gen_sInj = True
+gen_mInj = False #Multiple injection long run
 gen_Run = True
 
 #Single injection runs
-Spcs = ["p","O","He"]
+Spcs = ["p","O","Hepp"]
 K0s = [10,50,100]
 rad = [10,12.2,100]
 phi = [157.5,170,50]

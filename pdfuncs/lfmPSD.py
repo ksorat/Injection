@@ -3,6 +3,11 @@
 import numpy as np
 import lfmPostproc as lfmpp
 import sys
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
+import matplotlib.gridspec as gridspec
+
 #Generate phase space
 #Take in Lmin/Lmax,Nl
 #Take in Nphi
@@ -292,3 +297,21 @@ def shellCount(pSt,L0,dL):
 	Wl = pSt.W[Ind]
 	Mul = pSt.Mu[Ind]
 	return Wl,Kl,Mul
+
+#Generates two panel figure of f(L,Mu)
+def genDistPic(pSt,Ls=[6,8,10,12],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300):
+
+	Ls = np.array(Ls)
+	cNorm = LogNorm(vmin=dMin,vmax=dMax)
+
+	fig = plt.figure(figsize=figSize)#,tight_layout=True)
+	gs = gridspec.GridSpec(3,1)
+
+	#Do 2D histogram
+	Ax = fig.add_subplot(gs[1,0])
+	pCol = Ax.pcolor(pF.Mui,pF.Li,pF.Flm,norm=cNorm)
+
+	AxCbar = plt.subplot(gs[-1,:])
+	plt.colorbar(pCol,cax=AxCbar,orientation='horizontal',label=cbLab)
+
+	plt.show()
