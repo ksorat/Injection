@@ -25,7 +25,7 @@ dt = 1.0
 
 dkB = np.linspace(-1,1,100)
 dmB = np.linspace(-1,1,100)
-hNorm = LogNorm(vmin=1.0e-2,vmax=100)
+hNorm = LogNorm(vmin=1.0e-4,vmax=1.0e+2)
 
 for n in range(Nf):
 	fIn = RootDir + Files[n]
