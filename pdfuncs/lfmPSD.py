@@ -299,19 +299,45 @@ def shellCount(pSt,L0,dL):
 	return Wl,Kl,Mul
 
 #Generates two panel figure of f(L,Mu)
-def genDistPic(pSt,Ls=[6,8,10,12],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300):
+#Ls = list of L shells to plot in top panel
+def genDistPic(pSt,Ls=[7,9,11,13],dMin=1.0e-6,dMax=1.0,figSize=(10,10),figQ=300):
 
+	LW = 1.5
+	mLim = (10,2e+4)
+	cbLab = "Density"
 	Ls = np.array(Ls)
+	Nlp = len(Ls)
+	iLs = np.zeros(Nlp,dtype=int)
+	LegS = []
+	for i in range(Nlp):
+		iLs[i] = np.abs(pSt.Lc-Ls[i]).argmin()
+		lS = "L = %2.2f"%(pSt.Lc[iLs[i]])
+		LegS.append(lS)
+
 	cNorm = LogNorm(vmin=dMin,vmax=dMax)
 
 	fig = plt.figure(figsize=figSize)#,tight_layout=True)
-	gs = gridspec.GridSpec(3,1)
+	gs = gridspec.GridSpec(3,1,height_ratios=[4,8,0.25])
+
+	#Do 1D plots
+	Ax = fig.add_subplot(gs[0,0])
+	for i in range(Nlp):
+		Ax = plt.loglog(pSt.Muc,pSt.Flm[iLs[i],:],label=LegS[i],linewidth=LW)
+	plt.setp(plt.gca().get_xticklabels(),visible=False)
+	plt.xlim(mLim)
+	plt.legend(loc='lower left',fontsize="small")
 
 	#Do 2D histogram
 	Ax = fig.add_subplot(gs[1,0])
-	pCol = Ax.pcolor(pF.Mui,pF.Li,pF.Flm,norm=cNorm)
+	pCol = Ax.pcolor(pSt.Mui,pSt.Li,pSt.Flm,norm=cNorm)
+	plt.xscale('log')
+	plt.xlabel('First Invariant [keV/nT]')
+	plt.ylabel('L Shell')
+	plt.xlim(mLim)
 
+	#Do colorbar
 	AxCbar = plt.subplot(gs[-1,:])
 	plt.colorbar(pCol,cax=AxCbar,orientation='horizontal',label=cbLab)
 
-	plt.show()
+	
+
