@@ -27,8 +27,8 @@ for n in range(Nf):
 	fIn = Files[n]
 	fOut = fOuts[n]
 
-	t,K = getH5p(fIn,"kev")
-	t,Mu = getH5p(fIn,"Mu")
+	t,K = lfmpp.getH5p(fIn,"kev")
+	t,Mu = lfmpp.getH5p(fIn,"Mu")
 
 	dK = K[2:-2,:] - K[0:-4,:]
 	dlK = dK/(dt*K[1:-3,:])
