@@ -37,11 +37,11 @@ for n in range(Nf):
 	dlMu = dMu/(dt*Mu[1:-3,:])
 
 	#Restrict to good values
-	Ind = (Mu[1:-3] < 1.0e-8) & (np.isnan(Mu[1:-3]))
+	Ind = (Mu[1:-3,:] < 1.0e-8) & (np.isnan(Mu[1:-3,:]))
 	dlMu[Ind] = 0.0
 	dlK[Ind] = 0.0
 
-	plt.hist2d(dlMu,dlK,normed=True)
+	plt.hist2d(dlMu,dlK,100,normed=True)
 
 	plt.savefig(fOut,dpi=figQ)
 	plt.close('all')
