@@ -72,7 +72,7 @@ fig = plt.figure(figsize=figSize,tight_layout=True)
 Ns = len(Spcs)
 Nt = len(Ts)
 
-gs = gridspec.GridSpec(Ns+2,Nt,height_ratios=[0.25,4,4,4,0.5])
+gs = gridspec.GridSpec(Ns+2,Nt,height_ratios=[0.1,4,4,4,0.25])
 
 for t in range(Nt):
 	xi,yi,dBz = getFld(vtiDir,Ts[t],dt)
@@ -110,6 +110,6 @@ AxCbar = plt.subplot(gs[-1,:])
 plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
 plt.suptitle(titS,fontsize="large")
 		
-gs.tight_layout(fig)
+#gs.tight_layout(fig)
 plt.savefig(figName,dpi=figQ)
 
