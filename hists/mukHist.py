@@ -27,6 +27,21 @@ dkB = np.linspace(-1,1,100)
 dmB = np.linspace(-1,1,100)
 hNorm = LogNorm(vmin=1.0e-4,vmax=1.0e+2)
 
+
+#Create Files/fOuts/TitS
+Files = []
+fOuts = []
+TitS = []
+K = [10,50,100]
+Spc = ["p","Hepp","O"]
+sLab = ["H+","He++","O+"]
+
+for k in range(len(K)):
+	for s in range(len(Spc)):
+		Files.append("%s_sInj.K%02d.0001.h5part"%(Spc[s],K[k]))
+		fOuts.append("%s%02d.mk.png"%(Spc[s],K[k]))
+		TitS.append("%s %02d keV"%sLab[s],K[k])
+
 for n in range(Nf):
 	fIn = RootDir + Files[n]
 	fOut = fOuts[n]
@@ -65,5 +80,6 @@ for n in range(Nf):
 	plt.colorbar()
 	plt.xlabel('dlog($\mu$)/dt')
 	plt.ylabel('dlog(K)/dt')
+	plt.title(TitS[n])
 	plt.savefig(fOut,dpi=figQ)
 	plt.close('all')
