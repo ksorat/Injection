@@ -46,7 +46,7 @@ figQ = 300 #DPI
 Stub = "sInj"
 h5Mid = "0001"
 
-SpcsStubs = ["p","He","O"]
+SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
 KStubs = [10,50,100]
 

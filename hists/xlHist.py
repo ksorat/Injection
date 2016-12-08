@@ -80,7 +80,7 @@ fig = plt.figure(figsize=figSize)
 gs = gridspec.GridSpec(2,2)
 #Do 4 figures: dMu x dK, dMu x Af, A0 x dK, A0 x Af
 nFig = 2
-Files = ["/sInj/p_xlInJ.K50.0001.h5part","/sInj/He_xlInJ.K50.0001.h5part","/sInj/O_xlInJ.K50.0001.h5part"]
+Files = ["/sInj/p_xlInJ.K50.0001.h5part","/sInj/Hepp_xlInJ.K50.0001.h5part","/sInj/O_xlInJ.K50.0001.h5part"]
 fOuts = ["pXL50.H.png","HeXL50.H.png","OXL50.H.png"]
 titSs = ["H+ XL 50 (keV)","He++ XL 50 (keV)","O+ XL 50 (keV)"]
 
