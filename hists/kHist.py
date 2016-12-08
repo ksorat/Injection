@@ -19,7 +19,7 @@ k0 = 0; k1 = 300
 #Locations
 RootDir = os.path.expanduser('~') + "/Work/Injection/Data"
 vtiDir = RootDir + "/" + "eqSlc"
-h5pDir = RootDir + "/" "H5p"
+h5pDir = RootDir + "/" "sInj"
 
 Ns = len(SpcsStubs)
 Nk = len(KStubs)
