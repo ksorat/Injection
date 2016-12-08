@@ -43,7 +43,7 @@ titS = "Injection, K = 50 [keV]"
 dt = 1.0
 Ts = [100,200,350,500]
 
-figSize = (12,10)
+figSize = (10,10)
 figQ = 300 #DPI
 figName = "fpPanel.png"
 
