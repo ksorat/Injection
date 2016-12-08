@@ -56,6 +56,7 @@ fldDomY = [-20,20]
 
 pBds = [25,200]
 pCMap = "cool"
+pLab = "Energy [keV]"
 pSize = 2; pMark = 'o'; pLW = 0.2
 
 #Locations
