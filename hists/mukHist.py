@@ -36,12 +36,24 @@ for n in range(Nf):
 	dMu = Mu[2:-2,:] - Mu[0:-4,:]
 	dlMu = dMu/(dt*Mu[1:-3,:])
 
-	#Restrict to good values
-	Ind = (Mu[1:-3,:] < 1.0e-8) & (np.isnan(Mu[1:-3,:]))
-	dlMu[Ind] = 0.0
-	dlK[Ind] = 0.0
+	muf = Mu[1:-3,:].flatten()
+	dm = dlMu.flatten()
+	dk = dlK.flatten()
 
-	plt.hist2d(dlMu,dlK,100,normed=True)
+	Ind = (muf > 1.0e-8) | (not np.isnan(muf))
+
+	dm = dm[Ind]
+	dk = dk[Ind]
+	
+	# #Restrict to good values
+	# Ind = (Mu[1:-3,:] < 1.0e-8) | (np.isnan(Mu[1:-3,:]))
+	# dlMu[Ind] = 0.0
+	# dlK[Ind] = 0.0
+
+	# dm = dlMu.flatten()
+	# dk = dlK.flatten()
+
+	plt.hist2d(dm,dk,100,normed=True)
 
 	plt.savefig(fOut,dpi=figQ)
 	plt.close('all')
