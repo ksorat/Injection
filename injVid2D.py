@@ -8,25 +8,37 @@ from visit_utils.common import lsearch #lsearch(dir(),"blah")
 import pyVisit as pyv
 
 
+doSinj = False
 
-h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part",
-	"Hepp_sInj.K50.0001.h5part","Hepp_xlInj.K50.0001.h5part",
-	"O_sInj.K50.0001.h5part","O_xlInJ.K50.0001.h5part"]
-
-titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection",
-	"He++ 50 keV Injection","He++ 50 keV (XL) Injection",
-	"O+ 50 keV Injection","O+ 50 keV (XL) Injection"]
-
-Stubs =["p50_sInj","p50xl_sInj",
-	"He50_sInj","He50xl_sInj",
-	"O50_sInj","O50xl_sInj"]
+if (doSinj):
+	xInj = "sInj"
+	h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part",
+		"Hepp_sInj.K50.0001.h5part","Hepp_xlInj.K50.0001.h5part",
+		"O_sInj.K50.0001.h5part","O_xlInJ.K50.0001.h5part"]
+	
+	titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection",
+		"He++ 50 keV Injection","He++ 50 keV (XL) Injection",
+		"O+ 50 keV Injection","O+ 50 keV (XL) Injection"]
+	
+	Stubs =["p50_sInj","p50xl_sInj",
+		"He50_sInj","He50xl_sInj",
+		"O50_sInj","O50xl_sInj"]
+	kevBds = [10,200]
+else:
+	#Multiple injection
+	xInj = "mInj"
+	h5pFile = ["pK70.h5part"]
+	titS = ["H+ 70 keV"]
+	Stubs = ["p70_mInj"]
+	kevBds = [25,300]
 
 Base = os.path.expanduser('~') + "/Work/Injection/"
 Base = Base + "Data/"
 
-EqDir = Base + "eqSlc_sInj/" #eqSlc database
-pDir = Base + "sInj" #Directory of h5part
+EqDir = Base + "eqSlc_" + xInj #eqSlc database
+pDir = Base + xInj #Directory of h5part
 
+nFigs = range(len(titS))
 Quiet = True
 
 
@@ -35,7 +47,7 @@ abBz = 25;
 dBzBds = [-abBz,abBz]
 
 #Particles
-kevBds = [10,200]
+
 pCMap = "Cool" #ColorTableNames()
 
 if (Quiet):
@@ -52,8 +64,6 @@ plTits = ["Residual Bz [nT]","Particle Energy [keV]"]
 #Do some defaults
 pyv.lfmExprs()
 
-nFigs = range(len(titS))
-nFigs = [3,4,5]
 for n in nFigs:
 	#Construct filenames/directory structure
 	Src0 = EqDir + "/eqSlc.*.vti database"
