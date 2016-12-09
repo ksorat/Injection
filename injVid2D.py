@@ -24,6 +24,7 @@ if (doSinj):
 		"He50_sInj","He50xl_sInj",
 		"O50_sInj","O50xl_sInj"]
 	kevBds = [10,200]
+	vID = "kev"
 else:
 	#Multiple injection
 	xInj = "mInj"
@@ -31,6 +32,7 @@ else:
 	titS = ["H+ 70 keV"]
 	Stubs = ["p70_mInj"]
 	kevBds = [25,300]
+	vID = "keveq"
 
 Base = os.path.expanduser('~') + "/Work/Injection/"
 Base = Base + "Data/"
@@ -87,7 +89,7 @@ for n in nFigs:
 	
 	#Create fields/particle plots
 	pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
-	pyv.lfmPScat(dbs[1],v4="kev",vBds=kevBds,cMap=pCMap,Inv=False)
+	pyv.lfmPScat(dbs[1],v4=vID,vBds=kevBds,cMap=pCMap,Inv=False)
 	
 	#Cutout
 	ActivateDatabase(dbs[1])
