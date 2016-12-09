@@ -71,7 +71,7 @@ def getKM(h5pDir,h5pStub,pId):
 	Ind = (Mu>1.0e-8) & (~np.isnan(Mu))
 	Mu = Mu[Ind]
 	K = K[Ind]
-	return K,M
+	return K,Mu
 
 #Particle data
 Stub = "sInj"
