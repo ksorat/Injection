@@ -225,8 +225,10 @@ for s in range(Ns):
 			for p in range(NumP):
 				Kp,Mp = getKM(h5pDir,h5p,pIds[p],Sk)
 				plt.plot(Mp,Kp,plS[p],markersize=MS,linewidth=LW,label="ID = %d"%(pIds[p]))
-			plt.xlim(0.75,1.75)
-			plt.ylim(0,8)
+			plt.xlim(0.0,2.0)
+			plt.ylim(0,15)
 			plt.title(titS)
+			plt.xlabel("$\mu/\mu_{0}$")
+			plt.ylabel("$K/K_{0}$")
 			plt.legend(loc="upper left",fontsize="x-small")
 			plt.savefig(figName,dpi=figQ)
