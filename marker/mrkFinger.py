@@ -22,8 +22,11 @@ Cols = [(0, 255, 255, 255),(0,0,255,255),(255,0,255,255)]
 EqDir = os.path.expanduser('~') + "/Work/Injection/Data/eqSlc_sInj"
 Src0 = EqDir + "/eqSlc.*.vti database"
 
+Nw0 = 0
 Nw = len(Phi0s)
+Nw0 = 1
 Nw = 2
+
 #dBz
 abBz = 25;
 dBzBds = [-abBz,abBz]
@@ -54,7 +57,7 @@ pyv.lfmPCol(Src0,"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 
 #Draw wedges
 
-for n in range(Nw):
+for n in range(Nw0,Nw):
 	DefineScalarExpression("RCut0_%d"%(n),"if( ge(Rcyl, %f), 1, 0)"%(R0s[n])) 
 	DefineScalarExpression("RCut1_%d"%(n),"if( le(Rcyl, %f), 1, 0)"%(R1s[n])) 
 	DefineScalarExpression("PCut0_%d"%(n),"if( ge(Phi, %f), 1, 0)"%(Phi0s[n])) 
