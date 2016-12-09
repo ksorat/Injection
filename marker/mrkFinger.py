@@ -11,15 +11,19 @@ import pyVisit as pyv
 Quiet = True
 T0 = 1750
 
-Phi0s = [157.5,150]
-Phi1s = [170,177.5]
-R0s = [10,9.0]
-R1s = [12.2,13.5]
+#Order sinj,minj,xlinj
+
+Phi0s = [157.5,135,150]
+Phi1s = [170,225,177.5]
+R0s = [10,10,9.0]
+R1s = [12.2,12.5,13.5]
 Cols = [(0, 255, 255, 255),(0,0,255,255),(255,0,255,255)]
 #EqSlc DB
 EqDir = os.path.expanduser('~') + "/Work/Injection/Data/eqSlc_sInj"
 Src0 = EqDir + "/eqSlc.*.vti database"
 
+Nw = len(Phi0s)
+Nw = 2
 #dBz
 abBz = 25;
 dBzBds = [-abBz,abBz]
@@ -49,8 +53,7 @@ DefineScalarExpression("RCut","Rcyl*PCut0*PCut1")
 pyv.lfmPCol(Src0,"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 
 #Draw wedges
-Nw = len(Phi0s)
-Nw = 1
+
 for n in range(Nw):
 	DefineScalarExpression("RCut0_%d"%(n),"if( ge(Rcyl, %f), 1, 0)"%(R0s[n])) 
 	DefineScalarExpression("RCut1_%d"%(n),"if( le(Rcyl, %f), 1, 0)"%(R1s[n])) 
