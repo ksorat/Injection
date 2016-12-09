@@ -71,7 +71,7 @@ def getKM(h5pDir,h5pStub,pId):
 	Ind = (Mu>1.0e-8) & (~np.isnan(Mu))
 	Mu = Mu[Ind]
 	K = K[Ind]
-	return K,Mu
+	return K/K[0],Mu/Mu[0]
 
 #Particle data
 Stub = "sInj"
@@ -205,7 +205,7 @@ for s in range(Ns):
 			#Do K-Mu figure
 			fig = plt.figure(figsize=figSize,tight_layout=True)
 
-			figName = SpcsStubs[s] + str(KStubs[k]) + ".%sKM.png"%(kT)
+			figName = SpcsStubs[s] + str(KStubs[k]) + ".%s_KM.png"%(kT)
 			titS = "K-$\mu$ for Sampled High-Energy Trajectories (%s %02d keV)"%(SpcsLab[s],KStubs[k])
 
 			#Do one figure with all particles K-M
@@ -213,5 +213,5 @@ for s in range(Ns):
 			for p in range(NumP):
 				Kp,Mp = getKM(h5pDir,h5p,pIds[p])
 				plt.semilogx(Mp,Kp,label="ID = %d"%(pIds[p]))
-
+			plt.legend(fontsize="small")
 			plt.savefig(figName,dpi=figQ)
