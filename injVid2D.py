@@ -28,11 +28,12 @@ if (doSinj):
 else:
 	#Multiple injection
 	xInj = "mInj"
-	h5pFile = ["pK70.h5part"]
+	h5pFile = ["p_mInj.eqAll.h5part"]
 	titS = ["H+ 70 keV"]
 	Stubs = ["p70_mInj"]
 	kevBds = [25,300]
 	vID = "keveq"
+	K0 = 70
 
 Base = os.path.expanduser('~') + "/Work/Injection/"
 Base = Base + "Data/"
@@ -66,6 +67,9 @@ plTits = ["Residual Bz [nT]","Particle Energy [keV]"]
 #Do some defaults
 pyv.lfmExprs()
 
+#Define initial energy variables
+DefineScalarExpression("K0","conn_cmfe(<[0]i:%s>,particles)"%vID)
+
 for n in nFigs:
 	#Construct filenames/directory structure
 	Src0 = EqDir + "/eqSlc.*.vti database"
@@ -96,6 +100,15 @@ for n in nFigs:
 	SetActivePlots( (1) )
 	pyv.onlyIn()
 	
+	#Focus on one energy if necessary
+	if (not doSinj):
+		AddOperator("Threshold",0)
+		tOps = GetOperatorOptions(0)
+		tOps.SetListedVarNames('K0')
+		tOps.lowerBounds = (K0-1)
+		tOps.upperBounds = (K0+1)
+		tOps.zonePortions = (1)
+		SetOperatorOptions(tOps)
 	#Gussy things up
 	tit = pyv.genTit( titS=titS[n] )
 	pyv.cleanLegends(plXs,plYs,plTits)
@@ -109,6 +122,7 @@ for n in nFigs:
 	
 	outVid = Stubs[n] + ".mp4"
 	pyv.makeVid(Clean=True,outVid=outVid,tScl=1)
+
 
 	DeleteAllPlots()
 	CloseDatabase(dbs[0])
