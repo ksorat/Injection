@@ -213,8 +213,8 @@ for s in range(Ns):
 			for p in range(NumP):
 				Kp,Mp = getKM(h5pDir,h5p,pIds[p])
 				plt.plot(Mp,Kp,plS[p],label="ID = %d"%(pIds[p]))
-			plt.xlim(0,1.5)
+			plt.xlim(0.5,1.5)
 			plt.ylim(0,8)
 			plt.title(titS)
-			plt.legend(fontsize="small")
+			plt.legend(loc="upper left",fontsize="x-small")
 			plt.savefig(figName,dpi=figQ)
