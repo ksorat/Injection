@@ -63,17 +63,36 @@ def getP(h5pDir,h5pStub,pId,vId="kev",tCut=1.0e+8):
 
 	return x[Ind],y[Ind],V[Ind],A0
 
+def getKM(h5pDir,h5pStub,pId):
+	h5pFile = h5pDir + "/" + h5pStub
+	t,K = lfmpp.getH5pid(h5pFile,"kev",pId)
+	t,Mu = lfmpp.getH5pid(h5pFile,"Mu",pId)
+	#Cut out bad values
+	Ind = (Mu>1.0e-8) & (~np.isnan(Mu))
+	Mu = Mu[Ind]
+	K = K[Ind]
+	return K,M
+
 #Particle data
 Stub = "sInj"
 h5Mid = "0001"
+
+doHigh = True
+doFast = False
+doTrj = False
+doKM = True
 
 SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
 
 KStubs = [10,50,100]
-pC = 99.95
+if (doHigh):
+	pC = 99.95
+	kT = "XH"
+else:
+	pC = 95.0
+	kT = "H"
 
-doFast = False
 
 np.random.seed(seed=31337)
 
@@ -121,64 +140,78 @@ for s in range(Ns):
 	for k in range(Nk):
 		h5p = SpcsStubs[s] + "_" + Stub + ".K" + str(KStubs[k]) + "." + h5Mid + ".h5part"
 
-		figName = SpcsStubs[s] + str(KStubs[k]) + ".%02dTrjs.png"%(Nx*Ny)
-		titS = "Sampled High-Energy Trajectories for %s %02d keV"%(SpcsLab[s],KStubs[k])
-		
-		
 		#Pick particles
 		Kc,pIds = choosePs(h5pDir,h5p,pC=pC,Np=Nx*Ny)
 		KcB = np.ceil(Kc/5)*5 #Round to nearest 5th
 		pBds = [0,KcB]
 		print(pIds)
 
-		#Do figures
-		fig = plt.figure(figsize=figSize,tight_layout=True)
-		gs = gridspec.GridSpec(Nx+2,Ny,height_ratios=hRat)
-
-		n = 0
+		figName = SpcsStubs[s] + str(KStubs[k]) + ".%sTrjs.png"%(kT)
+		titS = "Sampled High-Energy Trajectories for %s %02d keV"%(SpcsLab[s],KStubs[k])
 		
-		for i in range(1,Nx+1):
-			for j in range(Ny):
-				
-				Ax = fig.add_subplot(gs[i,j])
-		
-				if (i == Nx):
-					plt.xlabel("GSM-X [Re]",fontsize="small")
-				else:
-					plt.setp(Ax.get_xticklabels(),visible=False)
-				if (j == 0):
-					plt.ylabel("GSM-Y [Re]",fontsize="small")
-				else:
-					plt.setp(Ax.get_yticklabels(),visible=False)
-				if (doFast):
-					fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
-				else:
-					fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
-				#
-				#plt.contour(xi,yi,dBz,Bv,cmap=fldCMap)
-				lfmv.addEarth2D()
-		
-				#Now do particles
-				if (n == 0 or not doFast):
+		#Do trajectory figure
+		if (doTrj):
+			fig = plt.figure(figsize=figSize,tight_layout=True)
+			gs = gridspec.GridSpec(Nx+2,Ny,height_ratios=hRat)
+	
+			n = 0
+			
+			for i in range(1,Nx+1):
+				for j in range(Ny):
 					
-					xs,ys,zs,A0 = getP(h5pDir,h5p,pIds[n],tCut=Tf)
+					Ax = fig.add_subplot(gs[i,j])
+			
+					if (i == Nx):
+						plt.xlabel("GSM-X [Re]",fontsize="small")
+					else:
+						plt.setp(Ax.get_xticklabels(),visible=False)
+					if (j == 0):
+						plt.ylabel("GSM-Y [Re]",fontsize="small")
+					else:
+						plt.setp(Ax.get_yticklabels(),visible=False)
+					if (doFast):
+						fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap)
+					else:
+						fldPlt = Ax.pcolormesh(xi,yi,dBz,vmin=fldBds[0],vmax=fldBds[1],cmap=fldCMap,shading='gouraud',alpha=fldOpac)
+					#
+					#plt.contour(xi,yi,dBz,Bv,cmap=fldCMap)
+					lfmv.addEarth2D()
+			
+					#Now do particles
+					if (n == 0 or not doFast):
+						
+						xs,ys,zs,A0 = getP(h5pDir,h5p,pIds[n],tCut=Tf)
+			
+					pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
+					Leg = [r"ID %d\\K = %3.2f (keV)\\$\alpha_0$ = %2.2f$^{\circ}$"%(pIds[n],zs.max(),A0)]
+					plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,frameon=False)
 		
-				pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
-				Leg = [r"ID %d\\K = %3.2f (keV)\\$\alpha_0$ = %2.2f$^{\circ}$"%(pIds[n],zs.max(),A0)]
-				plt.legend(Leg,loc="lower left",fontsize="xx-small",scatterpoints=1,markerscale=0,frameon=False)
+					plt.plot(xs,ys,'w-',linewidth=pCLW)
+					plt.axis('scaled')
+					plt.xlim(DomX); plt.ylim(DomY)
+					plt.tick_params(axis='both', which='major', labelsize=6)
+					plt.tick_params(axis='both', which='minor', labelsize=4)
+					
+					n=n+1
 		
-				plt.plot(xs,ys,'w-',linewidth=pCLW)
-				plt.axis('scaled')
-				plt.xlim(DomX); plt.ylim(DomY)
-				plt.tick_params(axis='both', which='major', labelsize=6)
-				plt.tick_params(axis='both', which='minor', labelsize=4)
-				
-				n=n+1
-		
-		AxCbar = plt.subplot(gs[-1,:])
-		plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
-		plt.suptitle(titS,fontsize="large")
-		gs.tight_layout(fig)
-		plt.savefig(figName,dpi=figQ)
-		plt.close('all')
+			AxCbar = plt.subplot(gs[-1,:])
+			plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
+			plt.suptitle(titS,fontsize="large")
+			gs.tight_layout(fig)
+			plt.savefig(figName,dpi=figQ)
+			plt.close('all')
 
+		if (doKM):
+			#Do K-Mu figure
+			fig = plt.figure(figsize=figSize,tight_layout=True)
+
+			figName = SpcsStubs[s] + str(KStubs[k]) + ".%sKM.png"%(kT)
+			titS = "K-$\mu$ for Sampled High-Energy Trajectories (%s %02d keV)"%(SpcsLab[s],KStubs[k])
+
+			#Do one figure with all particles K-M
+			NumP = len(pIds)
+			for p in range(NumP):
+				Kp,Mp = getKM(h5pDir,h5p,pIds[p])
+				plt.semilogx(Mp,Kp,label="ID = %d"%(pIds[p]))
+
+			plt.savefig(figName,dpi=figQ)
