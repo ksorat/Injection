@@ -93,6 +93,7 @@ Sk = 5
 MS = 2; LW = 0.5
 SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
+kmMax = 4
 
 KStubs = [10,50,100]
 if (doHigh):
@@ -118,7 +119,8 @@ tSlc = 0
 #Figure defaults
 figSize = (10,10)
 figQ = 300 #DPI
-plS = ["bo-","ro-","go-","co-","mo-","ko-","bs-","rs-","gs-","cs-","ms-","ks-"]
+plS = ["bo-","ro-","go-","co-","mo-","ko-","bx-","rx-","gx-","cx-","mx-","kx-"]
+
 #Plot bounds fields/particles (nT/keV), plot details
 fldBds = [-35,35]
 Nc = 5
@@ -218,7 +220,8 @@ for s in range(Ns):
 			titS = "K-$\mu$ for Sampled High-Energy Trajectories (%s %02d keV)"%(SpcsLab[s],KStubs[k])
 
 			#Do one figure with all particles K-M
-			NumP = len(pIds)
+						
+			NumP = min(kmMax,len(pIds))
 			for p in range(NumP):
 				Kp,Mp = getKM(h5pDir,h5p,pIds[p],Sk)
 				plt.plot(Mp,Kp,plS[p],markersize=MS,linewidth=LW,label="ID = %d"%(pIds[p]))
