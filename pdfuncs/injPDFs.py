@@ -20,7 +20,7 @@ Tf = 275
 #Files
 Root = os.path.expanduser('~') + "/Work/Injection/Data"
 sStub = "O"
-h5p = Root + "/mInj/" + sStub "_mInj.eqAll.h5part"
+h5p = Root + "/mInj/" + sStub + "_mInj.eqAll.h5part"
 
 #Parameters for phase space
 Lmin = 4
