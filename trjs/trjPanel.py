@@ -63,7 +63,7 @@ def getP(h5pDir,h5pStub,pId,vId="kev",tCut=1.0e+8):
 
 	return x[Ind],y[Ind],V[Ind],A0
 
-def getKM(h5pDir,h5pStub,pId):
+def getKM(h5pDir,h5pStub,pId,Sk=1):
 	h5pFile = h5pDir + "/" + h5pStub
 	t,K = lfmpp.getH5pid(h5pFile,"kev",pId)
 	t,Mu = lfmpp.getH5pid(h5pFile,"Mu",pId)
@@ -71,6 +71,13 @@ def getKM(h5pDir,h5pStub,pId):
 	Ind = (Mu>1.0e-8) & (~np.isnan(Mu))
 	Mu = Mu[Ind]
 	K = K[Ind]
+
+	Kp = K/K[0]
+	Mp = Mu/Mu[0]
+
+	Kp = Kp[0:-1:Sk]
+	Mp = Mp[0:-1:Sk]
+
 	return K/K[0],Mu/Mu[0]
 
 #Particle data
@@ -82,6 +89,8 @@ doFast = False
 doTrj = False
 doKM = True
 
+Sk = 5
+MS = 2; LW = 0.5
 SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
 
@@ -109,7 +118,7 @@ tSlc = 0
 #Figure defaults
 figSize = (10,10)
 figQ = 300 #DPI
-plS = ["bo-","ro-","go-","co-","mo-","ko-","bx-","rx-","gx-","cx-","mx-","kx-"]
+plS = ["bo-","ro-","go-","co-","mo-","ko-","bs-","rs-","gs-","cs-","ms-","ks-"]
 #Plot bounds fields/particles (nT/keV), plot details
 fldBds = [-35,35]
 Nc = 5
@@ -211,9 +220,9 @@ for s in range(Ns):
 			#Do one figure with all particles K-M
 			NumP = len(pIds)
 			for p in range(NumP):
-				Kp,Mp = getKM(h5pDir,h5p,pIds[p])
-				plt.plot(Mp,Kp,plS[p],label="ID = %d"%(pIds[p]))
-			plt.xlim(0.5,1.5)
+				Kp,Mp = getKM(h5pDir,h5p,pIds[p],Sk)
+				plt.plot(Mp,Kp,plS[p],markersize=MS,linewidth=LW,label="ID = %d"%(pIds[p]))
+			plt.xlim(0.75,1.75)
 			plt.ylim(0,8)
 			plt.title(titS)
 			plt.legend(loc="upper left",fontsize="x-small")
