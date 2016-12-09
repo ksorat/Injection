@@ -90,7 +90,7 @@ doTrj = False
 doKM = True
 
 Sk = 5
-MS = 2; LW = 0.5
+MS = 4; LW = 1
 SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
 kmMax = 4
