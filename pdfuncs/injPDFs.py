@@ -22,6 +22,7 @@ Root = os.path.expanduser('~') + "/Work/Injection/Data"
 sStub = "O"
 h5p = Root + "/mInj/" + sStub + "_mInj.eqAll.h5part"
 
+print("Reading %s"%(h5p))
 #Parameters for phase space
 Lmin = 4
 Lmax = 16
