@@ -109,7 +109,7 @@ tSlc = 0
 #Figure defaults
 figSize = (10,10)
 figQ = 300 #DPI
-
+plS = ["bo-","ro-","go-","co-","mo-","ko-","bx-","rx-","gx-","cx-","mx-","kx-"]
 #Plot bounds fields/particles (nT/keV), plot details
 fldBds = [-35,35]
 Nc = 5
@@ -212,6 +212,8 @@ for s in range(Ns):
 			NumP = len(pIds)
 			for p in range(NumP):
 				Kp,Mp = getKM(h5pDir,h5p,pIds[p])
-				plt.semilogx(Mp,Kp,label="ID = %d"%(pIds[p]))
+				plt.plot(Mp,Kp,label="ID = %d"%(pIds[p]),plS[p])
+			plt.xlim(-1,2)
+			plt.ylim(0,6)
 			plt.legend(fontsize="small")
 			plt.savefig(figName,dpi=figQ)
