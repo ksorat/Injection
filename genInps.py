@@ -84,8 +84,8 @@ def genRunner(ComS,batchCom="lfmtpBatch.sh",fRunner="SubAll.sh"):
 
 SimComS = []
 
-gen_sInj = True
-gen_mInj = False #Multiple injection long run
+gen_sInj = False
+gen_mInj = True #Multiple injection long run
 gen_Run = True
 
 #Single injection runs
@@ -131,6 +131,8 @@ bId = 0 #Block ID, use to guarantee contiguous IDs
 
 Nk = 8 #Number of log-spaced energy bins
 Spcs = ["p"]
+Spcs = ["O"]
+
 K0s = np.round(np.logspace(1,2,Nk)/5)*5
 rad = [10,12.5,50]
 phi = [135,225,50]
