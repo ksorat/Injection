@@ -8,7 +8,6 @@ from visit_utils.common import lsearch #lsearch(dir(),"blah")
 import pyVisit as pyv
 
 
-Spc = "H+"
 
 h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part",
 	"Hepp_sInj.K50.0001.h5part","Hepp_xlInj.K50.0001.h5part",
@@ -30,7 +29,6 @@ pDir = Base + "sInj" #Directory of h5part
 
 Quiet = True
 
-#titS = "%s Injection"%(Spc)
 
 #dBz 
 abBz = 25; 

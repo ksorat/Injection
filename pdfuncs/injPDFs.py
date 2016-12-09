@@ -10,7 +10,8 @@ import os
 import cPickle as pickle
 
 #Load or calculate
-doCalc = False
+#doCalc = False
+doCalc = True
 fPkl = "pdfunc.pkl"
 
 #First/Last steps
@@ -18,7 +19,8 @@ T0 = 0
 Tf = 275
 #Files
 Root = os.path.expanduser('~') + "/Work/Injection/Data"
-h5p = Root + "/mInj/p_mInj.eqAll.h5part"
+sStub = "O"
+h5p = Root + "/mInj/" + sStub "_mInj.eqAll.h5part"
 
 #Parameters for phase space
 Lmin = 4
@@ -62,8 +64,8 @@ else:
 
 lfmv.initLatex()
 
-lpsd.genDistPic(pF,doMu=True)
-lpsd.genDistPic(pF,doMu=False)
+lpsd.genDistPic(pF,doMu=True,oStub=sStub)
+lpsd.genDistPic(pF,doMu=False,oStub=sStub)
 
 
 #Plot some stuff

@@ -115,7 +115,7 @@ def CalcWeights(pSt,pSpc):
 		iVec = locateCell(pSpc,(L,phi,A,K))
 
 		#Find all particles in cell iVec
-		inCell = locateP(pSt,pSpc,iVec)
+		inCell = locateP(pSt,pSpc,iVec,Found=Found)
 
 		#Count cells in iVec
 		NumIn = inCell.sum()
@@ -179,7 +179,7 @@ def calcPDF(pSt,pSpc,muMin=1,muMax=1.0e+5,Nmu=20,nOut=100):
 		iVec = locateCell(pSpc,(L,phi,A,K))
 
 		#Find all particles in cell iVec
-		inCell = locateP(pSt,pSpc,iVec)
+		inCell = locateP(pSt,pSpc,iVec,Found=Found)
 
 		NumIn = inCell.sum()
 		#Total weight in cell iVec
@@ -288,14 +288,23 @@ def locateCell(pSpc,xVec):
 	return tuple(iVec)
 
 #Find all particles from pSt in cell iVec of pSpc
-def locateP(pSt,pSpc,iVec):
-	
-	inCell_L = (pSt.L >= pSpc.Li[iVec[0]]) & (pSt.L <= pSpc.Li[iVec[0]+1])
-	inCell_P = (pSt.phi >= pSpc.Pi[iVec[1]]) & (pSt.phi<= pSpc.Pi[iVec[1]+1])
-	inCell_A = (pSt.A >= pSpc.Ai[iVec[2]]) & (pSt.A <= pSpc.Ai[iVec[2]+1])
-	inCell_K = (pSt.K >= pSpc.Ki[iVec[3]]) & (pSt.K <= pSpc.Ki[iVec[3]+1]) 
+#If specified, use Found to only calculate unfound particles
+def locateP(pSt,pSpc,iVec,Found=None):
 
-	inCell = inCell_L & inCell_P & inCell_A & inCell_K
+	Np = len(pSt.L)
+	
+	inCell = np.zeros(Np,dtype=bool) #Set all to false
+	if (Found is not None):
+		unFound = ~Found
+	else:
+		unFound = np.ones(Np,dtype=bool) #Set all to true
+	
+	inCell_L = (pSt.L[unFound] >= pSpc.Li[iVec[0]]) & (pSt.L[unFound] <= pSpc.Li[iVec[0]+1])
+	inCell_P = (pSt.phi[unFound] >= pSpc.Pi[iVec[1]]) & (pSt.phi[unFound]<= pSpc.Pi[iVec[1]+1])
+	inCell_A = (pSt.A[unFound] >= pSpc.Ai[iVec[2]]) & (pSt.A[unFound] <= pSpc.Ai[iVec[2]+1])
+	inCell_K = (pSt.K[unFound] >= pSpc.Ki[iVec[3]]) & (pSt.K[unFound] <= pSpc.Ki[iVec[3]+1]) 
+
+	inCell[unFound] = inCell_L & inCell_P & inCell_A & inCell_K
 
 	return inCell
 
@@ -324,7 +333,7 @@ def shellCount(pSt,L0,dL):
 #Generates two panel figure of f(L,Mu) or f(L,K)
 
 #Ls = list of L shells to plot in top panel
-def genDistPic(pSt,Ls=[6,7,8,9,10],dMin=1.0e-8,dMax=1.0,figSize=(10,10),figQ=300,doMu=True):
+def genDistPic(pSt,Ls=[6,7,8,9,10],dMin=1.0e-8,dMax=1.0,figSize=(10,10),figQ=300,doMu=True,oStub="p"):
 
 	LW = 1.5
 	if (doMu):
@@ -333,7 +342,7 @@ def genDistPic(pSt,Ls=[6,7,8,9,10],dMin=1.0e-8,dMax=1.0,figSize=(10,10),figQ=300
 		xC = pSt.Muc
 		F = pSt.Flm
 		xLab = "First Invariant [keV/nT]"
-		fOut = "pdfMu.png"
+		fOut = "pdfMu.%s.png"%(oStub)
 	else:
 		#Energy
 		xLim = (3,500)
@@ -341,7 +350,8 @@ def genDistPic(pSt,Ls=[6,7,8,9,10],dMin=1.0e-8,dMax=1.0,figSize=(10,10),figQ=300
 		xC = pSt.Kc
 		F = pSt.Flk
 		xLab = "Energy [keV]"
-		fOut = "pdfK.png"
+		fOut = "pdfK.%s.png"%(oStub)
+
 	cbLab = "Density"
 	Ls = np.array(Ls)
 	Nlp = len(Ls)
