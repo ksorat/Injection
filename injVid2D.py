@@ -109,6 +109,7 @@ for n in nFigs:
 		tOps.upperBounds = (K0+1)
 		tOps.zonePortions = (1)
 		SetOperatorOptions(tOps)
+		
 	#Gussy things up
 	tit = pyv.genTit( titS=titS[n] )
 	pyv.cleanLegends(plXs,plYs,plTits)

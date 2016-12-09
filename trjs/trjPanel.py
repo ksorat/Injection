@@ -71,7 +71,7 @@ SpcsStubs = ["p","Hepp","O"]
 SpcsLab = ["H+","He++","O+"]
 
 KStubs = [10,50,100]
-pC = 95
+pC = 99.9
 
 doFast = False
 
