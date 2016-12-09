@@ -96,6 +96,9 @@ SpcsLab = ["H+","He++","O+"]
 kmMax = 4
 
 KStubs = [10,50,100]
+dKMax = [16,10,6]
+dMMax = [4,4,4]
+
 if (doHigh):
 	pC = 99.95
 	kT = "XH"
@@ -225,8 +228,8 @@ for s in range(Ns):
 			for p in range(NumP):
 				Kp,Mp = getKM(h5pDir,h5p,pIds[p],Sk)
 				plt.plot(Mp,Kp,plS[p],markersize=MS,linewidth=LW,label="ID = %d"%(pIds[p]))
-			plt.xlim(0.0,2.0)
-			plt.ylim(0,15)
+			plt.xlim(0.0,dMMax[k])
+			plt.ylim(0,dKMax[k])
 			plt.title(titS)
 			plt.xlabel("$\mu/\mu_{0}$")
 			plt.ylabel("$K/K_{0}$")
