@@ -12,14 +12,16 @@ import cPickle as pickle
 #Load or calculate
 #doCalc = False
 doCalc = True
-fPkl = "pdfunc.pkl"
+sStub = "O"
+#fPkl = "pdfunc.pkl"
+fPkl = "pdfunc.%s.pkl"%(sStub)
 
 #First/Last steps
 T0 = 0
 Tf = 275
 #Files
 Root = os.path.expanduser('~') + "/Work/Injection/Data"
-sStub = "O"
+
 h5p = Root + "/mInj/" + sStub + "_mInj.eqAll.h5part"
 
 print("Reading %s"%(h5p))
