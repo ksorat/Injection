@@ -130,9 +130,9 @@ Nb = 10
 bId = 0 #Block ID, use to guarantee contiguous IDs
 
 Nk = 8 #Number of log-spaced energy bins
-Spcs = ["p"]
-Spcs = ["O"]
-
+#Spcs = ["p"]
+#Spcs = ["O"]
+Spcs = ["Hepp"]
 K0s = np.round(np.logspace(1,2,Nk)/5)*5
 rad = [10,12.5,50]
 phi = [135,225,50]
