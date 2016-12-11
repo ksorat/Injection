@@ -31,9 +31,12 @@ else:
 	#h5pFile = ["p_mInj.eqAll.h5part"]
 	#titS = ["H+ 70 keV"]
 	#Stubs = ["p70_mInj"]
-	h5pFile = ["O_mInj.eqAll.h5part"]
-	titS = ["O+ 70 keV"]
-	Stubs = ["O70_mInj"]
+	# h5pFile = ["O_mInj.eqAll.h5part"]
+	# titS = ["O+ 70 keV"]
+	# Stubs = ["O70_mInj"]
+	h5pFile = ["Hepp_mInj.eqAll.h5part"]
+	titS = ["He++ 70 keV"]
+	Stubs = ["He70_mInj"]
 
 	kevBds = [25,300]
 	vID = "keveq"
