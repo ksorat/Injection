@@ -12,7 +12,7 @@ Base = os.path.expanduser('~') + "/Work/Injection/Data/" + "sInj/"
 h5Ps = ["p_sInj.K10.0001.h5part","Hepp_sInj.K10.0001.h5part"]
 pIDs = [[1710,3659,33053,33051],[256,25779,15417,7472]]
 sLab = ["H+","He++"]
-pC = ["b","g"]
+pC = ["b","g","r","c","m","darkorange","lightslategray","purple"]
 pMrk = ["o","x","s","*"]
 
 figSize = (10,10)
@@ -24,10 +24,11 @@ Np = len(pIDs[0])
 
 fig,Ax = plt.subplots(figsize=figSize,nrows=2,sharex=False)
 #Ax2 = Ax1.twinx()
-print(Ax)
+
 Ax1 = Ax[0]
 Ax2 = Ax[1]
 
+ns = 0
 for s in range(Ns):
 	h5P = Base + h5Ps[s]
 	ids = pIDs[s]
@@ -40,9 +41,16 @@ for s in range(Ns):
 
 		pT1 = pC[s] + pMrk[n] + "-"
 		pT2 = pC[s] + pMrk[n] + "--"
-		Lab = "%s (%d)"%(sLab[s],idn)
-		Ax1.plot(t,K,pT1,label=Lab)
-		Ax2.plot(t,L,pT2)
+		pT = pC[ns]
 
+		Lab = "%s (%d)"%(sLab[s],idn)
+		Ax1.plot(t,K,pT,label=Lab)
+		Ax2.plot(t,L,pT)
+		ns = ns+1
+Ax1.legend()
+Ax1.set_xlabel('Time [s]')
+Ax2.set_xlabel('Time [s]')
+Ax1.set_ylabel('Energy [keV]')
+Ax2.set_ylabel('L Shell [Re]')
 
 plt.savefig(figName,dpi=figQ)
