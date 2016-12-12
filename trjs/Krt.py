@@ -25,8 +25,8 @@ Np = len(pIDs[0])
 fig,Ax = plt.subplots(figsize=figSize,nrows=2,sharex=False)
 #Ax2 = Ax1.twinx()
 print(Ax)
-Ax1 = Ax(0)
-Ax2 = Ax(1)
+Ax1 = Ax[0]
+Ax2 = Ax[1]
 
 for s in range(Ns):
 	h5P = Base + h5Ps[s]
