@@ -27,11 +27,12 @@ figName = "Klt.png"
 Ns = len(h5Ps)
 Np = len(pIDs[0])
 
-fig,Ax = plt.subplots(figsize=figSize,nrows=2,sharex=False)
+fig,Ax = plt.subplots(figsize=figSize,nrows=3,sharex=False)
 #Ax2 = Ax1.twinx()
 
 Ax1 = Ax[0]
 Ax2 = Ax[1]
+Ax3 = Ax[2]
 
 ns = 0
 for s in range(Ns):
@@ -42,17 +43,22 @@ for s in range(Ns):
 		t,K = lfmpp.getH5pid(h5P,"kev",idn)
 		t,xeq = lfmpp.getH5pid(h5P,"xeq",idn)
 		t,yeq = lfmpp.getH5pid(h5P,"yeq",idn)
+		t,Mu = lfmpp.getH5pid(h5P,"Mu",idn)
+		dMu = (Mu-Mu[0])/Mu[0]
+
 		L = np.sqrt(xeq**2.0 + yeq**2.0)
 		pT = pC[ns]
 
 		Lab = "%s (%d)"%(sLab[s],idn)
 		Ax1.plot(t,K,pT,label=Lab,linewidth=LW)
 		Ax2.plot(t,L,pT,linewidth=LW)
+
+		Ax3.plot(t,dMu,pT,linewidth=LW)
 		ns = ns+1
 Ax1.legend(loc="lower right",fontsize="small",ncol=2)
 Ax1.set_xlabel('Time [s]')
 Ax2.set_xlabel('Time [s]')
 Ax1.set_ylabel('Energy [keV]')
 Ax2.set_ylabel('Radius of Eq. Crossing [Re]')
-
+Ax3.set_ylabel("Invariant [keV/nT]")
 plt.savefig(figName,dpi=figQ)
