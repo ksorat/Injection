@@ -43,9 +43,6 @@ for s in range(Ns):
 		t,xeq = lfmpp.getH5pid(h5P,"xeq",idn)
 		t,yeq = lfmpp.getH5pid(h5P,"yeq",idn)
 		L = np.sqrt(xeq**2.0 + yeq**2.0)
-
-		pT1 = pC[s] + pMrk[n] + "-"
-		pT2 = pC[s] + pMrk[n] + "--"
 		pT = pC[ns]
 
 		Lab = "%s (%d)"%(sLab[s],idn)
