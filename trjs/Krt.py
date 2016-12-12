@@ -58,7 +58,9 @@ for s in range(Ns):
 Ax1.legend(loc="lower right",fontsize="small",ncol=2)
 Ax1.set_xlabel('Time [s]')
 Ax2.set_xlabel('Time [s]')
+Ax3.set_xlabel('Time [s]')
+
 Ax1.set_ylabel('Energy [keV]')
-Ax2.set_ylabel('Radius of Eq. Crossing [Re]')
-Ax3.set_ylabel("Invariant [keV/nT]")
+Ax2.set_ylabel('Radius of Last EQX [Re]')
+Ax3.set_ylabel("Relative Change from Initial Invariant")
 plt.savefig(figName,dpi=figQ)
