@@ -12,10 +12,10 @@ Base = os.path.expanduser('~') + "/Work/Injection/Data/" + "sInj/"
 h5Ps = ["p_sInj.K10.0001.h5part","Hepp_sInj.K10.0001.h5part"]
 pIDs = [[1710,3659,33053,33051],[256,25779,15417,7472]]
 sLab = ["H+","He++"]
-pC = ["b","g","r","c","m","darkorange","lightslategray","purple"]
-pC = ["blue","slateblue","cyan","lightsteelblue",
-	"lime","darkgreen","lightgreen","greenyellow"]
-
+# pC = ["blue","slateblue","cyan","lightsteelblue",
+# 	"lime","darkgreen","lightgreen","greenyellow"]
+pC = ["cyan","deepskyblue","blue","slateblue",
+	"olive","lime","green","sage"]
 
 LW = 0.5
 
