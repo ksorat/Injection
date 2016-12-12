@@ -13,7 +13,12 @@ h5Ps = ["p_sInj.K10.0001.h5part","Hepp_sInj.K10.0001.h5part"]
 pIDs = [[1710,3659,33053,33051],[256,25779,15417,7472]]
 sLab = ["H+","He++"]
 pC = ["b","g","r","c","m","darkorange","lightslategray","purple"]
-pMrk = ["o","x","s","*"]
+pC = ["blue","slateblue","cyan","lightsteelblue",
+	"lime","darkgreen","lightgreen","greenyellow"]
+
+
+LW = 0.5
+
 
 figSize = (10,10)
 figQ = 300 #DPI
@@ -44,13 +49,13 @@ for s in range(Ns):
 		pT = pC[ns]
 
 		Lab = "%s (%d)"%(sLab[s],idn)
-		Ax1.plot(t,K,pT,label=Lab)
-		Ax2.plot(t,L,pT)
+		Ax1.plot(t,K,pT,label=Lab,linewidth=LW)
+		Ax2.plot(t,L,pT,linewidth=LW)
 		ns = ns+1
-Ax1.legend()
+Ax1.legend(loc,"lower right",fontsize="small",ncol=2)
 Ax1.set_xlabel('Time [s]')
 Ax2.set_xlabel('Time [s]')
 Ax1.set_ylabel('Energy [keV]')
-Ax2.set_ylabel('L Shell [Re]')
+Ax2.set_ylabel('Radius of Eq. Crossing [Re]')
 
 plt.savefig(figName,dpi=figQ)
