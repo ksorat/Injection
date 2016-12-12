@@ -49,7 +49,7 @@ for s in range(Ns):
 		Ax1.plot(t,K,pT,label=Lab,linewidth=LW)
 		Ax2.plot(t,L,pT,linewidth=LW)
 		ns = ns+1
-Ax1.legend(loc,"lower right",fontsize="small",ncol=2)
+Ax1.legend(loc="lower right",fontsize="small",ncol=2)
 Ax1.set_xlabel('Time [s]')
 Ax2.set_xlabel('Time [s]')
 Ax1.set_ylabel('Energy [keV]')
