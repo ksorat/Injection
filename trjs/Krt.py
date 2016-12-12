@@ -62,5 +62,5 @@ Ax3.set_xlabel('Time [s]')
 
 Ax1.set_ylabel('Energy [keV]')
 Ax2.set_ylabel('Radius of Last EQX [Re]')
-Ax3.set_ylabel("Relative Change from Initial Invariant")
+Ax3.set_ylabel("(Mu-Mu0)/Mu0")
 plt.savefig(figName,dpi=figQ)
