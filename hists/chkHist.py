@@ -29,10 +29,11 @@ for n in range(N):
 	Ks.append(K)
 
 bins = np.linspace(K0,K1,Nb)
-plt.hist(Ks,bins,normed=False,log=True,stacked=True,histtype='step',fill=True)
-plt.legend(Labs)
-plt.xlabel("Final Energy [keV]")
-plt.ylabel("Count")
-plt.title(titS)
-plt.savefig(figName,dpi=figQ)
-plt.close('all')
+# plt.hist(Ks,bins,normed=False,log=True,stacked=True,histtype='step',fill=True)
+
+# plt.legend(Labs)
+# plt.xlabel("Final Energy [keV]")
+# plt.ylabel("Count")
+# plt.title(titS)
+# plt.savefig(figName,dpi=figQ)
+# plt.close('all')
