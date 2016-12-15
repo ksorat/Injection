@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 Root = os.path.expanduser('~') + "/Work/Injection/Data/sInj/"
 Tail = "_sInj.K10.0001.h5part"
-Stubs = ["p","Hep","Hepp"]
-Labs = ["H+","He+","He++"]
+Stubs = ["p","Hep","Hepp","O"]
+Labs = ["H+","He+","He++","O+"]
 titS = "Single Injection (10 keV)"
 
 N = len(Stubs)
@@ -20,7 +20,7 @@ Ks = []
 figName = "chK.png"
 figQ = 300
 K0 = 1; K1 = 150
-Nb = 100
+Nb = 50
 
 for n in range(N):
 	h5p = Root + Stubs[n] + Tail
@@ -33,5 +33,6 @@ plt.hist(Ks,bins,normed=True,log=True)
 plt.legend(Labs)
 plt.xlabel("Final Energy [keV]")
 plt.ylabel("Population Density")
+plt.title(titS)
 plt.savefig(figName,dpi=figQ)
 plt.close('all')
