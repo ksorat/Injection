@@ -33,7 +33,7 @@ bc = 0.5*(bins[1:]+bins[:-1])
 
 for n in range(N):
 	y,x = np.histogram(Ks[n],bins)
-	plt.plot(bc,y,label=Labs[n])
+	plt.semilogy(bc,y,label=Labs[n])
 	
 
 
