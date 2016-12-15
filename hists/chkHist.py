@@ -29,11 +29,18 @@ for n in range(N):
 	Ks.append(K)
 
 bins = np.linspace(K0,K1,Nb)
+Xs = []
+for n in range(N):
+	y,x = np.histogram(Ks[n],bins)
+	Xs.append(x)
+
+bc = 0.5*(bins[1:]+bins[:-1])
+plt.plot(bc,Xs)
 # plt.hist(Ks,bins,normed=False,log=True,stacked=True,histtype='step',fill=True)
 
-# plt.legend(Labs)
-# plt.xlabel("Final Energy [keV]")
-# plt.ylabel("Count")
-# plt.title(titS)
-# plt.savefig(figName,dpi=figQ)
-# plt.close('all')
+plt.legend(Labs)
+plt.xlabel("Final Energy [keV]")
+plt.ylabel("Count")
+plt.title(titS)
+plt.savefig(figName,dpi=figQ)
+plt.close('all')
