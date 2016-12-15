@@ -33,7 +33,7 @@ bc = 0.5*(bins[1:]+bins[:-1])
 Ps = []
 for n in range(N):
 	y,x = np.histogram(Ks[n],bins)
-	Ps.append(u)
+	Ps.append(y)
 	
 
 plt.plot(bc,Ps)
