@@ -19,8 +19,8 @@ N = len(Stubs)
 Ks = []
 figName = "chK.png"
 figQ = 300
-K0 = 1; K1 = 250
-Nb = 120
+K0 = 1; K1 = 225
+Nb = 80
 
 for n in range(N):
 	h5p = Root + Stubs[n] + Tail
