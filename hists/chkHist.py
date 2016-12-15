@@ -20,7 +20,7 @@ Ks = []
 figName = "chK.png"
 figQ = 300
 K0 = 1; K1 = 200
-Nb = 80
+Nb = 50
 
 for n in range(N):
 	h5p = Root + Stubs[n] + Tail
@@ -29,7 +29,7 @@ for n in range(N):
 	Ks.append(K)
 
 bins = np.linspace(K0,K1,Nb)
-plt.hist(Ks,bins,normed=True,log=False,stacked=True)
+plt.hist(Ks,bins,normed=True,log=True,histtype="step")
 plt.legend(Labs)
 plt.xlabel("Final Energy [keV]")
 plt.ylabel("Population Density")
