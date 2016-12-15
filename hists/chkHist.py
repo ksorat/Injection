@@ -19,7 +19,7 @@ N = len(Stubs)
 Ks = []
 figName = "chK.png"
 figQ = 300
-K0 = 1; K1 = 150
+K0 = 1; K1 = 200
 Nb = 50
 
 for n in range(N):
