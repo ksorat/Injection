@@ -29,10 +29,10 @@ for n in range(N):
 	Ks.append(K)
 
 bins = np.linspace(K0,K1,Nb)
-plt.hist(Ks,bins,normed=True,log=True,stacked=True,fill=True)
+plt.hist(Ks,bins,normed=False,log=True,stacked=True,fill=False)
 plt.legend(Labs)
 plt.xlabel("Final Energy [keV]")
-plt.ylabel("Population Density")
+plt.ylabel("Count")
 plt.title(titS)
 plt.savefig(figName,dpi=figQ)
 plt.close('all')
