@@ -30,13 +30,13 @@ for n in range(N):
 
 bins = np.linspace(K0,K1,Nb)
 bc = 0.5*(bins[1:]+bins[:-1])
-Ps = []
+
 for n in range(N):
 	y,x = np.histogram(Ks[n],bins)
-	Ps.append(y)
+	plt.plot(bc,y,label=Labs[n])
 	
 
-plt.plot(bc,Ps)
+
 # plt.hist(Ks,bins,normed=False,log=True,stacked=True,histtype='step',fill=True)
 
 plt.legend(Labs)
