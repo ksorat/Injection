@@ -105,7 +105,7 @@ DrawPlots()
 # #Do time loop
 pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
 
-pyv.makeVid(Clean=True,outVid=outVid,tScl=0.5)
+pyv.makeVid(Clean=True,outVid=outVid,tScl=1)
 DeleteAllPlots()
 CloseDatabase(dbs[0])
 CloseDatabase(dbs[1])
