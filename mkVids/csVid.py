@@ -8,43 +8,7 @@ from visit_utils.common import lsearch #lsearch(dir(),"blah")
 import pyVisit as pyv
 
 
-doSinj = False
-
-if (doSinj):
-	
-	h5pFile = ["p_sInj.K50.0001.h5part","p_xlInJ.K50.0001.h5part",
-		"Hepp_sInj.K50.0001.h5part","Hepp_xlInj.K50.0001.h5part",
-		"O_sInj.K50.0001.h5part","O_xlInJ.K50.0001.h5part"]
-	
-	titS = ["H+ 50 keV Injection","H+ 50 keV (XL) Injection",
-		"He++ 50 keV Injection","He++ 50 keV (XL) Injection",
-		"O+ 50 keV Injection","O+ 50 keV (XL) Injection"]
-	
-	Stubs =["p50_sInj","p50xl_sInj",
-		"He50_sInj","He50xl_sInj",
-		"O50_sInj","O50xl_sInj"]
-	kevBds = [10,200]
-	vID = "kev"
-else:
-	#Multiple injection
-	xInj = "mInj"
-	#h5pFile = ["p_mInj.eqAll.h5part"]
-	#titS = ["H+ 70 keV"]
-	#Stubs = ["p70_mInj"]
-	# h5pFile = ["O_mInj.eqAll.h5part"]
-	# titS = ["O+ 70 keV"]
-	# Stubs = ["O70_mInj"]
-	h5pFile = ["Hepp_mInj.eqAll.h5part"]
-	titS = ["He++ 70 keV"]
-	Stubs = ["He70_mInj"]
-
-	kevBds = [25,300]
-	vID = "keveq"
-	K0 = 70
-
 xInj = "csInj"
-DefineScalarExpression("ev","kev*1.0e-3")
-DefineScalarExpression("isIn","in")
 
 vId = "ev"
 vBds = [0,10]
@@ -77,6 +41,8 @@ if (Quiet):
 	LaunchNowin()
 else:
 	Launch()
+DefineScalarExpression("ev","kev*1.0e-3")
+DefineScalarExpression("isIn","in")
 
 Ns = len(doSpc)
 
