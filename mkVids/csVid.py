@@ -45,7 +45,7 @@ if (Quiet):
 else:
 	Launch()
 	
-DefineScalarExpression("ev","if( ge(kev,1.0e-8),1000*kev,1.0e-8)")
+DefineScalarExpression("ev","1000*kev")
 DefineScalarExpression("logev","log10(ev)")
 DefineScalarExpression("isIn","in")
 
@@ -56,7 +56,7 @@ Src0 = EqDir + "/eqSlc.*.vti database"
 plTits = ["Residual Bz [nT]"]
 dbs = [Src0]
 for s in doSpc:
-	lS = "%s Energy [eV]"%(sLabs[s])
+	lS = "%s Log(Energy [eV])"%(sLabs[s])
 	plTits.append(lS)
 	SrcS = pDir + "/" + h5Ps[s]
 	dbs.append(SrcS)
