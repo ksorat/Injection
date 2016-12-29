@@ -97,17 +97,17 @@ pyv.setAtts()
 
 #Let's see what we got
 DrawPlots()
-SetTimeSliderState(150)
-SaveWindow()
+# SetTimeSliderState(150)
+# SaveWindow()
 
 # #Do time loop
-# pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
+pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
 
-# outVid = Stubs[n] + ".mp4"
-# pyv.makeVid(Clean=True,outVid=outVid,tScl=1)
-# DeleteAllPlots()
-# CloseDatabase(dbs[0])
-# CloseDatabase(dbs[1])
-# pyv.killAnnotations()
-# os.system("mkdir tmpVid")
+outVid = Stubs[n] + ".mp4"
+pyv.makeVid(Clean=True,outVid=outVid,tScl=1)
+DeleteAllPlots()
+CloseDatabase(dbs[0])
+CloseDatabase(dbs[1])
+pyv.killAnnotations()
+os.system("mkdir tmpVid")
 
