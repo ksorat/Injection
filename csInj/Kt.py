@@ -16,10 +16,8 @@ figName = "cs_Kt.png"
 figQ = 300
 pC = 95
 Ns = len(Stubs)
-fIn = []
 for n in range(Ns):
 	fIn = Root + Stubs[n] + Tail
-	fIns.append(fIn)
 
 	t,Kev = lfmpp.getH5p(fIn,"kev")
 	K = 1.0e-3*Kev
