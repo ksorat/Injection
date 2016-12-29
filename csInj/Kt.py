@@ -10,6 +10,7 @@ Root = os.path.expanduser('~') + "/Work/Injection/Data/csInj/"
 Tail = "_csInj.K0.0001.h5part"
 Stubs = ["p","Hep","Hepp","O"]
 Labs = ["H+","He+","He++","O+"]
+Plts = []
 titS = "Single Injection (1 eV)"
 
 figName = "cs_Kt.png"
