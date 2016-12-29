@@ -23,13 +23,13 @@ for n in range(Ns):
 	fIn = Root + Stubs[n] + Tail
 
 	t,Kev = lfmpp.getH5p(fIn,"kev")
-	K = 1.0e+3*Kev
+	K = Kev
 	Kb = K.mean(axis=1) #Average(t)
 	dK = K.std(axis=1) #Std
 	for i in range(Np):
 		Kc = np.percentile(K,pC[i],axis=1)
 		niL = "%s, %d %%"%(Labs[n],pC[i])
-		plt.semilogy(t,Kc,Plts[n],label=niL)
+		plt.plot(t,Kc,Plts[n],label=niL)
 	
 	
 	#plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=10)
@@ -38,6 +38,8 @@ for n in range(Ns):
 	print("\tMax = %f"%(K.max()))
 	print("\tMin = %f"%(K.min()))
 	print("\tNANs = %d"%(np.isnan(K).sum()))
+plt.xlabel("Time [s]")
+plt.ylabel("Energy [keV]")
 plt.legend(fontsize="xx-small")
 plt.xlim(1750,2250)
 plt.savefig(figName,dpi=figQ)

@@ -11,8 +11,8 @@ import pyVisit as pyv
 xInj = "csInj"
 outVid ="csInj.mp4"
 
-vBds = [1,100]
-doLog = True
+vBds = [0.1,10]
+doLog = False
 
 h5Ps = ["Hep_csInj.K0.0001.h5part",  "Hepp_csInj.K0.0001.h5part",
         "O_csInj.K0.0001.h5part", "p_csInj.K0.0001.h5part"]
@@ -20,6 +20,7 @@ sLabs = ["He+","He++","O+","H+"]
 pSz = [6,6,6,6]
 
 doSpc = [3,0,1]
+
 cMaps = ["Blues","Purples","Greens","Oranges"]
 
 Base = os.path.expanduser('~') + "/Work/Injection/"
@@ -28,7 +29,7 @@ Base = Base + "Data/"
 EqDir = Base + "eqSlc_" + xInj #eqSlc database
 pDir = Base + xInj #Directory of h5part
 
-Quiet = True
+Quiet = False
 
 
 #dBz 
@@ -36,7 +37,7 @@ abBz = 25;
 dBzBds = [-abBz,abBz]
 
 #Particles
-vID = "ev"
+vID = "kev"
 titS = "Cold Particle Injection"
 
 if (Quiet):
@@ -45,6 +46,7 @@ else:
 	Launch()
 	
 DefineScalarExpression("ev","if( ge(kev,1.0e-8),1000*kev,1.0e-8)")
+DefineScalarExpression("logev","log10(ev)")
 DefineScalarExpression("isIn","in")
 
 Ns = len(doSpc)
@@ -52,7 +54,8 @@ Ns = len(doSpc)
 #Legends/DBs
 Src0 = EqDir + "/eqSlc.*.vti database"
 plTits = ["Residual Bz [nT]"]
-dbs = [Src0]
+#dbs = [Src0]
+dbs = []
 for s in doSpc:
 	lS = "%s Energy [eV]"%(sLabs[s])
 	plTits.append(lS)
@@ -65,12 +68,13 @@ plYs = [0.9,0.4,0.9,0.4]
 
 #Do some defaults
 pyv.lfmExprs()
-pyv.pvInit()
-md0 = GetMetaData(dbs[0])
-mdH5p = GetMetaData(dbs[1])
+#pyv.pvInit()
 
-dt = md0.times[1] - md0.times[0]
-T0 = md0.times[0] - md0.times[0] #Reset to zero
+#md0 = GetMetaData(dbs[0])
+#mdH5p = GetMetaData(dbs[1])
+
+#dt = md0.times[1] - md0.times[0]
+#T0 = md0.times[0] - md0.times[0] #Reset to zero
 
 #Open databases
 for db in dbs:
@@ -83,16 +87,14 @@ CreateDatabaseCorrelation("P2Fld",dbs,0)
 #Create fields/particle plots
 #pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True,Log=False)
 for n in range(Ns):
-	db = dbs[n+1]
+	#db = dbs[n+1]
+	db = dbs[n] #Remove
+	print("Opening %s"%(db))
 	pCMap = cMaps[n]
 	pyv.lfmPScat(db,v4=vID,vBds=vBds,cMap=pCMap,Log=doLog,Inv=False,pSize=pSz[doSpc[n]])
 	scOp = GetPlotOptions()
 	print(scOp)
-#Cutout
-ActivateDatabase(dbs[1])
-SetActivePlots( (1) )
-pyv.onlyIn()
-		
+
 #Gussy things up
 tit = pyv.genTit( titS=titS)
 pyv.cleanLegends(plXs,plYs,plTits)
