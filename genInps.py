@@ -84,8 +84,10 @@ def genRunner(ComS,batchCom="lfmtpBatch.sh",fRunner="SubAll.sh"):
 
 SimComS = []
 
-gen_sInj = True
+gen_sInj = False #Single injection front
 gen_mInj = False #Multiple injection long run
+gen_csInj = True #Single injection, cold particles
+
 gen_Run = True
 
 #Single injection runs
@@ -127,7 +129,42 @@ if (gen_sInj):
 			#Command to add to batch script
 			ComS = fXML + " 1 1"
 			SimComS.append(ComS)
+#Single injection, cold (1k particles)
+Spcs = ["p","O","Hep","Hepp"]
+K0s = [0.001]
 
+rad = [10,12.2,10]
+phi = [157.5,170,10]
+psi = [0,360,1]
+alpha = [20,90,10]
+time = [1750.0,2250.0]
+iOpts = [0.1,"fp"]
+dtOuts = [1.0,1.0]
+outDir = "csInj"
+if (gen_csInj):
+	#Generate input decks for single injection sims
+	print("Writing single injection (cold) input decks, Np=%d"%(rad[2]*phi[2]*psi[2]*alpha[2]))
+	T0 = time[0]
+	Tfin = time[1]
+	dt = iOpts[0]
+
+	Ns = len(Spcs)
+	Nk = len(K0s)
+	for n in range(Ns):
+		for k in range(Nk):
+			#Create input deck
+			spc = Spcs[n]
+			K = K0s[k]
+			
+			tagS = spc + "_" + outDir + ".K" + str(np.int(K))
+			fXML = "Inps/" + tagS + ".xml"
+			print("Writing input deck for %s"%tagS)
+			inpTree = writeInpXML(spc,K,rad,phi,psi,alpha,T0=T0,Tfin=Tfin,dt=dt,dtS=dtOuts[0],dtF=dtOuts[1],outDir=outDir,tagS=tagS)
+			inpTree.write(fXML,pretty_print=True)
+
+			#Command to add to batch script
+			ComS = fXML + " 1 1"
+			SimComS.append(ComS)
 #Multiple injection runs
 Nb = 10
 bId = 0 #Block ID, use to guarantee contiguous IDs
