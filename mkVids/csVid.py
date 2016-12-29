@@ -16,6 +16,7 @@ vBds = [0,10]
 h5Ps = ["Hep_csInj.K0.0001.h5part",  "Hepp_csInj.K0.0001.h5part",
         "O_csInj.K0.0001.h5part", "p_csInj.K0.0001.h5part"]
 sLabs = ["He+","He++","O+","H+"]
+pSz = [12,12,16,8]
 
 doSpc = [3,0,1]
 cMaps = ["Blues","Purples","Greens","Oranges"]
@@ -58,7 +59,7 @@ for s in doSpc:
 print(plTits,dbs)
 
 plXs = [0.03,0.03,0.7,0.7]
-plYs = [0.9,0.4,0.4,0.9]
+plYs = [0.9,0.4,0.9,0.4]
 
 #Do some defaults
 pyv.lfmExprs()
@@ -82,7 +83,7 @@ pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True)
 for n in range(Ns):
 	db = dbs[n+1]
 	pCMap = cMaps[n]
-	pyv.lfmPScat(db,v4=vID,vBds=vBds,cMap=pCMap,Inv=False)
+	pyv.lfmPScat(db,v4=vID,vBds=vBds,cMap=pCMap,Inv=False,pSize=pSz[doSpc[n]])
 	
 #Cutout
 ActivateDatabase(dbs[1])
@@ -96,7 +97,7 @@ pyv.setAtts()
 
 #Let's see what we got
 DrawPlots()
-SetTimeSliderState(20)
+SetTimeSliderState(100)
 SaveWindow()
 
 # #Do time loop
