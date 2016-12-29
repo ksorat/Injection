@@ -16,7 +16,7 @@ vBds = [0,30]
 h5Ps = ["Hep_csInj.K0.0001.h5part",  "Hepp_csInj.K0.0001.h5part",
         "O_csInj.K0.0001.h5part", "p_csInj.K0.0001.h5part"]
 sLabs = ["He+","He++","O+","H+"]
-pSz = [7,7,10,5]
+pSz = [6,6,6,6]
 
 doSpc = [3,0,1]
 cMaps = ["Blues","Purples","Greens","Oranges"]
