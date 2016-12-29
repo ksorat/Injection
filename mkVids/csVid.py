@@ -11,7 +11,6 @@ import pyVisit as pyv
 xInj = "csInj"
 outVid ="csInj.mp4"
 
-vId = "kev"
 vBds = [1,100]
 doLog = True
 
@@ -37,7 +36,7 @@ abBz = 25;
 dBzBds = [-abBz,abBz]
 
 #Particles
-vID = "ev"
+vID = "kev"
 titS = "Cold Particle Injection"
 
 if (Quiet):
