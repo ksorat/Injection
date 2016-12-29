@@ -27,9 +27,11 @@ for n in range(Ns):
 	Kb = K.mean(axis=1) #Average(t)
 	dK = K.std(axis=1) #Std
 	for i in range(Np):
+		pLab = "_"
+		if (i == 0):
+			pLab = "%s, %s Percentiles"%(Labs[n],str(pC))
 		Kc = np.percentile(K,pC[i],axis=1)
-		niL = "%s, %d %%"%(Labs[n],pC[i])
-		plt.plot(t,Kc,Plts[n],label=niL)
+		plt.plot(t,Kc,Plts[n],label=pLab)
 	
 	
 	#plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=10)
