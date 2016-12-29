@@ -20,11 +20,12 @@ for n in range(Ns):
 	fIn = Root + Stubs[n] + Tail
 
 	t,Kev = lfmpp.getH5p(fIn,"kev")
-	K = 1.0e-3*Kev
+	K = 1.0e+3*Kev
 	Kb = K.mean(axis=1) #Average(t)
 	dK = K.std(axis=1) #Std
 	Kc = np.percentile(K,pC,axis=1)
 	#plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=20)
 	plt.plot(t,Kc,label=Labs[n])
+	print("Min = %f"%(K.min()))
 plt.legend()
 plt.savefig(figName,dpi=figQ)
