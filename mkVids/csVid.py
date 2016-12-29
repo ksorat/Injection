@@ -43,7 +43,7 @@ if (Quiet):
 	LaunchNowin()
 else:
 	Launch()
-	"if( ge(RadAll, 2.1), RadAll, 2.1)") #Respect cutout
+	
 DefineScalarExpression("ev","if( ge(kev,1.0e-8),1000*kev,1.0e-8)")
 DefineScalarExpression("isIn","in")
 
