@@ -34,7 +34,7 @@ dBzBds = [-abBz,abBz]
 
 #Particles
 vID = "logev"
-vBds = [0,4]
+vBds = [0,5]
 doLog = False
 
 
@@ -89,8 +89,6 @@ for n in range(Ns):
 	ActivateDatabase(db)
 	pCMap = cMaps[n]
 	pyv.lfmPScat(db,v4=vID,vBds=vBds,cMap=pCMap,Log=doLog,Inv=False,pSize=pSz[doSpc[n]])
-	scOp = GetPlotOptions()
-	print(scOp)
 
 #Gussy things up
 tit = pyv.genTit( titS=titS)
