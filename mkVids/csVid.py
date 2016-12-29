@@ -55,7 +55,7 @@ for s in doSpc:
 	plTits.append(lS)
 	SrcS = pDir + "/" + h5Ps[s]
 	dbs.append(SrcS)
-print(plTits,SrcS)
+print(plTits,dbs)
 
 plXs = [0.03]
 plYs = [0.9,0.4,0.2,0.7]
@@ -89,7 +89,7 @@ SetActivePlots( (1) )
 pyv.onlyIn()
 		
 #Gussy things up
-tit = pyv.genTit( titS=titS[n] )
+tit = pyv.genTit( titS=titS)
 pyv.cleanLegends(plXs,plYs,plTits)
 pyv.setAtts()
 
