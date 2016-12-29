@@ -61,10 +61,12 @@ plXs = [0.03]
 plYs = [0.9,0.4,0.2,0.7]
 
 #Do some defaults
-pyv.lfmExprs()
-#pyv.pvInit()
-	
 md0 = GetMetaData(dbs[0])
+mdH5p = GetMetaData(dbs[1])
+
+pyv.lfmExprs()
+pyv.pvInit()
+	
 dt = md0.times[1] - md0.times[0]
 T0 = md0.times[0] - md0.times[0] #Reset to zero
 
