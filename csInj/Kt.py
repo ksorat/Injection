@@ -30,5 +30,6 @@ for n in range(Ns):
 	print("Spc = %s"%(Labs[n]))
 	print("\tMax = %f"%(K.max()))
 	print("\tMin = %f"%(K.min()))
+	print("\tNANs = %d"%(np.isnan(K).sum()))
 plt.legend()
 plt.savefig(figName,dpi=figQ)

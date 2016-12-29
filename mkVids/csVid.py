@@ -86,7 +86,8 @@ for n in range(Ns):
 	db = dbs[n+1]
 	pCMap = cMaps[n]
 	pyv.lfmPScat(db,v4=vID,vBds=vBds,cMap=pCMap,Log=doLog,Inv=False,pSize=pSz[doSpc[n]])
-	
+	scOp = GetPlotOptions()
+	print(scOp)
 #Cutout
 ActivateDatabase(dbs[1])
 SetActivePlots( (1) )
