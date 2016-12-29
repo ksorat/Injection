@@ -7,12 +7,9 @@ from visit_utils import *
 from visit_utils.common import lsearch #lsearch(dir(),"blah")
 import pyVisit as pyv
 
-
+titS = "Cold Particle Injection"
 xInj = "csInj"
 outVid ="csInj.mp4"
-
-vBds = [0,4]
-doLog = False
 
 h5Ps = ["Hep_csInj.K0.0001.h5part",  "Hepp_csInj.K0.0001.h5part",
         "O_csInj.K0.0001.h5part", "p_csInj.K0.0001.h5part"]
@@ -29,8 +26,7 @@ Base = Base + "Data/"
 EqDir = Base + "eqSlc_" + xInj #eqSlc database
 pDir = Base + xInj #Directory of h5part
 
-Quiet = False
-
+Quiet = True
 
 #dBz 
 abBz = 25; 
@@ -38,7 +34,9 @@ dBzBds = [-abBz,abBz]
 
 #Particles
 vID = "logev"
-titS = "Cold Particle Injection"
+vBds = [0,4]
+doLog = False
+
 
 if (Quiet):
 	LaunchNowin()
