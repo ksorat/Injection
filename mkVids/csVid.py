@@ -89,6 +89,8 @@ for n in range(Ns):
 	ActivateDatabase(db)
 	pCMap = cMaps[n]
 	pyv.lfmPScat(db,v4=vID,vBds=vBds,cMap=pCMap,Log=doLog,Inv=False,pSize=pSz[doSpc[n]])
+	SetActivePlots( (n+1) )
+	pyv.onlyIn()
 
 #Gussy things up
 tit = pyv.genTit( titS=titS)
@@ -103,7 +105,7 @@ DrawPlots()
 # #Do time loop
 pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
 
-pyv.makeVid(Clean=True,outVid=outVid,tScl=1)
+pyv.makeVid(Clean=True,outVid=outVid,tScl=0.5)
 DeleteAllPlots()
 CloseDatabase(dbs[0])
 CloseDatabase(dbs[1])
