@@ -31,7 +31,7 @@ for n in range(Ns):
 		if (i == 0):
 			pLab = "%s, %s Percentiles"%(Labs[n],str(pC))
 		Kc = np.percentile(K,pC[i],axis=1)
-		plt.plot(t,Kc,Plts[n],label=pLab)
+		plt.semilogy(t,Kc,Plts[n],label=pLab)
 	
 	
 	#plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=10)
@@ -39,7 +39,7 @@ for n in range(Ns):
 	print("Spc = %s"%(Labs[n]))
 	print("\tMax = %f"%(K.max()))
 	print("\tMin = %f"%(K.min()))
-	print("\tNANs = %d"%(np.isnan(K).sum()))
+	
 plt.xlabel("Time [s]")
 plt.ylabel("Energy [keV]")
 plt.legend(fontsize="xx-small")
