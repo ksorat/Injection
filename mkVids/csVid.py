@@ -81,7 +81,7 @@ CreateDatabaseCorrelation("P2Fld",dbs,0)
 
 	
 #Create fields/particle plots
-pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True,Log=False)
+#pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True,Log=False)
 for n in range(Ns):
 	db = dbs[n+1]
 	pCMap = cMaps[n]
