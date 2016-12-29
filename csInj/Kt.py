@@ -40,7 +40,9 @@ for n in range(Ns):
 	print("Spc = %s"%(Labs[n]))
 	print("\tMax = %f"%(K.max()))
 	print("\tMin = %f"%(K.min()))
-	
+print(t[0:2])
+print(T[0:2])
+
 plt.xlabel("Time [s]")
 plt.ylabel("Energy [keV]")
 plt.legend(fontsize="xx-small",loc="lower right")
