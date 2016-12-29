@@ -26,12 +26,13 @@ for n in range(Ns):
 	K = Kev
 	Kb = K.mean(axis=1) #Average(t)
 	dK = K.std(axis=1) #Std
+	T = t-t.min()
 	for i in range(Np):
 		pLab = "_"
 		if (i == 0):
 			pLab = "%s, %s Percentiles"%(Labs[n],str(pC))
 		Kc = np.percentile(K,pC[i],axis=1)
-		plt.semilogy(t,Kc,Plts[n],label=pLab)
+		plt.loglog(T,Kc,Plts[n],label=pLab)
 	
 	
 	#plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=10)
@@ -43,5 +44,6 @@ for n in range(Ns):
 plt.xlabel("Time [s]")
 plt.ylabel("Energy [keV]")
 plt.legend(fontsize="xx-small")
-plt.xlim(1750,2250)
+plt.xlim(0.01,500)
+plt.ylim(1.0e-3,150)
 plt.savefig(figName,dpi=figQ)
