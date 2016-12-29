@@ -37,14 +37,14 @@ abBz = 25;
 dBzBds = [-abBz,abBz]
 
 #Particles
-vID = "kev"
+vID = "ev"
 titS = "Cold Particle Injection"
 
 if (Quiet):
 	LaunchNowin()
 else:
 	Launch()
-DefineScalarExpression("ev","kev*1.0e-3")
+DefineScalarExpression("ev","kev*1.0e+3")
 DefineScalarExpression("isIn","in")
 
 Ns = len(doSpc)
@@ -99,16 +99,16 @@ pyv.setAtts()
 
 #Let's see what we got
 DrawPlots()
-# SetTimeSliderState(150)
-# SaveWindow()
+SetTimeSliderState(150)
+SaveWindow()
 
 # #Do time loop
-pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
+# pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.3,0.05),Trim=True)
 
-pyv.makeVid(Clean=True,outVid=outVid,tScl=1)
-DeleteAllPlots()
-CloseDatabase(dbs[0])
-CloseDatabase(dbs[1])
-pyv.killAnnotations()
-os.system("mkdir tmpVid")
+# pyv.makeVid(Clean=True,outVid=outVid,tScl=1)
+# DeleteAllPlots()
+# CloseDatabase(dbs[0])
+# CloseDatabase(dbs[1])
+# pyv.killAnnotations()
+# os.system("mkdir tmpVid")
 
