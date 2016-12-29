@@ -44,7 +44,7 @@ if (Quiet):
 	LaunchNowin()
 else:
 	Launch()
-DefineScalarExpression("ev","kev*1.0e+3")
+DefineScalarExpression("ev","kev*1000.0")
 DefineScalarExpression("isIn","in")
 
 Ns = len(doSpc)

@@ -14,7 +14,8 @@ titS = "Single Injection (1 eV)"
 
 figName = "cs_Kt.png"
 figQ = 300
-pC = 95
+pC = [50,95,99]
+
 Ns = len(Stubs)
 for n in range(Ns):
 	fIn = Root + Stubs[n] + Tail
