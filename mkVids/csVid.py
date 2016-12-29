@@ -57,7 +57,7 @@ for s in doSpc:
 	dbs.append(SrcS)
 print(plTits,dbs)
 
-plXs = [0.03,0.03,0.6,0.6]
+plXs = [0.03,0.03,0.7,0.7]
 plYs = [0.9,0.4,0.4,0.9]
 
 #Do some defaults
@@ -96,6 +96,7 @@ pyv.setAtts()
 
 #Let's see what we got
 DrawPlots()
+SetTimeSliderState(20)
 SaveWindow()
 
 # #Do time loop
