@@ -57,14 +57,14 @@ for s in doSpc:
 	dbs.append(SrcS)
 print(plTits,dbs)
 
-plXs = [0.03]
-plYs = [0.9,0.4,0.2,0.7]
+plXs = [0.03,0.03,0.6,0.6]
+plYs = [0.9,0.4,0.4,0.9]
 
 #Do some defaults
-md0 = GetMetaData(dbs[0])
-mdH5p = GetMetaData(dbs[1])
 pyv.lfmExprs()
 pyv.pvInit()
+md0 = GetMetaData(dbs[0])
+mdH5p = GetMetaData(dbs[1])
 
 dt = md0.times[1] - md0.times[0]
 T0 = md0.times[0] - md0.times[0] #Reset to zero
