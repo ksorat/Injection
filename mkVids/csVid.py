@@ -11,7 +11,7 @@ import pyVisit as pyv
 xInj = "csInj"
 outVid ="csInj.mp4"
 
-vBds = [0.1,10]
+vBds = [0,4]
 doLog = False
 
 h5Ps = ["Hep_csInj.K0.0001.h5part",  "Hepp_csInj.K0.0001.h5part",
@@ -37,7 +37,7 @@ abBz = 25;
 dBzBds = [-abBz,abBz]
 
 #Particles
-vID = "kev"
+vID = "logev"
 titS = "Cold Particle Injection"
 
 if (Quiet):
@@ -54,8 +54,7 @@ Ns = len(doSpc)
 #Legends/DBs
 Src0 = EqDir + "/eqSlc.*.vti database"
 plTits = ["Residual Bz [nT]"]
-#dbs = [Src0]
-dbs = []
+dbs = [Src0]
 for s in doSpc:
 	lS = "%s Energy [eV]"%(sLabs[s])
 	plTits.append(lS)
@@ -68,16 +67,17 @@ plYs = [0.9,0.4,0.9,0.4]
 
 #Do some defaults
 pyv.lfmExprs()
-#pyv.pvInit()
+pyv.pvInit()
 
-#md0 = GetMetaData(dbs[0])
-#mdH5p = GetMetaData(dbs[1])
+md0 = GetMetaData(dbs[0])
+mdH5p = GetMetaData(dbs[1])
 
-#dt = md0.times[1] - md0.times[0]
-#T0 = md0.times[0] - md0.times[0] #Reset to zero
+dt = md0.times[1] - md0.times[0]
+T0 = md0.times[0] - md0.times[0] #Reset to zero
 
 #Open databases
 for db in dbs:
+	print("Opening %s"%(db))
 	OpenDatabase(db)	
 	
 #Create database correlation
@@ -85,11 +85,10 @@ CreateDatabaseCorrelation("P2Fld",dbs,0)
 
 	
 #Create fields/particle plots
-#pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True,Log=False)
+pyv.lfmPCol(dbs[0],"dBz",vBds=dBzBds,pcOpac=0.7,Inv=True,Log=False)
 for n in range(Ns):
-	#db = dbs[n+1]
-	db = dbs[n] #Remove
-	print("Opening %s"%(db))
+	db = dbs[n+1]
+	ActivateDatabase(db)
 	pCMap = cMaps[n]
 	pyv.lfmPScat(db,v4=vID,vBds=vBds,cMap=pCMap,Log=doLog,Inv=False,pSize=pSz[doSpc[n]])
 	scOp = GetPlotOptions()
