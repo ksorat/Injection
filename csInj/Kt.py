@@ -24,6 +24,7 @@ for n in range(Ns):
 	Kb = K.mean(axis=1) #Average(t)
 	dK = K.std(axis=1) #Std
 	Kc = np.percentile(K,pC,axis=1)
-	plt.errorbar(t,Kb,dK,label=Labs[n])
+	plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=20)
 	plt.plot(t,Kc)
+plt.legend()
 plt.savefig(figName,dpi=figQ)
