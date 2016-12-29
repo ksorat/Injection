@@ -28,7 +28,8 @@ for n in range(Ns):
 	dK = K.std(axis=1) #Std
 	for i in range(Np):
 		Kc = np.percentile(K,pC[i],axis=1)
-		plt.plot(t,Kc,Plts[n])
+		niL = "%s, %d %%"%(Labs[n],pC[i])
+		plt.semilogy(t,Kc,Plts[n],label=niL)
 	
 	
 	#plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=10)
@@ -37,5 +38,6 @@ for n in range(Ns):
 	print("\tMax = %f"%(K.max()))
 	print("\tMin = %f"%(K.min()))
 	print("\tNANs = %d"%(np.isnan(K).sum()))
-plt.legend(Labs)
+plt.legend(fontsize="xx-small")
+plt.xlim(1750,2250)
 plt.savefig(figName,dpi=figQ)
