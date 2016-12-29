@@ -11,7 +11,7 @@ import pyVisit as pyv
 xInj = "csInj"
 
 vId = "ev"
-vBds = [0,10]
+vBds = [0,30]
 
 h5Ps = ["Hep_csInj.K0.0001.h5part",  "Hepp_csInj.K0.0001.h5part",
         "O_csInj.K0.0001.h5part", "p_csInj.K0.0001.h5part"]
@@ -97,7 +97,7 @@ pyv.setAtts()
 
 #Let's see what we got
 DrawPlots()
-SetTimeSliderState(100)
+SetTimeSliderState(150)
 SaveWindow()
 
 # #Do time loop
