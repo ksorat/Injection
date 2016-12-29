@@ -18,6 +18,7 @@ figQ = 300
 pC = [50,95,99]
 
 Ns = len(Stubs)
+Np = len(pC)
 for n in range(Ns):
 	fIn = Root + Stubs[n] + Tail
 
@@ -25,12 +26,16 @@ for n in range(Ns):
 	K = 1.0e+3*Kev
 	Kb = K.mean(axis=1) #Average(t)
 	dK = K.std(axis=1) #Std
-	Kc = np.percentile(K,pC,axis=1)
+	for i in range(Np):
+		Kc = np.percentile(K,pC[i],axis=1)
+		plt.plot(t,Kc,Plts[n])
+	
+	
 	#plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=10)
 	#plt.plot(t,Kc,label=Labs[n])
 	print("Spc = %s"%(Labs[n]))
 	print("\tMax = %f"%(K.max()))
 	print("\tMin = %f"%(K.min()))
 	print("\tNANs = %d"%(np.isnan(K).sum()))
-plt.legend()
+plt.legend(Labs)
 plt.savefig(figName,dpi=figQ)
