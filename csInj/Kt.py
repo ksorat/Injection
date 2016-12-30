@@ -15,7 +15,7 @@ titS = "Single Injection (1 eV)"
 
 figName = "cs_Kt.png"
 figQ = 300
-pC = [10,25,50,95,99]
+pC = [1,10,50,99]
 
 Ns = len(Stubs)
 Np = len(pC)
