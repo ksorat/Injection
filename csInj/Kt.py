@@ -15,7 +15,7 @@ titS = "Single Injection (1 eV)"
 
 figName = "cs_Kt.png"
 figQ = 300
-pC = [50,95,99]
+pC = [10,25,50,95,99]
 
 Ns = len(Stubs)
 Np = len(pC)
@@ -32,7 +32,7 @@ for n in range(Ns):
 		if (i == 0):
 			pLab = "%s, %s Percentiles"%(Labs[n],str(pC))
 		Kc = np.percentile(K,pC[i],axis=1)
-		plt.loglog(T,Kc,Plts[n],label=pLab)
+		plt.plot(T,Kc,Plts[n],label=pLab)
 	
 	
 	#plt.errorbar(t,Kb,dK,label=Labs[n],errorevery=10)
@@ -44,6 +44,6 @@ for n in range(Ns):
 plt.xlabel("Time [s]")
 plt.ylabel("Energy [keV]")
 plt.legend(fontsize="xx-small",loc="lower right")
-plt.xlim(1,500)
-plt.ylim(1.0e-1,150)
+#plt.xlim(1,500)
+#plt.ylim(1.0e-1,150)
 plt.savefig(figName,dpi=figQ)
