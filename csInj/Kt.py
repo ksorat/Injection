@@ -44,6 +44,6 @@ for n in range(Ns):
 plt.xlabel("Time [s]")
 plt.ylabel("Energy [keV]")
 plt.legend(fontsize="xx-small",loc="lower right")
-plt.xlim(0,50)
+plt.xlim(0,10)
 plt.ylim(1.0e-3,150)
 plt.savefig(figName,dpi=figQ)
