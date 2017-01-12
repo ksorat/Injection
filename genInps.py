@@ -87,7 +87,8 @@ SimComS = []
 
 gen_sInj = False #Single injection front
 gen_mInj = False #Multiple injection long run
-gen_csInj = True #Single injection, cold particles
+gen_csInj = False #Single injection, cold particles
+gen_psInj = True #Single injection, log-spaced energies
 
 gen_Run = True
 
@@ -166,6 +167,7 @@ if (gen_csInj):
 			#Command to add to batch script
 			ComS = fXML + " 1 1"
 			SimComS.append(ComS)
+
 #Multiple injection runs
 Nb = 10
 bId = 0 #Block ID, use to guarantee contiguous IDs
@@ -213,6 +215,62 @@ if (gen_mInj):
 				print("Writing input deck for %s"%tagS)
 				inpTree = writeInpXML(spc,K,rad,phi,psi,alpha,T0=T0,Tfin=Tfin,dt=dt,dtS=dtOuts[0],dtF=dtOuts[1],outDir=outDir,tagS=tagS)
 				inpTree = addStream(inpTree,Ts0=tStr[0],Tsfin=tStr[1],sfrac=sF)
+				inpTree.write(fXML,pretty_print=True)
+	
+				#Command to add to batch script
+				ComS = fXML + " %d %d"%(rId,rId)
+				SimComS.append(ComS)
+	
+				rId = rId+1
+
+
+#Single injection, log-spaced energies
+Nb = 10
+bId = 0 #Block ID, use to guarantee contiguous IDs
+
+Nk = 10 #Number of log-spaced energy bins
+Ki = np.log10(5)
+Kf = np.log10(200)
+Spcs = ["p","O","Hep","Hepp"]
+
+K0s = np.round(np.logspace(Ki,Kf,Nk)/5)*5
+
+rad = [10,12.2,100]
+phi = [157.5,170,50]
+psi = [0,360,1]
+alpha = [20,90,10]
+time = [1750.0,2100.0]
+iOpts = [0.1,"fp"]
+dtOuts = [1.0,1.0]
+
+outDir = "psInj"
+
+print("\n")
+
+if (gen_psInj):
+	print("Writing single injection (PDFs) input decks, Np=%d"%(rad[2]*phi[2]*psi[2]*alpha[2]))
+
+	#Generate input decks for single injection sims
+	T0 = time[0]
+	Tfin = time[1]
+	dt = iOpts[0]
+
+	Ns = len(Spcs)
+	Nk = len(K0s)
+
+	for n in range(Ns):
+		for b in range(Nb):	
+			rId = 1 + (bId+b)*Nk
+			for k in range(Nk):
+				#Create input deck
+				spc = Spcs[n]
+				K = K0s[k]
+				#Tag needs run id to avoid overwriting with multiple blocks
+				tagS = spc + "_" + outDir + ".K" + str(np.int(K)) + ".r" + str(rId)
+	
+				fXML = "Inps/" + tagS + ".xml"
+				print("Writing input deck for %s"%tagS)
+				inpTree = writeInpXML(spc,K,rad,phi,psi,alpha,T0=T0,Tfin=Tfin,dt=dt,dtS=dtOuts[0],dtF=dtOuts[1],outDir=outDir,tagS=tagS)
 				inpTree.write(fXML,pretty_print=True)
 	
 				#Command to add to batch script

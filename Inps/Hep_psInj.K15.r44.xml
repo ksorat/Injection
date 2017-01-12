@@ -1,0 +1,12 @@
+<Params>
+  <particle species="Hep" K0="15.0"/>
+  <radius min="10" max="12.2" N="100"/>
+  <phi min="157.5" max="170" N="50"/>
+  <psi min="0" max="360" N="1"/>
+  <alpha min="20" max="90" N="10"/>
+  <time T0="1750.0" tfin="2100.0" Ns="10" Nf="10"/>
+  <integrator dt="0.1" method="fp"/>
+  <field infile="ebtab.txt"/>
+  <output outdir="psInj" mu="T" work="F" trace="F"/>
+  <run tag="Hep_psInj.K15.r44"/>
+</Params>
