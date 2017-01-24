@@ -6,7 +6,7 @@
 #BSUB -W 24:00                 # wall-clock time (hrs:mins)
 #BSUB -n 1                    # number of tasks in job
 #BSUB -q geyser              # queue
-#BSUB -R “span[ptile=1]”
+#BSUB -R "span[ptile=1]"
 #BSUB -e h5pC.%I.log       # error file name in which %J is replaced by the job ID
 #BSUB -o h5pC.%I.log       # output file name in which %J is replaced by the job ID
 
