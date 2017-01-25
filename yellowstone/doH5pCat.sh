@@ -13,7 +13,7 @@
 
 
 export ComS="h5pcat.py -eq"
-declare -a runs=("p_psInj" "O_psInj" "Hep_psInj","Hepp_psInj")
+declare -a runs=("p_psInj" "O_psInj" "Hep_psInj" "Hepp_psInj")
 
 export BASE="$HOME/Work/Injection"
 export DATA="$BASE/psInj"
