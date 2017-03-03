@@ -16,7 +16,7 @@ def genRunner(ComS,batchCom="lfmtpBatch.sh",fRunner="SubAll.sh"):
 	os.system("chmod u+x %s"%(fRunner))
 
 
-#Each run is 10^4 particles, run 100 blocks
+#Each run is 10^5 particles, run 10 blocks
 
 Spcs = ["p","O","Hep","Hepp"]
 Nb = 10
@@ -24,14 +24,15 @@ b0 = 0 #Block offset
 
 oDir = "finInj"
 
-K0 = [5,200,10]
-rad = [10,12.2,10]
+K0 = [5,200,25]
+rad = [10,12.2,16]
 phi = [157.5,170,10]
 psi = [0,360,1]
-alpha = [20,90,10]
+alpha = [20,160,25]
 
 T0 = 1750.0
-Tf = 3550.0
+Tf = 4450.0 #45 minutes
+
 dt = 1.0
 
 Ns = len(Spcs)
