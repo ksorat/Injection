@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Params>
+
+  <particles species="" equatorial="F">
+    <population1 files="~/Work/Injection/Data/HepInj*.h5part" weighting="ionMax"/>
+  </particles>
+
+  <timing weighting="1750.0" calculation="1750.0:10.0:4450.0"/>
+  <options background="T" relativistic="F"/>
+
+  <phasespace>
+    <r N="200" min="2.1" max="20"/>
+    <theta N="7"/>
+    <phi N="301"/>
+    <k N="100" min="1" max="1000" log="T"/>
+    <alpha N="1"/>
+    <psi N="1"/>
+  </phasespace>
+
+  <output base="ionHep" fullevery="0">
+    <slice3D1 dim1="r" dim2="theta" dim3="phi">
+      <k min="200" max="225"/>
+    </slice3D1>
+    <cell1 r="7.0" phi="120" theta="0.0"/>
+  </output>
+
+</Params>
