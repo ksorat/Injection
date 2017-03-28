@@ -59,10 +59,11 @@ def getCellKHist(filename,steps,varname):
             group = hf.get('Step#' + str(s))
             t = group.attrs['time']
             times = np.hstack((times, t))
-
-            kalpha = hf.get('Step#' + str(s) + '/' + varname).value
-            kalpha = kalpha * np.reshape(np.sin(Calpha*3.1415/180.0), (np.size(Calpha),1) )
-            k = np.reshape(np.sum(kalpha, axis=0), (np.size(Ck),1) )
+            alpha = hf.get('Step#' + str(s) + '/' + varname).value
+            k = alpha.squeeze()
+            # kalpha = hf.get('Step#' + str(s) + '/' + varname).value
+            # kalpha = kalpha * np.reshape(np.sin(Calpha*3.1415/180.0), (np.size(Calpha),1) )
+            k = np.reshape(k, (np.size(Ck),1) )
             khist = np.hstack((khist, k))
 
         x,y = np.meshgrid(times,Ck)

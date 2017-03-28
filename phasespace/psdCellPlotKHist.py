@@ -2,6 +2,7 @@ import sys
 import os
 import numpy as np
 import h5py
+import lfmViz as lfmv
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -11,6 +12,7 @@ import psdPost
 # from injs folder
 # python ..\lfm2box\pylfm\psdCellPlotKHist.py p2\p_Cell#1.h5 O2\O_Cell#1.h5 Hep2\Hep_Cell#1.h5 Hepp2\Hepp_Cell#1.h5
 
+lfmv.ppInit()
 #--------------------------------------------
 # parameters
 varname = 'I'
@@ -22,7 +24,7 @@ dmin = 5e1
 dmax = 5e4
 doPlot = True
 doSave = False
-cmap = 'plasma'
+cmap = 'viridis'
 figSize = (10,10)
 figQ = 300
 #--------------------------------------------
