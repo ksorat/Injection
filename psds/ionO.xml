@@ -9,19 +9,17 @@
   <options background="T" relativistic="F"/>
 
   <phasespace>
-    <r N="200" min="2.1" max="20"/>
-    <theta N="7"/>
-    <phi N="301"/>
+    <r N="50" min="2.1" max="20"/>
+    <theta N="5"/>
+    <phi N="51"/>
     <k N="100" min="1" max="1000" log="T"/>
-    <alpha N="1"/>
+    <alpha N="30"/>
     <psi N="1"/>
   </phasespace>
 
-  <output base="ionO" fullevery="0">
-    <slice3D1 dim1="r" dim2="theta" dim3="phi">
-      <k min="200" max="225"/>
-    </slice3D1>
+  <output base="ionp" fullevery="0">
     <cell1 r="7.0" phi="120" theta="90.0"/>
   </output>
+
 
 </Params>
