@@ -8,23 +8,20 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import psdPost
 
-# for Re 6, MLT 20
-# from injs folder
-# python ..\lfm2box\pylfm\psdCellPlotKHist.py p2\p_Cell#1.h5 O2\O_Cell#1.h5 Hep2\Hep_Cell#1.h5 Hepp2\Hepp_Cell#1.h5
-
-lfmv.ppInit()
+#lfmv.ppInit()
 #--------------------------------------------
 # parameters
-varname = 'I'
-cblabel = 'Intensity'
-title = 'Intensity by Species\nL = 8, MLT 20:00'
-steps = np.arange(0,270)
+varname = 'f'
+cblabel = 'Phase Space Density'
+title = 'Phase Space Density by Species\nL = 7, MLT 20:00'
+steps = np.arange(0,5)
+rel = False # relativisitc or not
 logval = True
-dmin = 5e1
-dmax = 5e4
+dmin = 1e-4
+dmax = 1e0
 doPlot = True
 doSave = False
-cmap = 'viridis'
+cmap = 'plasma'
 figSize = (10,10)
 figQ = 300
 #--------------------------------------------
@@ -42,7 +39,7 @@ for i in range(Ns):
     s = species[i]
 
     Ax = fig.add_subplot(gs[i,0])
-    x,y,d = psdPost.getCellKHist(psdfiles[i],steps,varname)
+    x,y,d = psdPost.getCellKHist(psdfiles[i],steps,varname,rel)
 
     d[d < dmin] = 0.0
 

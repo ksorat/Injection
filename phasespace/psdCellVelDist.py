@@ -9,12 +9,13 @@ import lfmViz as lfmv
 
 #--------------------------------------------
 # parameters
-folder = 'C:\\work\\space_weather\\injs\\vdisttest'
+folder = 'C:\\work\\space_weather\\finInj2\\test'
 outfolder = 'cell1'
-h5file = 'p_Cell#1.h5'
+h5file = 'ionp_Cell#1.h5'
 varname = 'f'
 cblabel = 'Phase Space Density'
-steps = np.arange(9,10)
+steps = np.arange(0,5)
+rel = False # relativisitc or not
 logx = False
 logy = False
 logval = True
@@ -32,17 +33,17 @@ globalMin = 1e30
 globalMax = -1e30
 
 for i in steps:
-    x,y,d = psdPost.getVelDist(h5path,i,varname)
+    x,y,d = psdPost.getVelDist(h5path,i,varname,rel)
     if logval:
         d[d == 0.0] = 1e-20
     globalMin = min(globalMin, np.min(d))
     globalMax = max(globalMax, np.max(d))
 
-globalMin = 1e-7
-# globalMax = 1e-1
+globalMin = 1e-15
+globalMax = 1e-1
 
 for i in steps:
-    x,y,d = psdPost.getVelDist(h5path,i,varname)
+    x,y,d = psdPost.getVelDist(h5path,i,varname,rel)
     if logval:
         d[d == 0.0] = 1e-20
 
