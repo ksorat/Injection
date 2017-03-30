@@ -18,10 +18,7 @@
   </phasespace>
 
   <output base="ionH" fullevery="0">
-    <slice3D1 dim1="r" dim2="theta" dim3="phi">
-      <k min="200" max="225"/>
-    </slice3D1>    
-    <cell1 r="7.0" phi="120" theta="90.0"/>
+    <cell1 r="7.0" phi="120" theta="90.0" searchRadius="1.0"/>
   </output>
 
 </Params>
