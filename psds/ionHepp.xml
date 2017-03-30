@@ -17,7 +17,7 @@
     <psi N="1"/>
   </phasespace>
 
-  <output base="ionp" fullevery="0">
+  <output base="ionHepp" fullevery="0">
     <cell1 r="7.0" phi="120" theta="90.0"/>
   </output>
 
