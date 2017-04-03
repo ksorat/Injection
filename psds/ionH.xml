@@ -18,7 +18,7 @@
   </phasespace>
 
   <output base="ionH" fullevery="0">
-    <cell1 r="7.0" phi="120" theta="90.0" searchRadius="1.0"/>
+    <cell1 r="7.0" phi="120" theta="90.0" searchRadius="0.25"/>
   </output>
 
 </Params>
