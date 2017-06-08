@@ -1,7 +1,6 @@
 #Generate Input decks for various simulations associated with our injection project
 
 import lxml.etree as et
-
 import numpy as np
 import os
 
